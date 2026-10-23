@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>ניהול חומרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="./" class="logo">חומרי לימוד במתמטיקה</a>
+    <span class="muted">ניהול חומרים</span>
+  </header>
+
+  <main class="container">
+    <section class="panel" id="token-panel">
+      <h2>חיבור לגיטהאב</h2>
+      <p>כדי להוסיף חומרים צריך מפתח גישה (token) של גיטהאב. המפתח נשמר רק בדפדפן הזה.</p>
+      <details>
+        <summary>איך יוצרים מפתח?</summary>
+        <ol>
+          <li>נכנסים ל-<a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">יצירת מפתח חדש בגיטהאב</a>.</li>
+          <li>Token name: למשל <b>math-website</b>. ב-Expiration אפשר לבחור תוקף ארוך.</li>
+          <li>Repository access: <b>Only select repositories</b> ← בוחרים <b>math-website</b>.</li>
+          <li>Permissions ← Repository permissions ← <b>Contents</b>: <b>Read and write</b>.</li>
+          <li>לוחצים Generate token, מעתיקים את המפתח ומדביקים כאן.</li>
+        </ol>
+      </details>
+      <div class="row">
+        <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+        <button id="save-token">שמירה</button>
+        <button id="clear-token" class="secondary">ניתוק</button>
+      </div>
+      <p id="token-status" class="muted"></p>
+    </section>
+
+    <section class="panel" id="add-panel">
+      <h2>הוספת חומר</h2>
+      <form id="add-form">
+        <div class="grid">
+          <label>מדור
+            <select id="f-section" required></select>
+          </label>
+          <label>רמה
+            <select id="f-level" required></select>
+          </label>
+          <label>סוג
+            <select id="f-type" required></select>
+          </label>
+          <label>נושא
+            <input id="f-topic" list="topic-list" placeholder="למשל: פונקציה ריבועית">
+            <datalist id="topic-list"></datalist>
+          </label>
+        </div>
+
+        <label>שם החומר
+          <input id="f-title" placeholder="אם בוחרים כמה קבצים, השם יילקח משם כל קובץ">
+        </label>
+
+        <div class="source-choice">
+          <label class="inline"><input type="radio" name="source" value="file" checked> העלאת קובץ</label>
+          <label class="inline"><input type="radio" name="source" value="url"> קישור לאתר אחר</label>
+        </div>
+        <label id="file-field">קבצים
+          <input type="file" id="f-files" multiple>
+        </label>
+        <label id="url-field" hidden>כתובת
+          <input type="url" id="f-url" placeholder="https://…">
+        </label>
+
+        <button type="submit" id="submit">הוספה לאתר</button>
+      </form>
+      <div id="log" class="log" hidden></div>
+    </section>
+
+    <section class="panel">
+      <h2>חומרים קיימים ברמה הנבחרת</h2>
+      <ul id="existing" class="material-list"></ul>
+    </section>
+  </main>
+
+  <script src="data/structure.js"></script>
+  <script src="data/curriculum.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

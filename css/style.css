@@ -155,3 +155,60 @@ a { color: var(--primary); }
   padding: 16px;
   border-top: 1px solid var(--border);
 }
+
+.small { font-size: .85rem; margin-top: 4px; }
+.card.level-a { border-top-color: var(--level-5); }
+.card.level-b { border-top-color: var(--level-3); }
+.card-amat { border-top-color: #7c3aed; background: linear-gradient(180deg, #faf5ff, var(--surface)); }
+
+/* חיפוש */
+.search-form { flex: 1; max-width: 320px; min-width: 160px; }
+.search-form input {
+  width: 100%;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: inherit;
+  background: var(--bg);
+}
+.search-form input:focus { outline: 2px solid var(--primary-soft); border-color: var(--primary); }
+
+.material-list .place {
+  margin-inline-start: auto;
+  font-size: .82rem;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* תוכנית לימודים */
+.curriculum {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 20px;
+  margin: 8px 0 24px;
+}
+.curriculum summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 12px 0;
+  color: var(--primary);
+}
+.curriculum[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+.curriculum .note { background: var(--primary-soft); padding: 8px 12px; border-radius: 8px; margin: 0 0 12px; }
+.units {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px 24px;
+}
+.unit h3 { margin: 0 0 4px; font-size: 1rem; }
+.unit ol { margin: 0 0 12px; padding-inline-start: 22px; }
+.unit li { margin: 2px 0; }
+.sources { font-size: .85rem; color: var(--muted); }
+.materials-title { font-size: 1.2rem; margin: 0 0 12px; }
+
+@media (max-width: 600px) {
+  .material-list li { flex-wrap: wrap; }
+  .material-list .place { margin-inline-start: 0; width: 100%; }
+}
