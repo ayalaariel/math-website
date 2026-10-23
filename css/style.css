@@ -1,11 +1,11 @@
 :root {
   --bg: #f7f8fc;
   --surface: #ffffff;
-  --text: #1d2433;
+  --text: #3a3f58;
   --muted: #667085;
   --border: #e3e7ef;
-  --primary: #3757d6;
-  --primary-soft: #e8edff;
+  --primary: #2b8793;
+  --primary-soft: #e2f3f5;
   --level-3: #2e9e6a;
   --level-4: #d98a1c;
   --level-5: #c2410c;
@@ -46,6 +46,8 @@ a { color: var(--primary); }
   z-index: 10;
 }
 
+.logo img { display: block; height: 56px; width: auto; }
+@media (max-width: 600px) { .logo img { height: 44px; } }
 .logo {
   font-weight: 700;
   font-size: 1.15rem;
