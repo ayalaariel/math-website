@@ -46,8 +46,8 @@ a { color: var(--primary); }
   z-index: 10;
 }
 
-.logo img { display: block; height: 56px; width: auto; }
-@media (max-width: 600px) { .logo img { height: 44px; } }
+.logo img { display: block; height: 40px; width: auto; }
+@media (max-width: 600px) { .logo img { height: 34px !important; } }
 .logo {
   font-weight: 700;
   font-size: 1.15rem;
