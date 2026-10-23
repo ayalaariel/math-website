@@ -154,8 +154,8 @@ function topicKeywords(topic) {
 }
 
 function currentMaterials(key, all) {
-  const text = currentPacingTexts(key).join(" ");
-  if (!text) return null;
+  const text = currentPacingTexts(key).join(" ") + " ";
+  if (!text.trim()) return null;
   return all.filter(m => m.topic && topicKeywords(m.topic).some(k => text.includes(k)));
 }
 
