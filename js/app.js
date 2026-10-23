@@ -133,6 +133,53 @@ function upcomingMonths(start, end) {
   return result;
 }
 
+// הטקסטים של הפריסה (כולל תוספת עמ"ט) בשבועיים הקרובים
+function currentPacingTexts(key) {
+  const p = PACING[key];
+  if (!p) return [];
+  const start = today();
+  const end = new Date(start.getTime() + 13 * DAY);
+  const texts = [];
+  for (const m of upcomingMonths(start, end)) {
+    const data = p.months[m.month];
+    if (data) data.items.forEach(([, topics]) => texts.push(topics));
+    if (p.extra && p.extra[m.month]) texts.push(p.extra[m.month]);
+  }
+  return texts;
+}
+
+function topicKeywords(topic) {
+  if (TOPIC_KEYWORDS[topic]) return TOPIC_KEYWORDS[topic];
+  return topic.split(/[,:;]/).map(t => t.trim().replace(/^ו/, "")).filter(t => t.length > 2);
+}
+
+function currentMaterials(key, all) {
+  const text = currentPacingTexts(key).join(" ");
+  if (!text) return null;
+  return all.filter(m => m.topic && topicKeywords(m.topic).some(k => text.includes(k)));
+}
+
+function currentMaterialsBlock(key, all) {
+  const list = currentMaterials(key, all);
+  if (list === null) return null;
+  const byTopic = new Map();
+  for (const m of list) {
+    if (!byTopic.has(m.topic)) byTopic.set(m.topic, []);
+    byTopic.get(m.topic).push(m);
+  }
+  return el("section", { class: "now-materials" },
+    el("h2", {}, "חומרים לפי הפריסה הנוכחית"),
+    list.length === 0
+      ? el("p", { class: "muted" }, "עדיין אין חומרים בנושאים של השבועיים הקרובים.")
+      : el("div", {}, ...[...byTopic].map(([topic, items]) =>
+          el("div", { class: "now-topic" },
+            el("h3", {}, topic),
+            el("ul", { class: "material-list" }, ...items.map(m => materialItem(m, false)))
+          )
+        ))
+  );
+}
+
 function nextTwoWeeks(key, compact) {
   const p = PACING[key];
   if (!p) return null;
@@ -289,6 +336,7 @@ function renderLevel(section, level) {
     ),
     el("h1", {}, `${section.name} · ${level.name}`),
     nextTwoWeeks(key, false) || "",
+    currentMaterialsBlock(key, all) || "",
     pacingTable(key) || "",
     curriculumBlock(key) || "",
     assessmentRubrics(all),

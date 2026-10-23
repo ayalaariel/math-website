@@ -253,3 +253,15 @@ a { color: var(--primary); }
 .rubric-exam { border-top: 3px solid #d92d20; }
 .site-footer p { margin: 4px 0; }
 .credit { font-weight: 500; }
+
+/* חומרים לפי הפריסה הנוכחית */
+.now-materials {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid #f5c84c;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin: 0 0 16px;
+}
+.now-materials h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.now-topic h3 { margin: 10px 0 4px; font-size: 1rem; color: var(--primary); }
