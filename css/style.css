@@ -249,3 +249,5 @@ a { color: var(--primary); }
 .rubrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 16px; }
 .rubric-quiz { border-top: 3px solid #f79009; }
 .rubric-exam { border-top: 3px solid #d92d20; }
+.site-footer p { margin: 4px 0; }
+.credit { font-weight: 500; }
