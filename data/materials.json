@@ -1500,5 +1500,41 @@
     "title": "מצגת: סטטיסטיקה, שיעור 2",
     "type": "presentation",
     "file": "materials/8/8-454-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: שכיחות יחסית",
+    "type": "worksheet",
+    "file": "materials/8/8-347-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: שכיחות יחסית",
+    "type": "worksheet",
+    "file": "materials/8/8-347-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "תרגילי חזרה: סטטיסטיקה",
+    "type": "worksheet",
+    "file": "materials/8/8-348-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "תרגילי חזרה: סטטיסטיקה",
+    "type": "worksheet",
+    "file": "materials/8/8-348-upgraded.pdf"
   }
 ]
