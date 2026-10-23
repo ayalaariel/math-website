@@ -1536,5 +1536,1269 @@
     "title": "תרגילי חזרה: סטטיסטיקה",
     "type": "worksheet",
     "file": "materials/8/8-348-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חוברת חזרה למבחן כיתה ח'",
+    "type": "worksheet",
+    "file": "materials/8/8-360.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חוברת חזרה למבחן כיתה ח'",
+    "type": "worksheet",
+    "file": "materials/8/8-360.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה למבחן כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-366.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה למבחן כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-366.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מסכם כיתה ח'",
+    "type": "exam",
+    "file": "materials/8/8-409.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "הכנה למבחן פתיחת שנה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-358.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "הכנה למבחן פתיחת שנה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-358.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "הכנה למיצב",
+    "type": "worksheet",
+    "file": "materials/8/8-427.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חוברת חזרה למבחן כיתה ח הקבצה א",
+    "type": "worksheet",
+    "file": "materials/8/8-495.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "פיצוחים 2",
+    "type": "worksheet",
+    "file": "materials/8/8-473.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "פיצוחים 2",
+    "type": "worksheet",
+    "file": "materials/8/8-473.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "פיצוחים",
+    "type": "worksheet",
+    "file": "materials/8/8-474.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "פיצוחים",
+    "type": "worksheet",
+    "file": "materials/8/8-474.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחק בנושא דימיון , פרופורציה , יחס, פונקציות",
+    "type": "worksheet",
+    "file": "materials/8/8-467.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחק בנושא דימיון , פרופורציה , יחס, פונקציות",
+    "type": "worksheet",
+    "file": "materials/8/8-467.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "עבודת קיץ ח' איילה אריאל",
+    "type": "worksheet",
+    "file": "materials/8/8-487.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "עבודת קיץ ח' איילה אריאל",
+    "type": "worksheet",
+    "file": "materials/8/8-487.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "עבודת קיץ ח רמה ב",
+    "type": "worksheet",
+    "file": "materials/8/8-563.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "עבודת קיץ ח רמה ב",
+    "type": "worksheet",
+    "file": "materials/8/8-563.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת קיץ לבוגרי כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-488.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת קיץ לבוגרי כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-488.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה למבחן 3 כיתה ח הקבצה א",
+    "type": "worksheet",
+    "file": "materials/8/8-498.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה על חומר של כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-307.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה על חומר של כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-307.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן 2 כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-369.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן 2 כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-369.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן ח א2 9.1",
+    "type": "exam",
+    "file": "materials/8/8-538.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן ח הקבצה א2",
+    "type": "exam",
+    "file": "materials/8/8-539.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח הקבצה א",
+    "type": "exam",
+    "file": "materials/8/8-507.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח הקבצה ב",
+    "type": "exam",
+    "file": "materials/8/8-542.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-372.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-372.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 2 כיתה ח'",
+    "type": "exam",
+    "file": "materials/8/8-377.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן דצמבר",
+    "type": "exam",
+    "file": "materials/8/8-380.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן דצמבר",
+    "type": "exam",
+    "file": "materials/8/8-380.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח דצמבר",
+    "type": "exam",
+    "file": "materials/8/8-389.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח דצמבר",
+    "type": "exam",
+    "file": "materials/8/8-389.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח הקבצה א2 איילה אריאל",
+    "type": "exam",
+    "file": "materials/8/8-551.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח לדוגמה",
+    "type": "exam",
+    "file": "materials/8/8-390.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח לדוגמה",
+    "type": "exam",
+    "file": "materials/8/8-390.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-397.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-397.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח הקבצה א",
+    "type": "exam",
+    "file": "materials/8/8-517.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מסכם כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-410.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מסכם כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-410.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח עמט ומצויינות",
+    "type": "exam",
+    "file": "materials/8/8-1309.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת קיץ ח רמה א",
+    "type": "worksheet",
+    "file": "materials/8/8-561.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת קיץ ח רמה א",
+    "type": "worksheet",
+    "file": "materials/8/8-561.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "משולש שווה שוקיים ודלתון",
+    "type": "worksheet",
+    "file": "materials/8/8-1058.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "משולש שווה שוקיים ודלתון",
+    "type": "worksheet",
+    "file": "materials/8/8-1058.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "בוחן מעברים בין ייצוגי פונקציה קווית",
+    "type": "quiz",
+    "file": "materials/8/8-528.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "בוחן פונקציה קווית שיפוע",
+    "type": "quiz",
+    "file": "materials/8/8-354.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "בוחן פונקציה קווית שיפוע",
+    "type": "quiz",
+    "file": "materials/8/8-354.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית שיפוע +ייצוג אלגברי",
+    "type": "worksheet",
+    "file": "materials/8/8-295.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית שיפוע +ייצוג אלגברי",
+    "type": "worksheet",
+    "file": "materials/8/8-295.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית ח",
+    "type": "worksheet",
+    "file": "materials/8/8-296.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית ח",
+    "type": "worksheet",
+    "file": "materials/8/8-296.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית חזרה שיפועים",
+    "type": "worksheet",
+    "file": "materials/8/8-1078.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית חזרה שיפועים",
+    "type": "worksheet",
+    "file": "materials/8/8-1078.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חפיפת משולשים",
+    "title": "כיתה ח א2 מבחן 1 בנושא יחס וחפיפת משולשים עותק מתוקן",
+    "type": "exam",
+    "file": "materials/8/8-536.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חפיפת משולשים",
+    "title": "כרטיס מבחן כיתה ח יחס ישר הפוך ופרופורציה חפיפת משולשים",
+    "type": "exam",
+    "file": "materials/8/8-371.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חפיפת משולשים",
+    "title": "כרטיס מבחן כיתה ח יחס ישר הפוך ופרופורציה חפיפת משולשים",
+    "type": "exam",
+    "file": "materials/8/8-371.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "מבדק מס 2 בנושא משולשים חופפים וצלע או זווית משותפת",
+    "type": "quiz",
+    "file": "materials/8/8-548.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חפיפת משולשים",
+    "title": "מבחן 1 במתמטיקה יחס, יחס ישר, פרופורציה, משולשים חופפים עמודים 170 204, 129 148",
+    "type": "exam",
+    "file": "materials/8/8-550.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משפט חפיפה ראשון",
+    "type": "worksheet",
+    "file": "materials/8/8-1066.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משפט חפיפה ראשון",
+    "type": "worksheet",
+    "file": "materials/8/8-1066.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חפיפת משולשים",
+    "title": "מבחן ח 1 אוקטובר יחס פרופורציה וחפיפה",
+    "type": "exam",
+    "file": "materials/8/8-519.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה למבחן 3 כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-364.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חזרה למבחן 3 כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-364.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח א2 כרטיס מבחן 1",
+    "type": "exam",
+    "file": "materials/8/8-530.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח א2 כרטיס מבחן מס 2 דצמבר",
+    "type": "exam",
+    "file": "materials/8/8-531.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח א2 מבחן מס'3",
+    "type": "exam",
+    "file": "materials/8/8-533.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח א2 עבודת חזרה למבחן מס 3",
+    "type": "exam",
+    "file": "materials/8/8-534.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח הקבצה א מבחן 2",
+    "type": "exam",
+    "file": "materials/8/8-500.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח מבחן מס' 5",
+    "type": "exam",
+    "file": "materials/8/8-535.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן 4 לשכבת ח",
+    "type": "exam",
+    "file": "materials/8/8-537.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח 5",
+    "type": "exam",
+    "file": "materials/8/8-370.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן כיתה ח 5",
+    "type": "exam",
+    "file": "materials/8/8-370.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן מס' 1 לכיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-543.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן מס' 2 לכיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-544.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן מס' 3 לכיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-545.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מס' 3 ח' א'2",
+    "type": "exam",
+    "file": "materials/8/8-549.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח הקבצה א נובמבר",
+    "type": "exam",
+    "file": "materials/8/8-513.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן לדוגמה כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-403.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן לדוגמה כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-403.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מס' 1 שכבת ח",
+    "type": "exam",
+    "file": "materials/8/8-552.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מס' 2 שכבת ח עותק סופי",
+    "type": "exam",
+    "file": "materials/8/8-553.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מסכם ח",
+    "type": "exam",
+    "file": "materials/8/8-407.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן מסכם ח",
+    "type": "exam",
+    "file": "materials/8/8-407.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ראשון ח מחצית א הקבצה ב",
+    "type": "exam",
+    "file": "materials/8/8-555.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח עמט ומצויינות",
+    "type": "exam",
+    "file": "materials/8/8-1310.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "עבודת חזרה למבחן 2 כיתה ח א2",
+    "type": "worksheet",
+    "file": "materials/8/8-556.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "עבודת חזרה למבחן מס 4 כיתה ח א2",
+    "type": "worksheet",
+    "file": "materials/8/8-557.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "שיעור חזרה לקראת מבחן 3",
+    "type": "worksheet",
+    "file": "materials/8/8-419.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "שיעור חזרה לקראת מבחן 3",
+    "type": "worksheet",
+    "file": "materials/8/8-419.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "תרגול לקראת מבחן עמט ומצויינות ח ינואר",
+    "type": "worksheet",
+    "file": "materials/8/8-1312.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "שאלות נוספות כיתה ח אלגברה",
+    "type": "worksheet",
+    "file": "materials/8/8-335.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "שאלות נוספות כיתה ח אלגברה",
+    "type": "worksheet",
+    "file": "materials/8/8-335.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת הגשה לחנוכה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-485.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "עבודת הגשה לחנוכה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-485.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-328.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-328.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בינגו משואות עם נעלם במכנה",
+    "type": "worksheet",
+    "file": "materials/8/8-462.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בינגו משואות עם נעלם במכנה",
+    "type": "worksheet",
+    "file": "materials/8/8-462.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "שאלות נוספות כיתה ח גיאומטריה",
+    "type": "worksheet",
+    "file": "materials/8/8-338.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "שאלות נוספות כיתה ח גיאומטריה",
+    "type": "worksheet",
+    "file": "materials/8/8-338.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "מבוא לפונקציות וייצוגים",
+    "title": "מבדק בנושא חישובי שטחים של צורות במערכת צירים",
+    "type": "quiz",
+    "file": "materials/8/8-547.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "בוחן בנושא פונקציה קווית",
+    "type": "quiz",
+    "file": "materials/8/8-527.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית ייצוג אלגברי",
+    "type": "worksheet",
+    "file": "materials/8/8-1005.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "דף עבודה פונקציה קווית ייצוג אלגברי",
+    "type": "worksheet",
+    "file": "materials/8/8-1005.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "הבדלים בין נקודות חיתוך עם הצירים לנקודות חיתוך בין ישרים",
+    "type": "worksheet",
+    "file": "materials/8/8-301.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "הבדלים בין נקודות חיתוך עם הצירים לנקודות חיתוך בין ישרים",
+    "type": "worksheet",
+    "file": "materials/8/8-301.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "מציאת ייצוג אלגברי עפ נקודה ושיפוע",
+    "type": "worksheet",
+    "file": "materials/8/8-1049.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "מציאת ייצוג אלגברי עפ נקודה ושיפוע",
+    "type": "worksheet",
+    "file": "materials/8/8-1049.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית בוחן מס' 1",
+    "type": "quiz",
+    "file": "materials/8/8-558.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "משוואות עם מכנה",
+    "type": "worksheet",
+    "file": "materials/8/8-1053.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "משוואות עם מכנה",
+    "type": "worksheet",
+    "file": "materials/8/8-1053.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "חפיפת משולשים דדוקטיבית שאלות לאחר בוחן והמשך תרגול",
+    "type": "quiz",
+    "file": "materials/8/8-368.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "חפיפת משולשים דדוקטיבית שאלות לאחר בוחן והמשך תרגול",
+    "type": "quiz",
+    "file": "materials/8/8-368.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "חפיפת משולשים",
+    "type": "worksheet",
+    "file": "materials/8/8-309.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "חפיפת משולשים",
+    "type": "worksheet",
+    "file": "materials/8/8-309.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דף עבודה דימיון ח",
+    "type": "worksheet",
+    "file": "materials/8/8-292.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דף עבודה דימיון ח",
+    "type": "worksheet",
+    "file": "materials/8/8-292.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "אי-שוויונות",
+    "title": "אי שיוויון מצבים שונים",
+    "type": "worksheet",
+    "file": "materials/8/8-282.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אי-שוויונות",
+    "title": "אי שיוויון מצבים שונים",
+    "type": "worksheet",
+    "file": "materials/8/8-282.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "בוחן אי שיוויונות",
+    "type": "quiz",
+    "file": "materials/8/8-353.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "בוחן אי שיוויונות",
+    "type": "quiz",
+    "file": "materials/8/8-353.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "בוחן מכינה עמט ח",
+    "type": "quiz",
+    "file": "materials/8/8-1306.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "בעיות גיל ובעיות כלליות שאלות ממיצבים",
+    "type": "worksheet",
+    "file": "materials/8/8-425.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "בעיות גיל ובעיות כלליות שאלות ממיצבים",
+    "type": "worksheet",
+    "file": "materials/8/8-425.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כיתה ח א2 כרטיס מבחן 1",
+    "type": "exam",
+    "file": "materials/8/8-529.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן חא2 מבחן 6 ואחרון",
+    "type": "exam",
+    "file": "materials/8/8-540.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן פתיחת שנה כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-413.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן פתיחת שנה כיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-413.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "תרגילי חזרה למבחן 4",
+    "type": "worksheet",
+    "file": "materials/8/8-420.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "תרגילי חזרה למבחן 4",
+    "type": "worksheet",
+    "file": "materials/8/8-420.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "חוק הפילוג המורחב",
+    "type": "worksheet",
+    "file": "materials/8/8-1330.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "חזרה משוואות כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-306.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "חזרה משוואות כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-306.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "מערכת משוואות",
+    "title": "מבוך מערכת משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-1232.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "מערכת משוואות",
+    "title": "מבוך מערכת משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-1232.pdf"
   }
 ]
