@@ -150,7 +150,8 @@ async function removeMaterial(index, m) {
       const i = list.findIndex(x => x.file === m.file && x.title === m.title);
       if (i >= 0) list.splice(i, 1);
     }, `מחיקת ${m.title}`);
-    if (m.file.startsWith("materials/")) {
+    // קובץ שמשויך גם לרמה אחרת (למשל הקבצה א וגם ב) נשאר במאגר
+    if (m.file.startsWith("materials/") && !materials.some(x => x.file === m.file)) {
       const existing = await gh(m.file);
       if (existing) {
         await gh(m.file, { method: "DELETE", body: JSON.stringify({ message: `מחיקת ${m.file}`, branch: BRANCH, sha: existing.sha }) });

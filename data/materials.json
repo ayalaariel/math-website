@@ -1,1 +1,1504 @@
-[]
+[
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "דף חזרה בנושא יחס",
+    "type": "worksheet",
+    "file": "materials/8/8-288.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "דף חזרה בנושא יחס",
+    "type": "worksheet",
+    "file": "materials/8/8-288.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "קנה מידה",
+    "type": "worksheet",
+    "file": "materials/8/8-332.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "קנה מידה",
+    "type": "worksheet",
+    "file": "materials/8/8-332.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "שאלות יחס בין חלק ובין השלם כיתה ח 3",
+    "type": "worksheet",
+    "file": "materials/8/8-339.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "שאלות יחס בין חלק ובין השלם כיתה ח 3",
+    "type": "worksheet",
+    "file": "materials/8/8-339.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "פיתגורס פונקציות",
+    "type": "presentation",
+    "file": "materials/8/8-452.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "פיתגורס פונקציות",
+    "type": "presentation",
+    "file": "materials/8/8-452.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "8P B16",
+    "type": "worksheet",
+    "file": "materials/8/8-276.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "8P B16",
+    "type": "worksheet",
+    "file": "materials/8/8-276.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "אחוזים",
+    "type": "presentation",
+    "file": "materials/8/8-432.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "אחוזים",
+    "type": "presentation",
+    "file": "materials/8/8-432.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "H8B16",
+    "type": "worksheet",
+    "file": "materials/8/8-278.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "H8B16",
+    "type": "worksheet",
+    "file": "materials/8/8-278.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "נוסחאות לחישוב ערך החציון",
+    "type": "summary",
+    "file": "materials/8/8-477.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "נוסחאות לחישוב ערך החציון",
+    "type": "summary",
+    "file": "materials/8/8-477.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "תרגול סטטיסטיקה ח הקבצה ב כולל דיאגרמות",
+    "type": "worksheet",
+    "file": "materials/8/8-345.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "מבוא לפונקציות וייצוגים",
+    "title": "מציאת ייצוג אלגברי של פונקציה",
+    "type": "worksheet",
+    "file": "materials/8/8-318.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "מבוא לפונקציות וייצוגים",
+    "title": "מציאת ייצוג אלגברי של פונקציה",
+    "type": "worksheet",
+    "file": "materials/8/8-318.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "נקודות חיתוך עם הצירים תרגול",
+    "type": "worksheet",
+    "file": "materials/8/8-325.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "נקודות חיתוך עם הצירים תרגול",
+    "type": "worksheet",
+    "file": "materials/8/8-325.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית מציאת ייצוג אלגברי פלוס משחק לחנוכה",
+    "type": "worksheet",
+    "file": "materials/8/8-472.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית מציאת ייצוג אלגברי פלוס משחק לחנוכה",
+    "type": "worksheet",
+    "file": "materials/8/8-472.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית סיכום",
+    "type": "summary",
+    "file": "materials/8/8-479.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית סיכום",
+    "type": "summary",
+    "file": "materials/8/8-479.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "שאלות אינטגרטיביות בפונקציה קווית עם שטחים",
+    "type": "worksheet",
+    "file": "materials/8/8-1107.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "שאלות אינטגרטיביות בפונקציה קווית עם שטחים",
+    "type": "worksheet",
+    "file": "materials/8/8-1107.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות מילוליות",
+    "type": "presentation",
+    "file": "materials/8/8-436.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות מילוליות",
+    "type": "presentation",
+    "file": "materials/8/8-436.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "דף עבודה כיתה ח תרגול משוואות שברים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-300.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "דף עבודה כיתה ח תרגול משוואות שברים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-300.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "משוואות ובעיות מילוליות עמוד 182",
+    "type": "presentation",
+    "file": "materials/8/8-443.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "משוואות ובעיות מילוליות עמוד 182",
+    "type": "presentation",
+    "file": "materials/8/8-443.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "נקודות חיתוך עם הצירים",
+    "type": "worksheet",
+    "file": "materials/8/8-324.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "נקודות חיתוך עם הצירים",
+    "type": "worksheet",
+    "file": "materials/8/8-324.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-286.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-286.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים שאלות לתרגול",
+    "type": "presentation",
+    "file": "materials/8/8-438.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים שאלות לתרגול",
+    "type": "presentation",
+    "file": "materials/8/8-438.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משימת הערכה מס' 1 כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-526.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "הסתברות",
+    "title": "תחומי חיוביות ושליליות תחומי עליה וירידה הסתברות אי שיוויונות פתרון משוואות ממעלה ראשונה",
+    "type": "worksheet",
+    "file": "materials/8/8-1117.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "הסתברות",
+    "title": "תחומי חיוביות ושליליות תחומי עליה וירידה הסתברות אי שיוויונות פתרון משוואות ממעלה ראשונה",
+    "type": "worksheet",
+    "file": "materials/8/8-1117.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "דף חזרה על מושגים",
+    "type": "worksheet",
+    "file": "materials/8/8-291.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "דף חזרה על מושגים",
+    "type": "worksheet",
+    "file": "materials/8/8-291.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חידונים לפעילות סוף שנה",
+    "type": "worksheet",
+    "file": "materials/8/8-308.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חידונים לפעילות סוף שנה",
+    "type": "worksheet",
+    "file": "materials/8/8-308.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "amat",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן עמט ומצויינות ח סוף שנה",
+    "type": "exam",
+    "file": "materials/8/8-1307.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "מצגת שיעור 1 כיתה ח",
+    "type": "presentation",
+    "file": "materials/8/8-442.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "מצגת שיעור 1 כיתה ח",
+    "type": "presentation",
+    "file": "materials/8/8-442.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "כיתה ח יחס + חלוקה ביחס נתון",
+    "type": "worksheet",
+    "file": "materials/8/8-313.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "כיתה ח יחס + חלוקה ביחס נתון",
+    "type": "worksheet",
+    "file": "materials/8/8-313.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "כיתה ח פרופורציה",
+    "type": "worksheet",
+    "file": "materials/8/8-315.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "כיתה ח פרופורציה",
+    "type": "worksheet",
+    "file": "materials/8/8-315.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף תרגול משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1009.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף תרגול משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1009.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה משפט פיתגורס כיתה ח ניתן לעריכה",
+    "type": "worksheet",
+    "file": "materials/8/8-297.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "חוברת עבודה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-352.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "חוברת עבודה כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-352.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "ממוצע סטטיסטיקה כיתה ח",
+    "type": "presentation",
+    "file": "materials/8/8-440.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "ממוצע סטטיסטיקה כיתה ח",
+    "type": "presentation",
+    "file": "materials/8/8-440.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "סטטיסטיקה שיעור 1",
+    "type": "presentation",
+    "file": "materials/8/8-448.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "סטטיסטיקה שיעור 1",
+    "type": "presentation",
+    "file": "materials/8/8-448.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "סטטיסטיקה שיעור 2 שכיחות יחסית",
+    "type": "presentation",
+    "file": "materials/8/8-1225.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "סטטיסטיקה שיעור 2 שכיחות יחסית",
+    "type": "presentation",
+    "file": "materials/8/8-1225.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "שיעור מס' 1 כיתה ח'",
+    "type": "presentation",
+    "file": "materials/8/8-455.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "שיעור מס' 1 כיתה ח'",
+    "type": "presentation",
+    "file": "materials/8/8-455.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "תרגול סטטיסטיקה ח הקבצה ב",
+    "type": "worksheet",
+    "file": "materials/8/8-344.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "מבוא לפונקציות וייצוגים",
+    "title": "נקודות חיתוך בין פונקציות",
+    "type": "worksheet",
+    "file": "materials/8/8-323.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "מבוא לפונקציות וייצוגים",
+    "title": "נקודות חיתוך בין פונקציות",
+    "type": "worksheet",
+    "file": "materials/8/8-323.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "אי שיוויונות",
+    "type": "worksheet",
+    "file": "materials/8/8-283.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "אי שיוויונות",
+    "type": "worksheet",
+    "file": "materials/8/8-283.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות מילוליות + משוואות",
+    "type": "presentation",
+    "file": "materials/8/8-435.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות מילוליות + משוואות",
+    "type": "presentation",
+    "file": "materials/8/8-435.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות תנועה סוג 3",
+    "type": "presentation",
+    "file": "materials/8/8-437.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות תנועה סוג 3",
+    "type": "presentation",
+    "file": "materials/8/8-437.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "נקודות חיתוך בין ישרים",
+    "type": "presentation",
+    "file": "materials/8/8-447.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "נקודות חיתוך בין ישרים",
+    "type": "presentation",
+    "file": "materials/8/8-447.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "כיתה ח חפיפת משולשים קדם דדוקטיבי",
+    "type": "worksheet",
+    "file": "materials/8/8-312.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "כיתה ח חפיפת משולשים קדם דדוקטיבי",
+    "type": "worksheet",
+    "file": "materials/8/8-312.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משפט חפיפה דני",
+    "type": "worksheet",
+    "file": "materials/8/8-1065.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משפט חפיפה דני",
+    "type": "worksheet",
+    "file": "materials/8/8-1065.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "תיכון למשולש",
+    "type": "presentation",
+    "file": "materials/8/8-459.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משולשים: צלעות, תיכון, זווית חיצונית, שווה שוקיים",
+    "title": "תיכון למשולש",
+    "type": "presentation",
+    "file": "materials/8/8-459.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "מצגת: דמיון משולשים",
+    "type": "presentation",
+    "file": "materials/8/8-431.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "מצגת: דמיון משולשים",
+    "type": "presentation",
+    "file": "materials/8/8-431.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים יחס השטחים הוא ריבוע יחס הדימיון",
+    "type": "worksheet",
+    "file": "materials/8/8-285.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "דימיון משולשים יחס השטחים הוא ריבוע יחס הדימיון",
+    "type": "worksheet",
+    "file": "materials/8/8-285.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חומר למבחן",
+    "type": "summary",
+    "file": "materials/8/8-363.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חומר למבחן",
+    "type": "summary",
+    "file": "materials/8/8-363.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 2 כיתה ח הקבצה א",
+    "type": "exam",
+    "file": "materials/8/8-509.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 4",
+    "type": "exam",
+    "file": "materials/8/8-378.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 4",
+    "type": "exam",
+    "file": "materials/8/8-378.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 4 ח א1 פברואר",
+    "type": "exam",
+    "file": "materials/8/8-510.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן 4 כיתות ח א1ת",
+    "type": "exam",
+    "file": "materials/8/8-511.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "עבודה לפסח כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-483.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "לא שויך",
+    "title": "עבודה לפסח כיתה ח",
+    "type": "worksheet",
+    "file": "materials/8/8-483.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "דף עבודה: יחס ופרופורציה",
+    "type": "worksheet",
+    "file": "materials/8/8-274-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "דף עבודה: יחס ופרופורציה",
+    "type": "worksheet",
+    "file": "materials/8/8-274-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "בוחן: פיתגורס ופונקציה קווית",
+    "type": "quiz",
+    "file": "materials/8/8-355-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "בוחן: פיתגורס ופונקציה קווית",
+    "type": "quiz",
+    "file": "materials/8/8-355-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: שורשים ומשפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1092-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: שורשים ומשפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1092-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: ממוצע, טווח, שכיח וחציון",
+    "type": "worksheet",
+    "file": "materials/8/8-341-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: ממוצע, טווח, שכיח וחציון",
+    "type": "worksheet",
+    "file": "materials/8/8-341-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "יחס ישר יחס הפוך",
+    "type": "worksheet",
+    "file": "materials/8/8-311.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "יחס ישר יחס הפוך",
+    "type": "worksheet",
+    "file": "materials/8/8-311.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "יחס, פרופורציה וקנה מידה",
+    "title": "כיתה ח א'2 מבדק מס' 2 בנושא חלוקה לפי יחס נתון ספטמבר",
+    "type": "exam",
+    "file": "materials/8/8-532.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "זוויות בין ישרים מקבילים",
+    "title": "זויות קודקודיות וצמודות",
+    "type": "worksheet",
+    "file": "materials/8/8-303.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "זוויות בין ישרים מקבילים",
+    "title": "זויות קודקודיות וצמודות",
+    "type": "worksheet",
+    "file": "materials/8/8-303.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "זוויות בין ישרים מקבילים",
+    "title": "ישרים מאונכים תרגול",
+    "type": "presentation",
+    "file": "materials/8/8-439.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "זוויות בין ישרים מקבילים",
+    "title": "ישרים מאונכים תרגול",
+    "type": "presentation",
+    "file": "materials/8/8-439.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משחק משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1234.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משחק משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1234.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משפט פיתגורס",
+    "type": "presentation",
+    "file": "materials/8/8-1219.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משפט פיתגורס",
+    "type": "presentation",
+    "file": "materials/8/8-1219.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משפט פיתגורס",
+    "title": "פיתגורס + משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-330.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משפט פיתגורס",
+    "title": "פיתגורס + משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-330.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "שיעור מס' 3 כיתה ח'",
+    "type": "presentation",
+    "file": "materials/8/8-457.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "שיעור מס' 3 כיתה ח'",
+    "type": "presentation",
+    "file": "materials/8/8-457.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית",
+    "type": "worksheet",
+    "file": "materials/8/8-1077.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית",
+    "type": "worksheet",
+    "file": "materials/8/8-1077.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית תרגול",
+    "type": "worksheet",
+    "file": "materials/8/8-1080.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "פונקציה קווית תרגול",
+    "type": "worksheet",
+    "file": "materials/8/8-1080.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות כלליות",
+    "type": "presentation",
+    "file": "materials/8/8-434.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "בעיות כלליות",
+    "type": "presentation",
+    "file": "materials/8/8-434.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "דף עבודה כיתה ח חקירת זוג משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-298.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "דף עבודה כיתה ח חקירת זוג משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-298.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "תרגול שיטת ההצבה",
+    "type": "worksheet",
+    "file": "materials/8/8-1122.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "תרגול שיטת ההצבה",
+    "type": "worksheet",
+    "file": "materials/8/8-1122.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "תרגול משוואות שתי נעלמים",
+    "type": "worksheet",
+    "file": "materials/8/8-1123.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "משוואות ושאלות מילוליות",
+    "title": "תרגול משוואות שתי נעלמים",
+    "type": "worksheet",
+    "file": "materials/8/8-1123.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "כיתה ח משולשים חופפים",
+    "type": "worksheet",
+    "file": "materials/8/8-314.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "כיתה ח משולשים חופפים",
+    "type": "worksheet",
+    "file": "materials/8/8-314.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "מצגת משפט חפיפה ראשון",
+    "type": "presentation",
+    "file": "materials/8/8-1211.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "מצגת משפט חפיפה ראשון",
+    "type": "presentation",
+    "file": "materials/8/8-1211.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משולשים חופפים משפט חפיפה ראשון+2+3",
+    "type": "worksheet",
+    "file": "materials/8/8-321.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משולשים חופפים משפט חפיפה ראשון+2+3",
+    "type": "worksheet",
+    "file": "materials/8/8-321.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משולשים חופפים",
+    "type": "presentation",
+    "file": "materials/8/8-445.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חפיפת משולשים",
+    "title": "משולשים חופפים",
+    "type": "presentation",
+    "file": "materials/8/8-445.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "מערכת משוואות",
+    "title": "מערכת משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-1041.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "מערכת משוואות",
+    "title": "מערכת משוואות",
+    "type": "worksheet",
+    "file": "materials/8/8-1041.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "בינגופונקציותדמיוןועוד",
+    "type": "worksheet",
+    "file": "materials/8/8-463.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "בינגופונקציותדמיוןועוד",
+    "type": "worksheet",
+    "file": "materials/8/8-463.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחקהנקודות,יחס,פ.קווית,דמיון,,קנהמידה3",
+    "type": "worksheet",
+    "file": "materials/8/8-469.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחקהנקודות,יחס,פ.קווית,דמיון,,קנהמידה3",
+    "type": "worksheet",
+    "file": "materials/8/8-469.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "משחקהנקודות,יחס,פ.קווית,דמיון,שטחים,קנהמידה3",
+    "type": "worksheet",
+    "file": "materials/8/8-470.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "דמיון משולשים",
+    "title": "משחקהנקודות,יחס,פ.קווית,דמיון,שטחים,קנהמידה3",
+    "type": "worksheet",
+    "file": "materials/8/8-470.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחק לפתיחת שנה כיתה ח חנמ",
+    "type": "worksheet",
+    "file": "materials/8/8-471.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "דמיון משולשים",
+    "title": "משחק לפתיחת שנה כיתה ח חנמ",
+    "type": "worksheet",
+    "file": "materials/8/8-471.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "אי-שוויונות",
+    "title": "דף עבודה כיתה ח תרגול אי שיויונים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-299.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אי-שוויונות",
+    "title": "דף עבודה כיתה ח תרגול אי שיויונים 1",
+    "type": "worksheet",
+    "file": "materials/8/8-299.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "חומר למבחן 1 כיתה ח הקבצה א",
+    "type": "summary",
+    "file": "materials/8/8-497.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "כרטיס מבחן מס' 5 לכיתה ח",
+    "type": "exam",
+    "file": "materials/8/8-546.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן דצמבר כולל פיתרון",
+    "type": "exam",
+    "file": "materials/8/8-379.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן דצמבר כולל פיתרון",
+    "type": "exam",
+    "file": "materials/8/8-379.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח מרץ",
+    "type": "exam",
+    "file": "materials/8/8-394.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן ח מרץ",
+    "type": "exam",
+    "file": "materials/8/8-394.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: משפט פיתגורס, מציאת היתר והניצב",
+    "type": "worksheet",
+    "file": "materials/8/8-995-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: משפט פיתגורס, מציאת היתר והניצב",
+    "type": "worksheet",
+    "file": "materials/8/8-995-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-996-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דף עבודה: משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-996-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "חוברת תרגול: משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1091-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "חוברת תרגול: משפט פיתגורס",
+    "type": "worksheet",
+    "file": "materials/8/8-1091-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: חציון",
+    "type": "worksheet",
+    "file": "materials/8/8-294-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: חציון",
+    "type": "worksheet",
+    "file": "materials/8/8-294-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "מצגת: סטטיסטיקה, שיעור 2",
+    "type": "presentation",
+    "file": "materials/8/8-454-upgraded.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "מצגת: סטטיסטיקה, שיעור 2",
+    "type": "presentation",
+    "file": "materials/8/8-454-upgraded.pdf"
+  }
+]
