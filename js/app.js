@@ -46,7 +46,7 @@ function materialItem(m, withPlace, withTopic) {
   const domain = DOMAINS.find(d => d.id === m.domain);
   return el("li", {},
     el("span", { class: `tag tag-${m.type}` }, TYPE_LABELS[m.type] || "חומר"),
-    el("a", { href: m.file, target: "_blank", rel: isExternal ? "noopener" : "" }, m.title),
+    el("a", { href: m.file, target: "_blank", rel: isExternal ? "noopener noreferrer" : "" }, m.title),
     withPlace && section
       ? el("a", { class: "place", href: `#/s/${section.id}/${m.level}` }, [section.short, level && level.name, domain && domain.name, m.topic].filter(Boolean).join(" · "))
       : withTopic && m.topic ? el("span", { class: "place" }, [domain && domain.name, m.topic].filter(Boolean).join(" · ")) : null
@@ -211,7 +211,7 @@ function curriculumBlock(key) {
   const sources = el("p", { class: "sources" }, "מקור: ");
   c.sources.forEach((s, i) => {
     if (i > 0) sources.append(" · ");
-    sources.append(el("a", { href: s.url, target: "_blank", rel: "noopener" }, s.label));
+    sources.append(el("a", { href: s.url, target: "_blank", rel: "noopener noreferrer" }, s.label));
   });
   return el("details", { class: "curriculum" },
     el("summary", {}, "תוכנית הלימודים – משרד החינוך, תשפ״ז"),
