@@ -4,7 +4,7 @@
 
 const MOE = "https://meyda.education.gov.il/files/Pop/0files/matmatika/";
 const SRC = {
-  prisa7: { label: "פריסת הוראה כיתה ז׳ תשפ״ז", url: MOE + "Chativat-Beynayim/tashpaz/prisa7_2026.pdf" },
+  prisa7: { label: "פריסת הוראה כיתה ז׳ תשפ״ז", url: MOE + "Chativat-Beynayim/tashpaz/prisa_7.pdf" },
   prisa8: { label: "פריסת הוראה כיתה ח׳ תשפ״ז", url: MOE + "Chativat-Beynayim/tashpaz/prisa_8.pdf" },
   prisa9A: { label: "פריסת הוראה כיתה ט׳ תשפ״ז", url: MOE + "Chativat-Beynayim/tashpaz/prisa_9A.pdf" },
   prisa9B: { label: "פריסת הוראה כיתה ט׳ מצומצמת תשפ״ז", url: MOE + "Chativat-Beynayim/tashpaz/prisa_9B.pdf" },
