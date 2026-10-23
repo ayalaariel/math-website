@@ -30,6 +30,7 @@ const SECTIONS = [
 const TYPE_LABELS = {
   summary: "סיכום",
   worksheet: "דף עבודה",
+  quiz: "בוחן",
   exam: "מבחן",
   solution: "פתרון",
   presentation: "מצגת",

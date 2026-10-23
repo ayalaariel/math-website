@@ -136,6 +136,7 @@ a { color: var(--primary); }
 }
 
 .tag-exam { background: #fdeceb; color: #b42318; }
+.tag-quiz { background: #fff4e5; color: #b54708; }
 .tag-solution { background: #e7f6ee; color: #1f7a4d; }
 .tag-video { background: #f3e8ff; color: #7c3aed; }
 
@@ -217,3 +218,34 @@ a { color: var(--primary); }
   .material-list li { flex-wrap: wrap; }
   .material-list .place { margin-inline-start: 0; width: 100%; }
 }
+
+/* פריסה – השבועיים הקרובים */
+.pace {
+  background: #fffbea;
+  border: 1px solid #f5e3a3;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin: 8px 0 16px;
+}
+.pace h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.pace h4 { margin: 8px 0 4px; font-size: .95rem; }
+.pace ul { margin: 0; padding-inline-start: 20px; }
+.pace li { margin: 3px 0; }
+.pace .extra { color: #6d28d9; }
+.pace .assessment { background: #fdeceb; border-radius: 8px; padding: 6px 10px; margin: 10px 0 0; }
+.pace-compact { background: none; border: none; padding: 0; margin: 0; }
+.pace-compact h3:empty { display: none; }
+.pace-levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 24px; }
+.pace-level h3 { margin: 4px 0; font-size: 1.05rem; }
+.pace-level h3 a { text-decoration: none; }
+
+.pace-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.pace-table th, .pace-table td { text-align: start; vertical-align: top; padding: 8px; border-top: 1px solid var(--border); }
+.pace-table th { width: 90px; }
+.pace-table tr.current { background: #fffbea; }
+.pace-table .extra { color: #6d28d9; }
+
+/* בחנים ומבחנים */
+.rubrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 16px; }
+.rubric-quiz { border-top: 3px solid #f79009; }
+.rubric-exam { border-top: 3px solid #d92d20; }

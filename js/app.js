@@ -39,7 +39,7 @@ function breadcrumbs(...items) {
   return nav;
 }
 
-function materialItem(m, withPlace) {
+function materialItem(m, withPlace, withTopic) {
   const isExternal = /^https?:/.test(m.file);
   const section = findSection(m.grade);
   const level = findLevel(section, m.level);
@@ -49,7 +49,7 @@ function materialItem(m, withPlace) {
     el("a", { href: m.file, target: "_blank", rel: isExternal ? "noopener" : "" }, m.title),
     withPlace && section
       ? el("a", { class: "place", href: `#/s/${section.id}/${m.level}` }, [section.short, level && level.name, domain && domain.name, m.topic].filter(Boolean).join(" · "))
-      : null
+      : withTopic && m.topic ? el("span", { class: "place" }, [domain && domain.name, m.topic].filter(Boolean).join(" · ")) : null
   );
 }
 
@@ -83,11 +83,118 @@ function renderSection(section) {
       )
     );
   }
+  const paced = section.levels.filter(l => PACING[`${section.id}/${l.id}`]);
+  let overview = null;
+  if (paced.length) {
+    const start = today();
+    overview = el("section", { class: "pace" },
+      el("h2", {}, "התוכנית לשבועיים הקרובים", el("span", { class: "muted" }, ` · ${dateRange(start, new Date(start.getTime() + 13 * DAY))}`)),
+      el("div", { class: "pace-levels" }, ...paced.map(l =>
+        el("div", { class: `pace-level level-${l.id}` },
+          el("h3", {}, el("a", { href: `#/s/${section.id}/${l.id}` }, l.name)),
+          nextTwoWeeks(`${section.id}/${l.id}`, true)
+        )
+      ))
+    );
+  }
   app.replaceChildren(
     breadcrumbs({ label: "ראשי", href: "#/" }, { label: section.name }),
     el("h1", {}, section.name),
     el("p", {}, "בחרו:"),
-    grid
+    grid,
+    overview || ""
+  );
+}
+
+const MONTH_NAMES = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+const DAY = 24 * 60 * 60 * 1000;
+
+// לבדיקה אפשר לקבוע תאריך בכתובת: ?date=2026-11-25
+function today() {
+  const forced = new URLSearchParams(location.search).get("date");
+  const d = forced ? new Date(forced + "T00:00:00") : new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function formatDate(d) { return `${d.getDate()}.${d.getMonth() + 1}`; }
+function parseDate(s) { return new Date(s + "T00:00:00"); }
+function dateRange(a, b) { return `${formatDate(a)} עד ${formatDate(b)}`; }
+
+// החודשים (בשנת הלימודים) שנוגעים בחלון של השבועיים הקרובים
+function upcomingMonths(start, end) {
+  const result = [];
+  for (let d = new Date(start.getFullYear(), start.getMonth(), 1); d <= end; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) {
+    const from = d < start ? start : d;
+    const monthEnd = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+    result.push({ month: d.getMonth() + 1, from, to: monthEnd > end ? end : monthEnd });
+  }
+  return result;
+}
+
+function nextTwoWeeks(key, compact) {
+  const p = PACING[key];
+  if (!p) return null;
+  const start = today();
+  const end = new Date(start.getTime() + 13 * DAY);
+  const months = upcomingMonths(start, end).filter(m => p.months[m.month]);
+
+  const body = [];
+  if (months.length === 0) {
+    body.push(el("p", { class: "muted" }, "חופשת הקיץ. הפריסה של שנת הלימודים הבאה תתפרסם לקראת ספטמבר."));
+  }
+  for (const m of months) {
+    const data = p.months[m.month];
+    const block = el("div", { class: "pace-month" },
+      months.length > 1 || !compact
+        ? el("h4", {}, `${MONTH_NAMES[m.month - 1]} (${dateRange(m.from, m.to)})`, el("span", { class: "muted" }, ` · ${data.hours} שעות בחודש`))
+        : null,
+      el("ul", {}, ...data.items.map(([domain, topics, hours]) =>
+        el("li", {}, el("b", {}, domain + ": "), topics, hours ? el("span", { class: "muted" }, ` (${hours} ש׳)`) : null)
+      ))
+    );
+    if (p.extra && p.extra[m.month]) {
+      block.querySelector("ul").append(el("li", { class: "extra" }, el("b", {}, "תוספת עמ״ט: "), p.extra[m.month]));
+    }
+    body.push(block);
+  }
+
+  const due = (p.assessments || []).filter(a => parseDate(a.from) <= end && parseDate(a.to) >= start);
+  for (const a of due) {
+    body.push(el("p", { class: "assessment" },
+      el("b", {}, `📝 ${a.name}: `), `${dateRange(parseDate(a.from), parseDate(a.to))}`,
+      a.details ? el("span", {}, ` · ${a.details}`) : null
+    ));
+  }
+
+  return el("section", { class: compact ? "pace pace-compact" : "pace" },
+    el(compact ? "h3" : "h2", {}, compact ? "" : "התוכנית לשבועיים הקרובים", compact ? "" : el("span", { class: "muted" }, ` · ${dateRange(start, end)}`)),
+    ...body
+  );
+}
+
+function pacingTable(key) {
+  const p = PACING[key];
+  if (!p) return null;
+  const order = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
+  const current = today().getMonth() + 1;
+  const rows = order.filter(m => p.months[m]).map(m => {
+    const data = p.months[m];
+    return el("tr", { class: m === current ? "current" : "" },
+      el("th", {}, MONTH_NAMES[m - 1], el("div", { class: "muted small" }, `${data.hours} ש׳`)),
+      el("td", {},
+        ...data.items.map(([domain, topics]) => el("div", {}, el("b", {}, domain + ": "), topics)),
+        p.extra && p.extra[m] ? el("div", { class: "extra" }, el("b", {}, "תוספת עמ״ט: "), p.extra[m]) : null
+      )
+    );
+  });
+  const assess = (p.assessments || []).map(a =>
+    el("li", {}, el("b", {}, a.name + ": "), `${dateRange(parseDate(a.from), parseDate(a.to))}`, a.details ? ` · ${a.details}` : "")
+  );
+  return el("details", { class: "curriculum" },
+    el("summary", {}, "הפריסה החודשית לכל השנה"),
+    el("table", { class: "pace-table" }, el("tbody", {}, ...rows)),
+    assess.length ? el("div", {}, el("h3", {}, "משימות הערכה ומבחנים"), el("ul", {}, ...assess)) : null
   );
 }
 
@@ -129,8 +236,28 @@ function topicSections(items, headingTag) {
   );
 }
 
+const ASSESSMENT_TYPES = [
+  { type: "quiz", title: "בחנים" },
+  { type: "exam", title: "מבחנים" },
+];
+
+function assessmentRubrics(all) {
+  return el("div", { class: "rubrics" }, ...ASSESSMENT_TYPES.map(({ type, title }) => {
+    const list = all.filter(m => m.type === type);
+    return el("section", { class: `topic rubric rubric-${type}` },
+      el("h2", {}, title),
+      list.length
+        ? el("ul", { class: "material-list" }, ...list.map(m => materialItem(m, false, true)))
+        : el("p", { class: "muted" }, `עדיין אין ${title}.`)
+    );
+  }));
+}
+
 function renderLevel(section, level) {
-  const items = MATERIALS.filter(m => m.grade === section.id && m.level === level.id);
+  const key = `${section.id}/${level.id}`;
+  const all = MATERIALS.filter(m => m.grade === section.id && m.level === level.id);
+  // בחנים ומבחנים מוצגים ברובריקות משלהם, שאר החומרים לפי תחום ונושא
+  const items = all.filter(m => !ASSESSMENT_TYPES.some(a => a.type === m.type));
   const content = [];
 
   if (level.domains) {
@@ -160,7 +287,10 @@ function renderLevel(section, level) {
       { label: level.name }
     ),
     el("h1", {}, `${section.name} · ${level.name}`),
-    curriculumBlock(`${section.id}/${level.id}`) || "",
+    nextTwoWeeks(key, false) || "",
+    pacingTable(key) || "",
+    curriculumBlock(key) || "",
+    assessmentRubrics(all),
     ...content
   );
 }
