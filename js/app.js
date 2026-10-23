@@ -180,6 +180,49 @@ function currentMaterialsBlock(key, all) {
   );
 }
 
+// חטיבה עליונה: הנושאים של החודש הנוכחי לפי סדר המשרד, מחולקים שווה בין ספטמבר למאי
+const HS_MONTHS = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+
+function hsTopicsForMonth(list, month) {
+  const i = HS_MONTHS.indexOf(month);
+  if (i < 0) return [];
+  const n = list.length;
+  return list.filter((_, k) => {
+    const from = Math.floor(k * HS_MONTHS.length / n);
+    const to = Math.max(from, Math.floor((k + 1) * HS_MONTHS.length / n) - 1);
+    return i >= from && i <= to;
+  });
+}
+
+function hsMonthBlock(section, level) {
+  const seq = HS_SEQUENCE[`${section.id}/${level.id}`];
+  if (!seq) return null;
+  const month = today().getMonth() + 1;
+  const source = HS_SOURCE[level.id];
+  let body;
+  if (month === 6) {
+    body = [el("p", {}, "יוני: חזרות והשלמות לקראת סוף השנה והבגרות.")];
+  } else if (month === 7 || month === 8) {
+    body = [el("p", { class: "muted" }, "חופשת הקיץ.")];
+  } else {
+    body = [el("div", { class: "hs-columns" }, ...DOMAINS.map(d =>
+      el("div", {},
+        el("h3", {}, d.name),
+        el("ul", {}, ...hsTopicsForMonth(seq[d.id], month).map(t => el("li", {}, t)))
+      )
+    ))];
+  }
+  return el("section", { class: "pace" },
+    el("h2", {}, `הפריסה של חודש ${MONTH_NAMES[month - 1]}`),
+    ...body,
+    el("p", { class: "sources" },
+      "משרד החינוך לא פרסם לתשפ״ז פריסה חודשית לחטיבה העליונה. הנושאים כאן לפי הסדר המומלץ ב",
+      el("a", { href: source.url, target: "_blank", rel: "noopener noreferrer" }, source.label),
+      ", והחלוקה לחודשים היא הערכה."
+    )
+  );
+}
+
 function nextTwoWeeks(key, compact) {
   const p = PACING[key];
   if (!p) return null;
@@ -335,7 +378,7 @@ function renderLevel(section, level) {
       { label: level.name }
     ),
     el("h1", {}, `${section.name} · ${level.name}`),
-    nextTwoWeeks(key, false) || "",
+    nextTwoWeeks(key, false) || hsMonthBlock(section, level) || "",
     currentMaterialsBlock(key, all) || "",
     pacingTable(key) || "",
     curriculumBlock(key) || "",

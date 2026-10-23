@@ -265,3 +265,6 @@ a { color: var(--primary); }
 }
 .now-materials h2 { margin: 0 0 8px; font-size: 1.15rem; }
 .now-topic h3 { margin: 10px 0 4px; font-size: 1rem; color: var(--primary); }
+
+.hs-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 24px; }
+.hs-columns h3 { margin: 4px 0; font-size: 1rem; color: var(--primary); }
