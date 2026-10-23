@@ -159,7 +159,12 @@ a { color: var(--primary); }
 .small { font-size: .85rem; margin-top: 4px; }
 .card.level-a { border-top-color: var(--level-5); }
 .card.level-b { border-top-color: var(--level-3); }
-.card-amat { border-top-color: #7c3aed; background: linear-gradient(180deg, #faf5ff, var(--surface)); }
+.card.level-amat { border-top-color: #7c3aed; background: linear-gradient(180deg, #faf5ff, var(--surface)); }
+.card.level-general { border-top-color: var(--primary); }
+
+.domain { margin-bottom: 24px; }
+.domain-title { font-size: 1.25rem; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--primary-soft); }
+.topic h3 { margin: 0 0 8px; font-size: 1.05rem; }
 
 /* חיפוש */
 .search-form { flex: 1; max-width: 320px; min-width: 160px; }

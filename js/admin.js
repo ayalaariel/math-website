@@ -1,4 +1,4 @@
-// דף ניהול: מעלה קבצים לתיקייה materials/<מדור>/<רמה>/ ומעדכן את data/materials.json
+// דף ניהול: מעלה קבצים לתיקייה materials/<כיתה>/<רמה>/ ומעדכן את data/materials.json
 // דרך ה-API של גיטהאב. האתר מתעדכן כדקה אחרי השמירה.
 
 const REPO = "ayalaariel/math-website";
@@ -103,6 +103,7 @@ function log(text, cls = "") {
 }
 
 function currentSection() { return SECTIONS.find(s => s.id === $("f-section").value); }
+function currentLevel() { return currentSection().levels.find(l => l.id === $("f-level").value); }
 
 function fillLevels() {
   const section = currentSection();
@@ -111,6 +112,9 @@ function fillLevels() {
 }
 
 function fillTopics() {
+  const level = currentLevel();
+  $("domain-field").hidden = !level.domains;
+  $("f-domain").replaceChildren(...(level.domains || []).map(id => new Option(DOMAINS.find(d => d.id === id).name, id)));
   const key = `${$("f-section").value}/${$("f-level").value}`;
   const topics = new Set();
   materials.filter(m => `${m.grade}/${m.level}` === key && m.topic).forEach(m => topics.add(m.topic));
@@ -131,7 +135,7 @@ function renderExisting() {
   list.replaceChildren(...items.map(({ m, index }) => {
     const li = document.createElement("li");
     const tag = Object.assign(document.createElement("span"), { className: `tag tag-${m.type}`, textContent: TYPE_LABELS[m.type] || "חומר" });
-    const link = Object.assign(document.createElement("a"), { href: m.file, target: "_blank", textContent: `${m.title}${m.topic ? " · " + m.topic : ""}` });
+    const link = Object.assign(document.createElement("a"), { href: m.file, target: "_blank", textContent: [m.title, (DOMAINS.find(d => d.id === m.domain) || {}).name, m.topic].filter(Boolean).join(" · ") });
     const del = Object.assign(document.createElement("button"), { className: "danger", textContent: "מחיקה", type: "button" });
     del.onclick = () => removeMaterial(index, m);
     li.append(tag, link, del);
@@ -165,6 +169,7 @@ async function onSubmit(e) {
   const grade = $("f-section").value;
   const level = $("f-level").value;
   const type = $("f-type").value;
+  const domain = currentLevel().domains ? $("f-domain").value : undefined;
   const topic = $("f-topic").value.trim();
   const title = $("f-title").value.trim();
   const useUrl = document.querySelector("input[name=source]:checked").value === "url";
@@ -179,13 +184,13 @@ async function onSubmit(e) {
   const added = [];
   try {
     if (useUrl) {
-      added.push({ grade, level, topic, title, type, file: $("f-url").value });
+      added.push({ grade, level, domain, topic, title, type, file: $("f-url").value });
     } else {
       for (const file of files) {
         log(`מעלה את ${file.name}…`);
         const path = await uploadFile(file, `materials/${grade}/${level}`);
         const fileTitle = files.length === 1 ? title : (title ? `${title} – ` : "") + file.name.replace(/\.[^.]+$/, "");
-        added.push({ grade, level, topic, title: fileTitle, type, file: path });
+        added.push({ grade, level, domain, topic, title: fileTitle, type, file: path });
       }
     }
     log("מעדכן את רשימת החומרים…");
