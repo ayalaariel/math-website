@@ -21,7 +21,8 @@ function findSection(id) { return SECTIONS.find(s => s.id === id); }
 function findLevel(section, id) { return section && section.levels.find(l => l.id === id); }
 
 function countMaterials(sectionId, levelId) {
-  return MATERIALS.filter(m => m.grade === sectionId && (levelId === undefined || m.level === levelId)).length;
+  // סופרים קבצים שונים, כך שקובץ שמופיע בשתי הקבצות נספר פעם אחת
+  return new Set(MATERIALS.filter(m => m.grade === sectionId && (levelId === undefined || m.level === levelId)).map(m => m.file)).size;
 }
 
 function countLabel(n) {
@@ -48,7 +49,7 @@ function materialItem(m, withPlace, withTopic) {
     el("span", { class: `tag tag-${m.type}` }, TYPE_LABELS[m.type] || "חומר"),
     el("a", { href: m.file, target: "_blank", rel: isExternal ? "noopener noreferrer" : "" }, m.title),
     withPlace && section
-      ? el("a", { class: "place", href: `#/s/${section.id}/${m.level}` }, [section.short, level && level.name, domain && domain.name, m.topic].filter(Boolean).join(" · "))
+      ? el("a", { class: "place", href: `#/s/${section.id}/${m.level}` }, [section.short, (m.levels || [m.level]).map(id => (findLevel(section, id) || {}).name).filter(Boolean).join(", "), domain && domain.name, m.topic].filter(Boolean).join(" · "))
       : withTopic && m.topic ? el("span", { class: "place" }, [domain && domain.name, m.topic].filter(Boolean).join(" · ")) : null
   );
 }
@@ -309,14 +310,22 @@ function renderSearch(query) {
     return words.every(w => haystack.includes(w));
   });
 
+  // קובץ שמשויך לכמה רמות (למשל הקבצה א וגם ב) מוצג פעם אחת
+  const byFile = new Map();
+  for (const m of results) {
+    if (byFile.has(m.file)) byFile.get(m.file).levels.push(m.level);
+    else byFile.set(m.file, { ...m, levels: [m.level] });
+  }
+  const unique = [...byFile.values()];
+
   app.replaceChildren(
     breadcrumbs({ label: "ראשי", href: "#/" }, { label: "חיפוש" }),
     el("h1", {}, `תוצאות חיפוש: ${query}`),
-    results.length === 0
+    unique.length === 0
       ? el("p", { class: "empty" }, "לא נמצאו חומרים. נסו מילה אחרת, למשל שם נושא או כיתה.")
       : el("section", { class: "topic" },
-          el("p", { class: "muted" }, countLabel(results.length)),
-          el("ul", { class: "material-list" }, ...results.map(m => materialItem(m, true)))
+          el("p", { class: "muted" }, countLabel(unique.length)),
+          el("ul", { class: "material-list" }, ...unique.map(m => materialItem(m, true)))
         )
   );
 }
