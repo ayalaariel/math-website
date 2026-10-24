@@ -4206,5 +4206,23 @@
     "title": "מבחן במתמטיקה 471",
     "type": "exam",
     "file": "materials/11/11-931.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן לדוגמה: פיתגורס, יחס, משוואות, זוויות ואוריינות",
+    "type": "exam",
+    "file": "materials/8/8-1331.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מחוון – מבחן לדוגמה: פיתגורס, יחס, משוואות, זוויות ואוריינות",
+    "type": "solution",
+    "file": "materials/8/8-1332.pdf"
   }
 ]
