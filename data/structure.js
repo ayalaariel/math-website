@@ -32,6 +32,7 @@ const TYPE_LABELS = {
   worksheet: "דף עבודה",
   quiz: "בוחן",
   exam: "מבחן",
+  summer: "עבודת קיץ",
   solution: "פתרון",
   presentation: "מצגת",
   video: "סרטון",

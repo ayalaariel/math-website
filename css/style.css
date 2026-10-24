@@ -268,3 +268,8 @@ a { color: var(--primary); }
 
 .hs-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 24px; }
 .hs-columns h3 { margin: 4px 0; font-size: 1rem; color: var(--primary); }
+
+/* עבודות קיץ */
+.tag-summer { background: #e0f2fe; color: #0369a1; }
+.rubric-summer { border-top: 3px solid #0ea5e9; }
+.summer-grade { margin-top: 16px; }

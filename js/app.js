@@ -98,12 +98,22 @@ function renderSection(section) {
       ))
     );
   }
+  // עבודות קיץ של כל הכיתה, כל קובץ פעם אחת
+  const seen = new Set();
+  const summer = MATERIALS.filter(m => m.grade === section.id && m.type === "summer" && !seen.has(m.file) && seen.add(m.file))
+    .map(m => ({ ...m, levels: MATERIALS.filter(o => o.file === m.file && o.grade === m.grade).map(o => o.level) }));
   app.replaceChildren(
     breadcrumbs({ label: "ראשי", href: "#/" }, { label: section.name }),
     el("h1", {}, section.name),
     el("p", {}, "בחרו:"),
     grid,
-    overview || ""
+    overview || "",
+    el("section", { class: "topic rubric rubric-summer summer-grade" },
+      el("h2", {}, "עבודות קיץ"),
+      summer.length
+        ? el("ul", { class: "material-list" }, ...summer.map(m => materialItem(m, true)))
+        : el("p", { class: "muted" }, "עדיין אין עבודות קיץ.")
+    )
   );
 }
 
@@ -156,7 +166,8 @@ function topicKeywords(topic) {
 function currentMaterials(key, all) {
   const text = currentPacingTexts(key).join(" ") + " ";
   if (!text.trim()) return null;
-  return all.filter(m => m.topic && topicKeywords(m.topic).some(k => text.includes(k)));
+  // עבודות קיץ לא מוצגות לפי הפריסה
+  return all.filter(m => m.type !== "summer" && m.topic && topicKeywords(m.topic).some(k => text.includes(k)));
 }
 
 function currentMaterialsBlock(key, all) {
@@ -330,6 +341,7 @@ function topicSections(items, headingTag) {
 const ASSESSMENT_TYPES = [
   { type: "quiz", title: "בחנים" },
   { type: "exam", title: "מבחנים" },
+  { type: "summer", title: "עבודות קיץ" },
 ];
 
 function assessmentRubrics(all) {
@@ -347,7 +359,7 @@ function assessmentRubrics(all) {
 function renderLevel(section, level) {
   const key = `${section.id}/${level.id}`;
   const all = MATERIALS.filter(m => m.grade === section.id && m.level === level.id);
-  // בחנים ומבחנים מוצגים ברובריקות משלהם, שאר החומרים לפי תחום ונושא
+  // בחנים, מבחנים ועבודות קיץ מוצגים ברובריקות משלהם, שאר החומרים לפי תחום ונושא
   const items = all.filter(m => !ASSESSMENT_TYPES.some(a => a.type === m.type));
   const content = [];
 
