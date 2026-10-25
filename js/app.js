@@ -234,6 +234,11 @@ function hsMonthBlock(section, level) {
   );
 }
 
+// "12-15" → "12-15 ש׳"; ערך שכבר כולל יחידה (למשל "2 ש״ש") מוצג כמו שהוא
+function hoursLabel(hours) {
+  return /ש/.test(String(hours)) ? String(hours) : `${hours} ש׳`;
+}
+
 function nextTwoWeeks(key, compact) {
   const p = PACING[key];
   if (!p) return null;
@@ -249,10 +254,10 @@ function nextTwoWeeks(key, compact) {
     const data = p.months[m.month];
     const block = el("div", { class: "pace-month" },
       months.length > 1 || !compact
-        ? el("h4", {}, `${MONTH_NAMES[m.month - 1]} (${dateRange(m.from, m.to)})`, el("span", { class: "muted" }, ` · ${data.hours} שעות בחודש`))
+        ? el("h4", {}, `${MONTH_NAMES[m.month - 1]} (${dateRange(m.from, m.to)})`, data.hours ? el("span", { class: "muted" }, ` · ${data.hours} שעות בחודש`) : null)
         : null,
       el("ul", {}, ...data.items.map(([domain, topics, hours]) =>
-        el("li", {}, el("b", {}, domain + ": "), topics, hours ? el("span", { class: "muted" }, ` (${hours} ש׳)`) : null)
+        el("li", {}, el("b", {}, domain + ": "), topics, hours ? el("span", { class: "muted" }, ` (${hoursLabel(hours)})`) : null)
       ))
     );
     if (p.extra && p.extra[m.month]) {
@@ -269,6 +274,8 @@ function nextTwoWeeks(key, compact) {
     ));
   }
 
+  if (p.source && !compact) body.push(el("p", { class: "sources" }, p.source));
+
   return el("section", { class: compact ? "pace pace-compact" : "pace" },
     el(compact ? "h3" : "h2", {}, compact ? "" : "התוכנית לשבועיים הקרובים", compact ? "" : el("span", { class: "muted" }, ` · ${dateRange(start, end)}`)),
     ...body
@@ -283,9 +290,9 @@ function pacingTable(key) {
   const rows = order.filter(m => p.months[m]).map(m => {
     const data = p.months[m];
     return el("tr", { class: m === current ? "current" : "" },
-      el("th", {}, MONTH_NAMES[m - 1], el("div", { class: "muted small" }, `${data.hours} ש׳`)),
+      el("th", {}, MONTH_NAMES[m - 1], data.hours ? el("div", { class: "muted small" }, `${data.hours} ש׳`) : null),
       el("td", {},
-        ...data.items.map(([domain, topics]) => el("div", {}, el("b", {}, domain + ": "), topics)),
+        ...data.items.map(([domain, topics, hours]) => el("div", {}, el("b", {}, domain + ": "), topics, hours ? el("span", { class: "muted" }, ` (${hoursLabel(hours)})`) : null)),
         p.extra && p.extra[m] ? el("div", { class: "extra" }, el("b", {}, "תוספת עמ״ט: "), p.extra[m]) : null
       )
     );
