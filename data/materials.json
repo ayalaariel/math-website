@@ -4224,5 +4224,13 @@
     "title": "מחוון – מבחן לדוגמה: פיתגורס, יחס, משוואות, זוויות ואוריינות",
     "type": "solution",
     "file": "materials/8/8-1334.pdf"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "מצגת: היכרות עם פונקציות חזקה – זוגיות, חקירת פולינום, אי-שוויונות, פעולות על פונקציות וערך מוחלט",
+    "type": "presentation",
+    "file": "materials/10/10-power-functions-presentation.pdf"
   }
 ]
