@@ -4248,5 +4248,23 @@
     "title": "סטטיסטיקה לכיתה יא – התפלגות נורמלית (עם פתרונות)",
     "type": "worksheet",
     "file": "materials/11/11-932.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן לדוגמה – יחס, פיתגורס, זוויות, משוואות ואוריינות",
+    "type": "exam",
+    "file": "materials/8/8-practice-exam-ratio-pythagoras-angles.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "פתרונות – מבחן לדוגמה: יחס, פיתגורס, זוויות, משוואות ואוריינות",
+    "type": "solution",
+    "file": "materials/8/8-practice-exam-ratio-pythagoras-angles-solutions.pdf"
   }
 ]
