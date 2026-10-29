@@ -4282,5 +4282,23 @@
     "title": "דף עבודה – פונקציה זוגית ואי-זוגית (כולל פתרונות)",
     "type": "worksheet",
     "file": "materials/10/10-odd-even-functions-worksheet.pdf"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מערכת צירים",
+    "title": "דף עבודה – הצבת נקודות במערכת צירים, רמה בסיסית (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/7/7-plotting-points-basic-worksheet.pdf"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מערכת צירים",
+    "title": "דף עבודה – מלבנים ומשולשים במערכת צירים: שטח והיקף, רמה בסיסית (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/7/7-rectangle-triangle-area-perimeter-worksheet.pdf"
   }
 ]
