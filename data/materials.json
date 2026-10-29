@@ -4274,5 +4274,13 @@
     "title": "דף עבודה רגרסיה לינארית – מותאם לשאלון 471",
     "type": "worksheet",
     "file": "materials/11/11-regression-471.pdf"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "דף עבודה – פונקציה זוגית ואי-זוגית (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/10/10-odd-even-functions-worksheet.pdf"
   }
 ]
