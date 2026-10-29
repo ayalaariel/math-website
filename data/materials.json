@@ -4266,5 +4266,13 @@
     "title": "פתרונות – מבחן לדוגמה: יחס, פיתגורס, זוויות, משוואות ואוריינות",
     "type": "solution",
     "file": "materials/8/8-practice-exam-ratio-pythagoras-angles-solutions.pdf"
+  },
+  {
+    "grade": "11",
+    "level": "4",
+    "topic": "סטטיסטיקה",
+    "title": "דף עבודה רגרסיה לינארית – מותאם לשאלון 471",
+    "type": "worksheet",
+    "file": "materials/11/11-regression-471.pdf"
   }
 ]
