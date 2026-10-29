@@ -4300,5 +4300,14 @@
     "title": "דף עבודה – מלבנים ומשולשים במערכת צירים: שטח והיקף, רמה בסיסית (כולל פתרונות)",
     "type": "worksheet",
     "file": "materials/7/7-rectangle-triangle-area-perimeter-worksheet.pdf"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מערכת צירים",
+    "title": "דף עבודה – מערכת צירים: תרגול בסיס (רביעים, תזוזות, מלבן) (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/7/7-coordinate-system-basic-practice.pdf"
   }
 ]
