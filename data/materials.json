@@ -4309,5 +4309,14 @@
     "title": "דף עבודה – מערכת צירים: תרגול בסיס (רביעים, תזוזות, מלבן) (כולל פתרונות)",
     "type": "worksheet",
     "file": "materials/7/7-coordinate-system-basic-practice.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "מצגת – מבוא לאחוזים: מה זה אחוז, 50% ו-10%, הדרך הכללית והנחה במבצע",
+    "type": "presentation",
+    "file": "materials/8/8-percent-intro-presentation.pdf"
   }
 ]
