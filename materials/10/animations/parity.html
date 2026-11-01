@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>זוגית ואי־זוגית בתנועה</title>
+</head>
+<body style="margin:0;background:#1c1e24">
+<title>זוגית ואי-זוגית בתנועה</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=STIX+Two+Text:ital,wght@0,400;1,400;1,600&display=swap">
+<style>
+/* Layout: one dark "blackboard" stage (16:9 canvas) with a caption strip, transport controls and chapter chips beneath; RTL */
+:root{
+  --bg:#16181d; --stage:#1c1e24; --fg:#ececec; --muted:#9aa1ad; --line:#2d313a;
+  --blue:#58c4dd; --yellow:#f4d35e; --green:#83c167; --red:#fc6255;
+  --hebrew:"Frank Ruhl Libre", "David Libre", "Times New Roman", serif;
+  --math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--fg);font-family:var(--hebrew);font-size:18px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:20px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+h1{margin:0;font-weight:700;font-size:clamp(24px,4vw,34px);text-wrap:balance}
+header p{margin:0;color:var(--muted);font-size:16px}
+.stage{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;background:var(--stage);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+canvas{display:block;width:100%;height:100%}
+.caption{min-height:3.2em;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:clamp(18px,2.6vw,26px);padding:6px 8px;transition:opacity .35s}
+.m{font-family:var(--math);font-style:italic;unicode-bidi:isolate;direction:ltr;white-space:nowrap}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+.btn{font:inherit;font-size:17px;font-weight:700;min-height:44px;padding:0 18px;border-radius:999px;cursor:pointer;
+  background:transparent;color:var(--fg);border:1.5px solid var(--line)}
+.btn.primary{background:var(--blue);color:#0e1a1f;border-color:var(--blue);min-width:120px}
+.btn:hover{border-color:var(--blue)}
+.btn:focus-visible,.chip:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0;margin:0;list-style:none}
+.chip{position:relative;overflow:hidden;font:inherit;font-size:15px;min-height:38px;padding:0 14px;border-radius:999px;cursor:pointer;
+  background:transparent;color:var(--muted);border:1px solid var(--line)}
+.chip .fill{position:absolute;inset:0 0 0 auto;width:0;background:rgba(88,196,221,.18);pointer-events:none}
+.chip[aria-current="true"]{color:var(--fg);border-color:var(--blue)}
+.chip span{position:relative}
+.note{color:var(--muted);font-size:15px;text-align:center;margin:0}
+</style>
+
+<div class="wrap" dir="rtl" lang="he">
+  <header>
+    <h1>זוגית ואי־זוגית בתנועה</h1>
+    <p>קדם אנליזה · כיתה י׳ · 5 יח״ל</p>
+  </header>
+
+  <div class="stage"><canvas id="cv" aria-label="אנימציה של פונקציה זוגית ואי-זוגית"></canvas></div>
+  <div class="caption" id="cap" aria-live="polite"></div>
+
+  <div class="controls">
+    <button class="btn" type="button" id="prev" aria-label="לסצנה הקודמת">הקודם</button>
+    <button class="btn primary" type="button" id="play">הפעלה ▶</button>
+    <button class="btn" type="button" id="next" aria-label="לסצנה הבאה">הבא</button>
+    <button class="btn" type="button" id="restart">מההתחלה</button>
+  </div>
+  <ul class="chips" id="chips" aria-label="פרקים"></ul>
+  <p class="note">מקש רווח: הפעלה ועצירה · חצים: מעבר בין סצנות</p>
+</div>
+
+<script>
+(function(){
+const C={blue:'#58c4dd',yellow:'#f4d35e',green:'#83c167',red:'#fc6255',fg:'#ececec',muted:'#9aa1ad',axis:'#6d7480',teal:'#5cd0b3'};
+const MATH='"STIX Two Text","Cambria Math","Times New Roman",serif';
+const HEB='"Frank Ruhl Libre","David Libre","Times New Roman",serif';
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+let W=0,H=0,U=0,dpr=1;
+function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);U=W/8.6;render();}
+const clamp=x=>x<0?0:x>1?1:x, ease=x=>{x=clamp(x);return x*x*(3-2*x)}, seg=(t,a,b)=>clamp((t-a)/(b-a));
+const S=(x,y)=>[W/2+x*U, H/2-y*U];
+const rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return `rgba(${n>>16},${n>>8&255},${n&255},${a})`};
+
+function axes(a,hiY){
+  if(a<=0)return;
+  ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=C.axis;ctx.lineWidth=Math.max(1.5,U*0.018);
+  let [x0,y0]=S(-4.25,0),[x1]=S(4.25,0);ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y0);ctx.stroke();
+  ctx.strokeStyle=hiY?C.teal:C.axis;ctx.lineWidth=hiY?U*0.03:Math.max(1.5,U*0.018);
+  let [cx,ya]=S(0,2.35),[,yb]=S(0,-2.35);ctx.beginPath();ctx.moveTo(cx,ya);ctx.lineTo(cx,yb);ctx.stroke();
+  ctx.fillStyle=C.axis;ctx.font=`italic ${U*0.2}px ${MATH}`;ctx.direction='ltr';ctx.textAlign='left';
+  ctx.fillText('x',x1-U*0.12,y0+U*0.24);ctx.fillText('y',cx+U*0.1,ya+U*0.15);
+  ctx.restore();
+}
+// plot math function f over [x0,x1] with scales sx,sy; map transforms world point
+function curve(f,x0,x1,sx,sy,o={}){
+  const prog=o.prog??1, a=o.alpha??1; if(prog<=0||a<=0)return;
+  const xe=x0+(x1-x0)*prog, N=220;
+  ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=o.color||C.blue;ctx.lineWidth=U*(o.w||0.045);ctx.lineCap='round';ctx.lineJoin='round';
+  if(o.dash)ctx.setLineDash([U*0.08,U*0.08]);
+  if(o.glow){ctx.shadowColor=o.color||C.blue;ctx.shadowBlur=U*o.glow;}
+  ctx.beginPath();let first=true;
+  for(let i=0;i<=N;i++){const x=x0+(xe-x0)*i/N;let p=[x*sx,f(x)*sy];if(o.map)p=o.map(p);
+    if(Math.abs(p[1])>3.2){first=true;continue;}
+    const [X,Y]=S(p[0],p[1]);if(first){ctx.moveTo(X,Y);first=false}else ctx.lineTo(X,Y);}
+  ctx.stroke();ctx.restore();
+}
+function dot(x,y,col,r=0.07,a=1){if(a<=0)return;const [X,Y]=S(x,y);ctx.save();ctx.globalAlpha=a;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=U*0.15;ctx.beginPath();ctx.arc(X,Y,U*r,0,7);ctx.fill();ctx.restore();}
+function line(x0,y0,x1,y1,col,a=1,dash=true,w=0.025){if(a<=0)return;const [A,B]=S(x0,y0),[Cx,D]=S(x1,y1);ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=col;ctx.lineWidth=U*w;if(dash)ctx.setLineDash([U*0.07,U*0.06]);ctx.beginPath();ctx.moveTo(A,B);ctx.lineTo(Cx,D);ctx.stroke();ctx.restore();}
+function mtext(s,x,y,col,size=0.24,a=1,align='center'){if(a<=0)return;const [X,Y]=S(x,y);ctx.save();ctx.globalAlpha=a;ctx.fillStyle=col;ctx.font=`italic ${U*size}px ${MATH}`;ctx.direction='ltr';ctx.textAlign=align;ctx.textBaseline='middle';ctx.fillText(s,X,Y);ctx.restore();}
+function htext(s,x,y,col,size=0.3,a=1,weight=700){if(a<=0)return;const [X,Y]=S(x,y);ctx.save();ctx.globalAlpha=a;ctx.fillStyle=col;ctx.font=`${weight} ${U*size}px ${HEB}`;ctx.direction='rtl';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(s,X,Y);ctx.restore();}
+function badge(ok,x,y,a){if(a<=0)return;const col=ok?C.green:C.red;const [X,Y]=S(x,y);ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=col;ctx.lineWidth=U*0.06;ctx.lineCap='round';ctx.shadowColor=col;ctx.shadowBlur=U*0.2;ctx.beginPath();
+  if(ok){ctx.moveTo(X-U*0.22,Y);ctx.lineTo(X-U*0.05,Y+U*0.18);ctx.lineTo(X+U*0.26,Y-U*0.2);}else{ctx.moveTo(X-U*0.18,Y-U*0.18);ctx.lineTo(X+U*0.18,Y+U*0.18);ctx.moveTo(X+U*0.18,Y-U*0.18);ctx.lineTo(X-U*0.18,Y+U*0.18);}
+  ctx.stroke();ctx.restore();}
+const rot=th=>p=>[p[0]*Math.cos(th)-p[1]*Math.sin(th),p[0]*Math.sin(th)+p[1]*Math.cos(th)];
+const fold=s=>p=>[p[0]*Math.cos(Math.PI*s),p[1]];
+
+// functions and their scales
+const fe=x=>x**4-3*x*x, EX=1.4, EY=0.6;   // even
+const fo=x=>x**3-3*x,   OX=1.25,OY=0.55;  // odd
+const fn=x=>x*x+x,      NX=1.2, NY=0.5;   // neither
+
+// pair of points x and -x, shared by even and odd scenes
+function pair(f,sx,sy,a,odd,alpha){
+  const xa=a*sx, ya=f(a)*sy, xb=-a*sx, yb=f(-a)*sy;
+  line(xa,0,xa,ya,C.muted,alpha*0.8);line(xb,0,xb,yb,C.muted,alpha*0.8);
+  line(xa,ya,xb,yb,C.yellow,alpha,true,0.03);
+  mtext('x',xa,ya>0?-0.25:0.25,C.fg,0.24,alpha);mtext('−x',xb,yb>0?-0.25:0.25,C.fg,0.24,alpha);
+  dot(xa,ya,C.blue,0.08,alpha);dot(xb,yb,C.yellow,0.08,alpha);
+  if(odd){const pulse=0.07+0.02*Math.sin(performance.now()/200);dot(0,0,C.fg,pulse,alpha);}
+}
+
+const scenes=[
+ {name:'פתיחה',dur:6,cap:[[0,'מה קורה לגרף כשהופכים את הסימן של <span class="m">x</span>?']],
+  draw(t){axes(0.35);
+    curve(fe,-2.1,2.1,EX,EY,{alpha:0.18,color:C.blue});curve(fo,-2.3,2.3,OX,OY,{alpha:0.18,color:C.yellow});
+    htext('זוגית',1.15,0.9,C.blue,0.55,ease(seg(t,0.2,1.2)));
+    htext('ואי־זוגית',-1.15,0.9,C.yellow,0.55,ease(seg(t,0.8,1.8)));
+    mtext('f(−x) = ?',0,-0.45,C.fg,0.42,ease(seg(t,2,3)));}},
+ {name:'זוגית',dur:13,cap:[[0,'פונקציה זוגית: <span class="m">f(x) = x⁴ − 3x²</span>'],[4.5,'בוחרים מספר <span class="m">x</span> ואת המספר הנגדי לו, <span class="m">−x</span>'],[8.5,'אותו מרחק מהאפס, ולכן אותו גובה: <span class="m">f(−x) = f(x)</span>']],
+  draw(t){axes(ease(seg(t,0,1)));mtext('f(x) = x⁴ − 3x²',-3.0,2.05,C.blue,0.28,ease(seg(t,0.5,1.5)));
+    curve(fe,-2.1,2.1,EX,EY,{prog:ease(seg(t,1,4)),glow:0.12});
+    if(t>4.5){const a=1.35+0.45*Math.sin((t-4.5)*1.1);pair(fe,EX,EY,a,false,ease(seg(t,4.5,5.3)));}}},
+ {name:'קיפול',dur:10,cap:[[0,'הצד השמאלי של הגרף בצהוב, הימני בכחול'],[1.5,'מקפלים את הדף לאורך ציר <span class="m">y</span>…'],[6,'…ושני הצדדים מתלכדים: סימטריה ביחס לציר <span class="m">y</span>']],
+  draw(t){const s=ease(seg(t,1.5,5.5));axes(1,t>1.2);mtext('f(x) = x⁴ − 3x²',-3.0,2.05,C.blue,0.28);
+    curve(fe,0,2.1,EX,EY,{glow:0.12});
+    curve(fe,-2.1,0,EX,EY,{color:C.yellow,map:fold(s),glow:t>6?0.35:0.12});
+    badge(true,3.4,1.9,ease(seg(t,6,6.6)));}},
+ {name:'אי־זוגית',dur:13,cap:[[0,'פונקציה אי־זוגית: <span class="m">f(x) = x³ − 3x</span>'],[4.5,'שוב בוחרים <span class="m">x</span> ו־<span class="m">−x</span>'],[8.5,'הגבהים הפוכים: <span class="m">f(−x) = −f(x)</span>, והקטע עובר דרך ראשית הצירים']],
+  draw(t){axes(ease(seg(t,0,1)));mtext('f(x) = x³ − 3x',-3.0,2.05,C.yellow,0.28,ease(seg(t,0.5,1.5)));
+    curve(fo,-2.3,2.3,OX,OY,{prog:ease(seg(t,1,4)),glow:0.12});
+    if(t>4.5){const a=1.45+0.55*Math.sin((t-4.5)*1.1);pair(fo,OX,OY,a,true,ease(seg(t,4.5,5.3)));}}},
+ {name:'חצי סיבוב',dur:10,cap:[[0,'הגרף של <span class="m">x³ − 3x</span>, ועותק שלו בצהוב'],[1.5,'מסובבים את העותק חצי סיבוב סביב ראשית הצירים…'],[6.3,'…והוא חוזר בדיוק לעצמו: סימטריה ביחס לראשית']],
+  draw(t){const th=Math.PI*ease(seg(t,1.5,6));axes(1);mtext('f(x) = x³ − 3x',-3.0,2.05,C.yellow,0.28,t<1.5?1:t>6.3?ease(seg(t,6.3,7)):0);
+    curve(fo,-2.3,2.3,OX,OY,{color:C.fg,alpha:0.35,dash:true,w:0.03});
+    curve(fo,-2.3,2.3,OX,OY,{color:C.yellow,map:rot(th),glow:t>6.3?0.35:0.12});
+    if(t>1.5&&t<6.3){const [X,Y]=S(0,0);ctx.save();ctx.strokeStyle=C.teal;ctx.lineWidth=U*0.03;ctx.beginPath();ctx.arc(X,Y,U*0.45,0,-th,true);ctx.stroke();ctx.restore();}
+    dot(0,0,C.fg,0.07);badge(true,3.4,1.9,ease(seg(t,6.3,6.9)));}},
+ {name:'אף אחת',dur:13.5,cap:[[0,'ומה עם <span class="m">f(x) = x² + x</span>?'],[3,'מנסים לקפל לאורך ציר <span class="m">y</span>…'],[5.8,'הצדדים לא מתלכדים, ולכן היא לא זוגית'],[8,'מנסים חצי סיבוב סביב ראשית הצירים…'],[11.3,'גם לא חוזר לעצמו. היא לא זוגית ולא אי־זוגית, כמו רוב הפונקציות']],
+  draw(t){axes(ease(seg(t,0,0.8)),t>2.8&&t<7);mtext('f(x) = x² + x',-3.0,2.05,C.green,0.28,t<7.5?ease(seg(t,0.3,1.2)):t>11.3?ease(seg(t,11.3,12)):0);
+    if(t<7){const s=ease(seg(t,3,5.5)),fa=1-seg(t,6.6,7);
+      curve(fn,0,1.6,NX,NY,{prog:ease(seg(t,0.6,1.6)),color:C.blue,glow:0.12});
+      curve(fn,-2.6,0,NX,NY,{prog:ease(seg(t,1.6,2.6)),color:C.yellow,map:fold(s),alpha:fa,glow:0.12});
+      badge(false,3.4,1.9,ease(seg(t,5.8,6.3))*fa);}
+    else{const th=Math.PI*ease(seg(t,8,11));
+      curve(fn,-2.6,1.6,NX,NY,{color:C.fg,alpha:0.35,dash:true,w:0.03});
+      curve(fn,-2.6,1.6,NX,NY,{color:C.yellow,map:rot(th),alpha:ease(seg(t,7,7.5)),glow:0.12});
+      dot(0,0,C.fg,0.07);badge(false,3.4,1.9,ease(seg(t,11.3,11.8)));}}},
+ {name:'סיכום',dur:9,cap:[[0,'זוגית: קיפול לאורך ציר <span class="m">y</span>. אי־זוגית: חצי סיבוב סביב הראשית']],
+  draw(t){const a1=ease(seg(t,0.3,1.3)),a2=ease(seg(t,1.3,2.3));
+    // right panel: even
+    htext('זוגית',2.1,1.85,C.blue,0.42,a1);mtext('f(−x) = f(x)',2.1,1.3,C.fg,0.32,a1);
+    curve(fe,-1.95,1.95,0.75,0.32,{alpha:a1,map:p=>[p[0]+2.1,p[1]-0.55],glow:0.1,w:0.04});
+    htext('קיפול לאורך ציר y',2.1,-1.75,C.muted,0.24,a1,400);
+    htext('אי־זוגית',-2.1,1.85,C.yellow,0.42,a2);mtext('f(−x) = −f(x)',-2.1,1.3,C.fg,0.32,a2);
+    curve(fo,-2.2,2.2,0.7,0.3,{color:C.yellow,alpha:a2,map:p=>[p[0]-2.1,p[1]-0.55],glow:0.1,w:0.04});
+    htext('חצי סיבוב סביב הראשית',-2.1,-1.75,C.muted,0.24,a2,400);
+    line(0,1.9,0,-1.9,C.axis,Math.min(a1,a2),false,0.012);}}
+];
+
+// player
+let i=0,t=0,playing=false,last=null,capKey='';
+const capEl=document.getElementById('cap'),playBtn=document.getElementById('play'),chips=document.getElementById('chips');
+scenes.forEach((s,k)=>{const li=document.createElement('li');li.innerHTML=`<button type="button" class="chip" data-k="${k}"><i class="fill"></i><span>${k+1}. ${s.name}</span></button>`;chips.appendChild(li);});
+chips.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b){i=+b.dataset.k;t=0;setPlay(true);}});
+function setPlay(p){playing=p;last=null;playBtn.textContent=p?'עצירה ❚❚':(i===scenes.length-1&&t>=scenes[i].dur?'שוב ▶':'הפעלה ▶');}
+playBtn.onclick=()=>{if(!playing&&i===scenes.length-1&&t>=scenes[i].dur){i=0;t=0;}setPlay(!playing);};
+document.getElementById('prev').onclick=()=>{i=Math.max(0,t>1.5?i:i-1);t=0;render();};
+document.getElementById('next').onclick=()=>{if(i<scenes.length-1){i++;t=0;render();}};
+document.getElementById('restart').onclick=()=>{i=0;t=0;setPlay(true);};
+document.addEventListener('keydown',e=>{if(e.target.closest('button'))return;if(e.code==='Space'){e.preventDefault();playBtn.click();}
+  else if(e.key==='ArrowLeft')document.getElementById('next').click();else if(e.key==='ArrowRight')document.getElementById('prev').click();});
+
+function updateUI(){const sc=scenes[i];let c=sc.cap[0][1];for(const [tt,txt] of sc.cap)if(t>=tt)c=txt;
+  const key=i+'|'+c;if(key!==capKey){capKey=key;capEl.innerHTML=c;}
+  chips.querySelectorAll('.chip').forEach((b,k)=>{b.setAttribute('aria-current',k===i?'true':'false');
+    b.querySelector('.fill').style.width=(k<i?100:k===i?Math.min(100,t/scenes[k].dur*100):0)+'%';});}
+function render(){if(!W)return;ctx.clearRect(0,0,W,H);ctx.fillStyle='#1c1e24';ctx.fillRect(0,0,W,H);
+  ctx.save();ctx.globalAlpha=1;scenes[i].draw(Math.max(t,0));ctx.restore();
+  const fin=ease(seg(t,0,0.4));if(fin<1){ctx.fillStyle=rgba('#1c1e24',1-fin);ctx.fillRect(0,0,W,H);}
+  updateUI();}
+function loop(ts){if(playing){if(last!=null)t+=Math.min(0.1,(ts-last)/1000);last=ts;
+    if(t>=scenes[i].dur){if(i<scenes.length-1){i++;t=0;}else{t=scenes[i].dur;setPlay(false);}}}
+  else last=null;
+  render();requestAnimationFrame(loop);}
+window.addEventListener('resize',resize);
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>{resize();t=3;render();t=3;});
+resize();t=3;requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

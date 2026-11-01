@@ -4242,6 +4242,46 @@
     "file": "materials/10/קדם-אנליזה.pptx"
   },
   {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "קדם אנליזה – מצגת מלאה ומעודכנת: פונקציות חזקה, זוגיות, חקירת פולינום, אי-שוויונות, פעולות על פונקציות, ערך מוחלט (PDF)",
+    "type": "presentation",
+    "file": "materials/10/10-pre-analysis-presentation.pdf"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "אנימציה: פונקציה זוגית ואי-זוגית (קיפול וחצי סיבוב)",
+    "type": "video",
+    "file": "materials/10/animations/parity.html"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "אנימציה: ריבוי של שורש – הגרף חוצה או משיק?",
+    "type": "video",
+    "file": "materials/10/animations/multiplicity.html"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "אנימציה: אי-שוויונות בדרך גרפית",
+    "type": "video",
+    "file": "materials/10/animations/inequalities.html"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "אנימציה: ערך מוחלט",
+    "type": "video",
+    "file": "materials/10/animations/absolute-value.html"
+  },
+  {
     "grade": "11",
     "level": "4",
     "topic": "סטטיסטיקה",

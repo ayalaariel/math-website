@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>אי־שוויונות בדרך גרפית</title>
+</head>
+<body style="margin:0;background:#1c1e24">
+<style>html,body{margin:0;height:100vh;background:#1c1e24;overflow:hidden}canvas{display:block;width:100%;height:100%}</style>
+<canvas id="c"></canvas>
+<script>
+(function(){
+var cv=document.getElementById('c'),g=cv.getContext('2d'),W,H,U,CY,
+B='#58c4dd',Y='#f4d35e',R='#fc6255',F='#ececec',A='#6d7480',M='#9aa1ad',BG='#1c1e24',
+MF='"Times New Roman",serif',HF='"David","Times New Roman",serif',L='⁦',P='⁩',m='−';
+function rs(){var d=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;g.setTransform(d,0,0,d,0,0);U=W/8.6;CY=H*0.47}
+function cl(x){return x<0?0:x>1?1:x}function ez(x){x=cl(x);return x*x*(3-2*x)}function sg(t,a,b){return cl((t-a)/(b-a))}
+function S(x,y){return[W/2+x*U,CY-y*U]}
+var f=function(x){return(x+2)*(x-1)*(x-1)*(x-3)},sx=1.25,sy=.1,ox=.5,X0=-2.6,X1=3.6;
+function wx(x){return(x-ox)*sx}
+function ax(a){g.save();g.globalAlpha=a;g.lineWidth=U*.02;g.strokeStyle=A;var p=S(-4.25,0),q=S(4.25,0);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();g.restore()}
+function tx(s,x,y,c,sz,a,heb){if(a<=0)return;var p=S(x,y);g.save();g.globalAlpha=a;g.fillStyle=c;g.font=(heb?'bold ':'italic ')+U*sz+'px '+(heb?HF:MF);g.direction=heb?'rtl':'ltr';g.textAlign='center';g.textBaseline='middle';g.fillText(s,p[0],p[1]);g.restore()}
+function ticks(a){[-2,1,3].forEach(function(k){tx(String(k).replace('-',m),wx(k),-.3,M,.26,a)})}
+function cu(fn,x0,x1,o){o=o||{};var a=o.a==null?1:o.a;if(a<=0||x1<=x0)return;var st=1;g.save();g.globalAlpha=a;g.strokeStyle=o.c||B;g.lineWidth=U*(o.w||.045);g.lineCap=g.lineJoin='round';g.shadowColor=o.c||B;g.shadowBlur=U*(o.gl||.1);g.beginPath();
+for(var i=0;i<=260;i++){var x=x0+(x1-x0)*i/260,y=fn(x)*(o.sy||sy),X=o.wx?o.wx(x):wx(x);if(Math.abs(y)>2.3){st=1;continue}var s=S(X,y);if(st){g.moveTo(s[0],s[1]);st=0}else g.lineTo(s[0],s[1])}g.stroke();g.restore()}
+// paint axis where cond holds, up to xs
+function band(cond,xs,c,a){if(a<=0)return;g.save();g.globalAlpha=a;g.strokeStyle=c;g.lineWidth=U*.09;g.lineCap='butt';g.shadowColor=c;g.shadowBlur=U*.2;
+var N=400,on=0,x0;for(var i=0;i<=N;i++){var x=X0+(X1-X0)*i/N,ok=x<=xs&&cond(x);if(ok&&!on){on=1;x0=x}if((!ok||i==N)&&on){on=0;var p=S(wx(x0),0),q=S(wx(x),0);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke()}}g.restore()}
+function hi(cond,xs,c,a){if(a<=0)return;var N=300,on=0,x0;for(var i=0;i<=N;i++){var x=X0+(X1-X0)*i/N,ok=x<=xs&&cond(x);if(ok&&!on){on=1;x0=x}if((!ok||i==N)&&on){on=0;cu(f,x0,x,{c:c,a:a,w:.06,gl:.25})}}}
+function circ(x,c,full,a){if(a<=0)return;var p=S(wx(x),0);g.save();g.globalAlpha=a;g.lineWidth=U*.035;g.strokeStyle=c;g.fillStyle=full?c:BG;g.beginPath();g.arc(p[0],p[1],U*.1,0,7);g.fill();g.stroke();g.restore()}
+function scan(t,t0,t1,cond,c){var xs=X0+(X1-X0)*ez(sg(t,t0,t1));if(t>t0&&t1+.5>t){var y=Math.max(-2.2,Math.min(2.2,f(xs)*sy)),p=S(wx(xs),y),q=S(wx(xs),0),al=1-sg(t,t1,t1+.5);
+g.save();g.globalAlpha=al;g.strokeStyle=M;g.lineWidth=U*.02;g.setLineDash([U*.06,U*.05]);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();g.setLineDash([]);
+g.fillStyle=F;g.shadowColor=F;g.shadowBlur=U*.15;g.beginPath();g.arc(p[0],p[1],U*.08,0,7);g.fill();g.restore()}return xs}
+function base(t,lbl,c){ax(1);ticks(1);tx(lbl,2.9,1.9,c,.36,ez(sg(t,0,.8)));cu(f,X0,X1,{c:F,a:.45,w:.035,gl:0})}
+var pos=function(x){return f(x)>1e-9},neg=function(x){return f(x)<-1e-9};
+var SC=[
+[6,[[0,'אי־שוויון: קוראים את התשובה מהגרף, על ציר x']],function(t){ax(.5);cu(f,X0,X1,{a:.25});
+tx('אי־שוויונות בדרך גרפית',0,1.2,F,.5,ez(sg(t,.2,1.2)),1);tx('f(x) > 0',1.6,-.9,B,.42,ez(sg(t,1.5,2.3)));tx('f(x) < 0',-1.6,-.9,R,.42,ez(sg(t,2.3,3.1)))}],
+[13,[[0,L+'f(x) > 0'+P+': איפה הגרף מעל ציר x?'],[2.5,'עוברים על הגרף משמאל לימין…'],[4.5,'…ובכל מקום שהגרף מעל הציר, צובעים את ציר x בכחול'],[10,'הפתרון: '+L+'x < '+m+'2'+P+' או '+L+'x > 3'+P]],
+function(t){base(t,'f(x) > 0',B);var xs=scan(t,2.5,9.5,pos);hi(pos,xs,B,1);band(pos,xs,B,1);
+if(t>9.5){[-2,1,3].forEach(function(k){circ(k,B,0,ez(sg(t,9.5,10)))})}}],
+[12,[[0,L+'f(x) < 0'+P+': איפה הגרף מתחת לציר?'],[2,'צובעים בצבע אחר את הקטעים שבהם הגרף מתחת לציר'],[9,'הפתרון: '+L+m+'2 < x < 3'+P+', חוץ מ־'+L+'x = 1'+P+' שבה '+L+'f(1) = 0'+P]],
+function(t){base(t,'f(x) < 0',R);var xs=scan(t,2,8.5,neg);hi(neg,xs,R,1);band(neg,xs,R,1);
+if(t>8.5){[-2,1,3].forEach(function(k){circ(k,R,0,ez(sg(t,8.5,9)))});if(t>9){var p=S(wx(1),0);g.save();g.strokeStyle=Y;g.lineWidth=U*.03;g.globalAlpha=.5+.5*Math.sin(t*5);g.beginPath();g.arc(p[0],p[1],U*.22,0,7);g.stroke();g.restore()}}}],
+[13,[[0,L+'f(x) ≥ 0'+P+': מעל הציר, או בדיוק עליו'],[2.5,'נקודות האפס נכללות: עיגול מלא'],[5.5,'ומה עם '+L+'x = 1'+P+'? הגרף רק נוגע שם בציר…'],[8,'…אבל '+L+'f(1) = 0'+P+', ולכן גם '+L+'x = 1'+P+' הוא פתרון!'],[10.5,'הפתרון: '+L+'x ≤ '+m+'2'+P+' או '+L+'x = 1'+P+' או '+L+'x ≥ 3'+P]],
+function(t){base(t,'f(x) ≥ 0',B);hi(pos,X1,B,ez(sg(t,.5,1.5)));band(pos,X1,B,ez(sg(t,.5,1.5)));
+circ(-2,B,1,ez(sg(t,2.5,3.2)));circ(3,B,1,ez(sg(t,2.5,3.2)));
+if(t>5.5){var p=S(wx(1),0);g.save();g.strokeStyle=Y;g.lineWidth=U*.03;g.globalAlpha=.5+.5*Math.sin(t*5);g.beginPath();g.arc(p[0],p[1],U*.24,0,7);g.stroke();g.restore()}
+circ(1,B,1,ez(sg(t,8,8.6)));}],
+[13,[[0,'ושני גרפים? '+L+'x² > x + 2'+P],[2.5,'מחפשים איפה הגרף של '+L+'x²'+P+' מעל הישר'],[6.5,'נקודות החיתוך '+L+'x = '+m+'1'+P+' ו־'+L+'x = 2'+P+' הן הגבולות'],[9.5,'הפתרון: '+L+'x < '+m+'1'+P+' או '+L+'x > 2'+P]],
+function(t){var gx=function(x){return x},q=function(x){return x*x},l=function(x){return x+2},W2=function(x){return(x-.5)*1.3};ax(1);
+cu(q,-2.3,3.3,{sy:.45,wx:W2,c:B,p:1,a:ez(sg(t,.3,1.3))});cu(l,-2.3,3.3,{sy:.45,wx:W2,c:Y,a:ez(sg(t,.8,1.8))});
+tx('y = x²',W2(-1.5),2,B,.3,ez(sg(t,.3,1.3)));tx('y = x + 2',W2(3.2),1.1,Y,.3,ez(sg(t,.8,1.8)));
+var c2=function(x){return x*x>x+2+1e-9},xs=-2.3+5.6*ez(sg(t,2.5,6.5));
+g.save();g.globalAlpha=1;var N=300,on=0,x0;for(var i=0;i<=N;i++){var x=-2.3+5.6*i/N,ok=x<=xs&&c2(x);if(ok&&!on){on=1;x0=x}if((!ok||i==N)&&on){on=0;
+cu(q,x0,x,{sy:.45,wx:W2,c:B,w:.065,gl:.3});var a1=S(W2(x0),0),b1=S(W2(x),0);g.strokeStyle=B;g.lineWidth=U*.09;g.shadowColor=B;g.shadowBlur=U*.2;g.beginPath();g.moveTo(a1[0],a1[1]);g.lineTo(b1[0],b1[1]);g.stroke()}}g.restore();
+[-1,2].forEach(function(k){var a=ez(sg(t,6.5,7.2)),p=S(W2(k),k*k*.45),z=S(W2(k),0);g.save();g.globalAlpha=a;g.strokeStyle=M;g.lineWidth=U*.02;g.setLineDash([U*.06,U*.05]);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(z[0],z[1]);g.stroke();g.restore();
+g.save();g.globalAlpha=a;g.fillStyle=F;g.beginPath();g.arc(p[0],p[1],U*.08,0,7);g.fill();g.lineWidth=U*.035;g.strokeStyle=B;g.fillStyle=BG;g.beginPath();g.arc(z[0],z[1],U*.1,0,7);g.fill();g.stroke();g.restore();
+tx(String(k).replace('-',m),W2(k),-.32,M,.26,a)})}],
+[9,[[0,'התשובה היא תמיד קבוצה של ערכי x, לא של y']],function(t){var r=[['f(x) > 0','x < '+m+'2  או  x > 3',B],['f(x) ≥ 0','x ≤ '+m+'2  או  x = 1  או  x ≥ 3',B],['f(x) < 0',m+'2 < x < 3,  x ≠ 1',R],['f(x) ≤ 0',m+'2 ≤ x ≤ 3',R]];
+tx(L+'f(x) = (x + 2)(x '+m+' 1)²(x '+m+' 3)'+P,0,1.9,F,.32,ez(sg(t,0,.8)));
+r.forEach(function(k,j){var a=ez(sg(t,.6+j*.6,1.3+j*.6)),y=1.05-j*.75;tx(k[0],2.3,y,k[2],.34,a);tx(k[1],-.9,y,F,.34,a)})}]
+];
+var i=0,t=0,last=null;
+function cap(){var c=SC[i][1],s=c[0][1];for(var k=0;c.length>k;k++)if(t>=c[k][0])s=c[k][1];return s}
+function fr(ts){if(last!=null)t+=Math.min(.1,(ts-last)/1000);last=ts;if(t>=SC[i][0]){i=(i+1)%SC.length;t=0}
+g.fillStyle=BG;g.fillRect(0,0,W,H);SC[i][2](t);
+g.save();g.globalAlpha=ez(sg(t,0,.4));g.fillStyle=F;g.font='bold '+Math.max(26,U*.25)+'px '+HF;g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.fillText(cap(),W/2,H*.92);g.restore();
+for(var k=0;SC.length>k;k++){g.fillStyle=k==i?B:'#3a3f49';g.beginPath();g.arc(W/2+(2.5-k)*U*.18,H*.985,U*.035,0,7);g.fill()}
+if(t<.4){g.fillStyle='rgba(28,30,36,'+(1-t/.4)+')';g.fillRect(0,0,W,H*.86)}
+requestAnimationFrame(fr)}
+addEventListener('resize',rs);rs();requestAnimationFrame(fr);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ערך מוחלט</title>
+</head>
+<body style="margin:0;background:#1c1e24">
+<style>html,body{margin:0;height:100vh;background:#1c1e24;overflow:hidden}canvas{display:block;width:100%;height:100%}</style>
+<canvas id="c"></canvas>
+<script>
+(function(){
+var cv=document.getElementById('c'),g=cv.getContext('2d'),W,H,U,CY,
+B='#58c4dd',Y='#f4d35e',R='#fc6255',GR='#83c167',F='#ececec',A='#6d7480',M='#9aa1ad',BG='#1c1e24',
+MF='"Times New Roman",serif',HF='"David","Times New Roman",serif',L='⁦',P='⁩',m='−';
+function rs(){var d=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;g.setTransform(d,0,0,d,0,0);U=W/8.6;CY=H*0.5}
+function cl(x){return x<0?0:x>1?1:x}function ez(x){x=cl(x);return x*x*(3-2*x)}function sg(t,a,b){return cl((t-a)/(b-a))}
+function S(x,y){return[W/2+x*U,CY-y*U]}
+function ln(x0,y0,x1,y1,c,w,a,d){if(a<=0)return;var p=S(x0,y0),q=S(x1,y1);g.save();g.globalAlpha=a;g.strokeStyle=c;g.lineWidth=U*w;g.lineCap='round';if(d)g.setLineDash([U*.07,U*.06]);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();g.restore()}
+function ax(a,yax){ln(-4.25,0,4.25,0,A,.02,a);if(yax)ln(0,-1.7,0,2.15,A,.02,a)}
+function tx(s,x,y,c,sz,a,heb){if(a<=0)return;var p=S(x,y);g.save();g.globalAlpha=a;g.fillStyle=c;g.font=(heb?'bold ':'italic ')+U*sz+'px '+(heb?HF:MF);g.direction=heb?'rtl':'ltr';g.textAlign='center';g.textBaseline='middle';g.fillText(s,p[0],p[1]);g.restore()}
+function dt(x,y,c,r,a){if(a<=0)return;var p=S(x,y);g.save();g.globalAlpha=a;g.fillStyle=c;g.shadowColor=c;g.shadowBlur=U*.15;g.beginPath();g.arc(p[0],p[1],U*r,0,7);g.fill();g.restore()}
+// curve with optional map on (x,y) in world coords
+function cu(fn,x0,x1,o){o=o||{};var a=o.a==null?1:o.a;if(a<=0||x1<=x0)return;var st=1;g.save();g.globalAlpha=a;g.strokeStyle=o.c||B;g.lineWidth=U*(o.w||.045);g.lineCap=g.lineJoin='round';if(o.d)g.setLineDash([U*.08,U*.08]);g.shadowColor=o.c||B;g.shadowBlur=U*(o.gl==null?.12:o.gl);g.beginPath();
+for(var i=0;i<=300;i++){var x=x0+(x1-x0)*i/300,y=fn(x);if(o.m)y=o.m(y);if(Math.abs(y)>2.3){st=1;continue}var p=S(x,y);if(st){g.moveTo(p[0],p[1]);st=0}else g.lineTo(p[0],p[1])}g.stroke();g.restore()}
+function flip(s){return function(y){return y<0?y*Math.cos(Math.PI*s):y}}
+function nticks(sc,a){for(var k=-4;4>=k;k++){var X=k*sc;if(Math.abs(X)>4)continue;ln(X,-.07,X,.07,A,.02,a);tx(String(k).replace('-',m),X,-.32,M,.24,a)}}
+var SC=[
+[6,[[0,'ערך מוחלט של מספר = המרחק שלו מאפס']],function(t){ax(.4,1);cu(function(x){return Math.abs(x)*.8},-2.6,2.6,{a:.2});
+tx(L+'|x|'+P,0,1.1,B,1,ez(sg(t,.2,1.2)));tx('המרחק מאפס',0,-.6,F,.45,ez(sg(t,1.2,2.2)),1)}],
+[12,[[0,'על ציר המספרים: '+L+'|x|'+P+' הוא המרחק של x מ־0'],[3,L+'|3| = 3'+P+': המרחק של 3 מאפס הוא 3'],[7,L+'|'+m+'3| = 3'+P+': גם המרחק של '+L+m+'3'+P+' מאפס הוא 3'],[10,'מרחק הוא אף פעם לא שלילי']],
+function(t){var sc=.9;ax(1);nticks(sc,1);var v=t<6?3*ez(sg(t,1,3)):3-6*ez(sg(t,6,7.5));if(t>1){var X=v*sc;
+g.save();var p=S(0,0),q=S(X,0);g.strokeStyle=Y;g.lineWidth=U*.07;g.shadowColor=Y;g.shadowBlur=U*.25;g.beginPath();g.moveTo(p[0],p[1]-U*.35);g.lineTo(q[0],q[1]-U*.35);g.stroke();g.restore();
+ln(0,.2,0,.5,Y,.025,1);ln(X,.2,X,.5,Y,.025,1);dt(X,0,B,.1,1);
+var d=Math.abs(v);tx('|'+(v<0?m:'')+Math.abs(v).toFixed(1).replace('.0','')+'| = '+d.toFixed(1).replace('.0',''),X/2,.85,Y,.36,1);dt(0,0,F,.07,1)}}],
+[13,[[0,'נבנה את הגרף של '+L+'y = |x|'+P],[1.5,'לכל x, הגובה של הנקודה הוא המרחק של x מאפס'],[7,'בצד ימין: '+L+'y = x'+P+'. בצד שמאל: '+L+'y = '+m+'x'+P],[10,'יוצא גרף בצורת V, עם קודקוד בראשית']],
+function(t){var sc=.8;ax(1,1);nticks(sc*1.25,1);var xs=-2.6+5.2*ez(sg(t,1.5,6.5));cu(function(x){return Math.abs(x)},-2.6,xs,{gl:.15});
+if(t>1.5&&7>t){var y=Math.abs(xs);ln(xs,0,xs,y,Y,.03,1,1);dt(xs,0,F,.07,1);dt(xs,y,B,.09,1)}
+tx('y = x',2.2,1.5,B,.32,ez(sg(t,7,7.6)));tx('y = '+m+'x',-2.2,1.5,B,.32,ez(sg(t,7.4,8)));dt(0,0,Y,.1,ez(sg(t,10,10.5)))}],
+[11,[[0,'דרך נוספת: מתחילים מהישר '+L+'y = x'+P],[2,'החלק שמתחת לציר x מתהפך למעלה…'],[7,'…ומקבלים בדיוק את '+L+'y = |x|'+P]],
+function(t){ax(1,1);var s=ez(sg(t,2,6.5));cu(function(x){return x},-2.4,2.4,{c:F,a:.3,d:1,w:.03,gl:0});cu(function(x){return x},0,2.4);cu(function(x){return x},-2.4,0,{c:t>2?Y:B,m:flip(s)});
+if(s>0&&1>s){var p=S(-1.8,0);g.save();g.strokeStyle=Y;g.lineWidth=U*.03;g.beginPath();g.arc(p[0],p[1],U*.5,Math.PI*.5,Math.PI*.5+Math.PI*s,false);g.stroke();g.restore()}}],
+[13,[[0,'אותו רעיון לכל פונקציה: '+L+'y = |x² '+m+' 4|'+P],[2.5,'החלק שמתחת לציר x מתהפך למעלה…'],[7,'…הקודקוד '+L+'(0, '+m+'4)'+P+' עובר ל־'+L+'(0, 4)'+P],[10,'והאפסים '+L+'x = ±2'+P+' לא זזים']],
+function(t){ax(1,1);var f=function(x){return(x*x-4)*.4},s=ez(sg(t,2.5,7));tx('y = |x² '+m+' 4|',3.1,-1.1,B,.32,ez(sg(t,0,.8)));
+cu(f,-3.2,3.2,{c:F,a:.35,d:1,w:.03,gl:0});cu(f,-3.2,-2);cu(f,2,3.2);cu(f,-2,2,{c:Y,m:flip(s)});
+var vy=-1.6*Math.cos(Math.PI*s);dt(0,vy,Y,.1,1);tx(L+'(0, '+(s>.5?'4':m+'4')+')'+P,.75,vy,Y,.28,1);
+[-2,2].forEach(function(k){dt(k,0,R,.09,ez(sg(t,9.8,10.3)));tx(k<0?m+'2':'2',k,-.32,M,.26,1)})}],
+[12,[[0,L+'|x| < 2'+P+': המרחק של x מאפס קטן מ־2'],[3,'על הגרף: איפה ה־V מתחת לקו '+L+'y = 2'+P+'?'],[8.5,'הפתרון: '+L+m+'2 < x < 2'+P]],
+function(t){ax(1,1);cu(function(x){return Math.abs(x)*.8},-2.8,2.8);ln(-4,1.6,4,1.6,GR,.035,ez(sg(t,1.5,2.3)));tx('y = 2',3.4,1.85,GR,.3,ez(sg(t,1.5,2.3)));
+var s=ez(sg(t,3,7.5));if(s>0){cu(function(x){return Math.abs(x)*.8},-2*s,2*s,{c:Y,w:.07,gl:.3});g.save();var p=S(-2*s,0),q=S(2*s,0);g.strokeStyle=Y;g.lineWidth=U*.09;g.shadowColor=Y;g.shadowBlur=U*.2;g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();g.restore()}
+[-2,2].forEach(function(k){var a=ez(sg(t,7.5,8.2)),p=S(k,0);ln(k,0,k,1.6,M,.02,a,1);g.save();g.globalAlpha=a;g.lineWidth=U*.035;g.strokeStyle=Y;g.fillStyle=BG;g.beginPath();g.arc(p[0],p[1],U*.1,0,7);g.fill();g.stroke();g.restore();tx(k<0?m+'2':'2',k,-.35,M,.26,a)})}],
+[8,[[0,'ערך מוחלט: מרחק מאפס, ולכן אף פעם לא שלילי']],function(t){var a=ez(sg(t,.3,1.2)),b=ez(sg(t,1.2,2.1)),c=ez(sg(t,2.1,3));
+tx(L+'|x| = x'+P+'   כאשר   '+L+'x ≥ 0'+P,0,1.5,B,.36,a,1);tx(L+'|x| = '+m+'x'+P+'   כאשר   '+L+'x < 0'+P,0,.75,B,.36,b,1);
+tx(L+'y = |f(x)|'+P+': מה שמעל הציר נשאר, מה שמתחת מתהפך למעלה',0,-.4,Y,.32,c,1)}]
+];
+var i=0,t=0,last=null;
+function cap(){var c=SC[i][1],s=c[0][1];for(var k=0;c.length>k;k++)if(t>=c[k][0])s=c[k][1];return s}
+function fr(ts){if(last!=null)t+=Math.min(.1,(ts-last)/1000);last=ts;if(t>=SC[i][0]){i=(i+1)%SC.length;t=0}
+g.fillStyle=BG;g.fillRect(0,0,W,H);SC[i][2](t);
+g.save();g.globalAlpha=ez(sg(t,0,.4));g.fillStyle=F;g.font='bold '+Math.max(26,U*.25)+'px '+HF;g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.fillText(cap(),W/2,H*.92);g.restore();
+for(var k=0;SC.length>k;k++){g.fillStyle=k==i?B:'#3a3f49';g.beginPath();g.arc(W/2+(3-k)*U*.18,H*.985,U*.035,0,7);g.fill()}
+if(t<.4){g.fillStyle='rgba(28,30,36,'+(1-t/.4)+')';g.fillRect(0,0,W,H*.86)}
+requestAnimationFrame(fr)}
+addEventListener('resize',rs);rs();requestAnimationFrame(fr);
+})();
+</script>
+</body>
+</html>
