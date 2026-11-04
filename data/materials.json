@@ -4226,6 +4226,24 @@
     "file": "materials/8/8-1334.pdf"
   },
   {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "מבחן כיתה ח׳: משוואות, זוויות, פיתגורס ויחס",
+    "type": "exam",
+    "file": "materials/8/8-exam-equations-angles-pythagoras-ratio.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "חזרות ומבחנים מסכמים",
+    "title": "פתרון מלא – מבחן כיתה ח׳: משוואות, זוויות, פיתגורס ויחס",
+    "type": "solution",
+    "file": "materials/8/8-exam-equations-angles-pythagoras-ratio-solutions.pdf"
+  },
+  {
     "grade": "10",
     "level": "5",
     "topic": "פונקציית חזקה",
