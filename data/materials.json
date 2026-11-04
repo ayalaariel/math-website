@@ -4400,5 +4400,21 @@
     "title": "אנימציה: התפלגות נורמלית, שטחים וציון תקן",
     "type": "video",
     "file": "materials/11/animations/normal-distribution.html"
+  },
+  {
+    "grade": "11",
+    "level": "4",
+    "topic": "סטטיסטיקה",
+    "title": "רגרסיה לינארית לשאלון 471 – מצגת חזרה: סוגי קשר, מקדם המתאם, מציאת קו הרגרסיה, חיזוי ושינוי נתונים (PDF)",
+    "type": "presentation",
+    "file": "materials/11/11-regression-471-presentation.pdf"
+  },
+  {
+    "grade": "11",
+    "level": "4",
+    "topic": "סטטיסטיקה",
+    "title": "אנימציה: דיאגרמת פיזור, מקדם המתאם וקו הרגרסיה",
+    "type": "video",
+    "file": "materials/11/animations/linear-regression.html"
   }
 ]
