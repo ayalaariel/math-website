@@ -4384,5 +4384,21 @@
     "title": "מצגת – יחסי שטחים ומשפט התיכונים: הוכחות ופתרונות מלאים (שיעור כפול)",
     "type": "presentation",
     "file": "materials/10/10-area-ratios-medians-presentation.pdf"
+  },
+  {
+    "grade": "11",
+    "level": "4",
+    "topic": "סטטיסטיקה",
+    "title": "סטטיסטיקה לשאלון 471 – מצגת חזרה: מדדי מרכז, סטיית תקן, התפלגות נורמלית וציון תקן (PDF)",
+    "type": "presentation",
+    "file": "materials/11/11-statistics-471-presentation.pdf"
+  },
+  {
+    "grade": "11",
+    "level": "4",
+    "topic": "סטטיסטיקה",
+    "title": "אנימציה: התפלגות נורמלית, שטחים וציון תקן",
+    "type": "video",
+    "file": "materials/11/animations/normal-distribution.html"
   }
 ]

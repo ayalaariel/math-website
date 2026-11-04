@@ -1,0 +1,51 @@
+<style>html,body{margin:0;height:100%;background:#1c1e24;overflow:hidden}canvas{display:block;width:100%;height:100%}</style>
+<canvas id="c"></canvas>
+<script>
+(function(){
+var cv=document.getElementById('c'),g=cv.getContext('2d'),W,H,U,BY,
+B='#58c4dd',Y='#f4d35e',GR='#83c167',R='#fc6255',F='#ececec',A='#6d7480',M='#9aa1ad',BG='#1c1e24',
+MF='"Times New Roman",serif',HF='"David","Times New Roman",serif',L='⁦',P='⁩',m='−';
+function rs(){var d=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;g.setTransform(d,0,0,d,0,0);U=W/8.6;BY=H*0.7}
+function cl(x){return x<0?0:x>1?1:x}function ez(x){x=cl(x);return x*x*(3-2*x)}function sg(t,a,b){return cl((t-a)/(b-a))}
+function erf(x){var s=x<0?-1:1;x=Math.abs(x);var t=1/(1+.3275911*x),y=1-((((1.061405429*t-1.453152027)*t+1.421413741)*t-.284496736)*t+.254829592)*t*Math.exp(-x*x);return s*y}
+function Phi(z){return .5*(1+erf(z/Math.SQRT2))}
+// world: x in sigma units around mu=0 at screen center; sc = px per unit; hgt
+function X(x){return W/2+x*U}function Yv(v){return BY-v*U*3.1}
+function pdf(x,mu,s){return Math.exp(-.5*((x-mu)/s)*((x-mu)/s))/s*.95}
+function axis(a){g.save();g.globalAlpha=a;g.strokeStyle=A;g.lineWidth=U*.02;g.beginPath();g.moveTo(X(-4.2),BY);g.lineTo(X(4.2),BY);g.stroke();g.restore()}
+function curve(mu,s,c,a,prog,w){if(a<=0)return;prog=prog==null?1:prog;g.save();g.globalAlpha=a;g.strokeStyle=c||B;g.lineWidth=U*(w||.045);g.shadowColor=c||B;g.shadowBlur=U*.12;g.beginPath();
+var x0=-4.1,x1=x0+8.2*prog;for(var i=0;i<=300;i++){var x=x0+(x1-x0)*i/300,y=Yv(pdf(x,mu,s));if(i)g.lineTo(X(x),y);else g.moveTo(X(x),y)}g.stroke();g.restore()}
+function fill(mu,s,a,b,c,al){if(al<=0||b<=a)return;g.save();g.globalAlpha=al;g.fillStyle=c;g.beginPath();g.moveTo(X(a),BY);for(var i=0;i<=200;i++){var x=a+(b-a)*i/200;g.lineTo(X(x),Yv(pdf(x,mu,s)))}g.lineTo(X(b),BY);g.closePath();g.fill();g.restore()}
+function tx(s,x,y,c,sz,a,heb){if(a<=0)return;g.save();g.globalAlpha=a;g.fillStyle=c;g.font=(heb?'bold ':'italic ')+U*sz+'px '+(heb?HF:MF);g.direction=heb?'rtl':'ltr';g.textAlign='center';g.textBaseline='middle';g.fillText(s,x,y);g.restore()}
+function tick(x,s,a){g.save();g.globalAlpha=a;g.strokeStyle=A;g.lineWidth=U*.02;g.beginPath();g.moveTo(X(x),BY-U*.07);g.lineTo(X(x),BY+U*.07);g.stroke();g.restore();tx(s,X(x),BY+U*.32,M,.24,a)}
+function vline(x,c,a,top){g.save();g.globalAlpha=a;g.strokeStyle=c;g.lineWidth=U*.025;g.setLineDash([U*.07,U*.06]);g.beginPath();g.moveTo(X(x),BY);g.lineTo(X(x),top);g.stroke();g.restore()}
+var lab=['x̄ '+m+' 3S','x̄ '+m+' 2S','x̄ '+m+' S','x̄','x̄ + S','x̄ + 2S','x̄ + 3S'];
+function sticks(a){for(var k=-3;3>=k;k++)tick(k,lab[k+3],a)}
+var SC=[
+[8,[[0,'התפלגות נורמלית: עקומת פעמון'],[3,'היא סימטרית סביב הממוצע x̄'],[5.5,'השטח כולו מתחת לעקומה הוא 100%']],function(t){axis(1);curve(0,1,B,1,ez(sg(t,.3,2.6)));
+vline(0,Y,ez(sg(t,3,3.6)),Yv(pdf(0,0,1)));tx('x̄',X(0),Yv(pdf(0,0,1))-U*.25,Y,.36,ez(sg(t,3,3.6)));fill(0,1,-4.1,4.1,B,.25*ez(sg(t,5.5,6.3)));tx('100%',X(0),BY-U*.8,F,.42,ez(sg(t,5.8,6.4)))}],
+[13,[[0,'השטח משמאל לנקודה = אחוז הנתונים שמתחתיה'],[6,'זה המספר שקוראים בטבלה: '+L+'f(z)'+P],[10,'בממוצע בדיוק: 50% מתחת, 50% מעל']],function(t){axis(1);sticks(1);curve(0,1,B,1);
+var z=t<10?-2.3+4.3*ez(sg(t,1,9)):2-2*ez(sg(t,10,11.5));fill(0,1,-4.1,z,B,.35);vline(z,Y,1,Yv(pdf(z,0,1)));
+var pc=(Phi(z)*100).toFixed(2);tx('z = '+z.toFixed(2).replace('-',m),X(z),Yv(pdf(z,0,1))-U*.3,Y,.3,1);tx(pc+'%',X(Math.min(z,0)-1.6),BY-U*1.4,F,.5,1)}],
+[12,[[0,'כמה נתונים בכל סטיית תקן?'],[2,'בין x̄ ל־x̄ + S: בערך 34%'],[5,'בין S ל־2S: בערך 13.5%'],[8,'מעבר ל־2S: רק בערך 2.3%']],function(t){axis(1);sticks(1);curve(0,1,B,1);
+var a1=ez(sg(t,2,3)),a2=ez(sg(t,5,6)),a3=ez(sg(t,8,9));fill(0,1,-1,1,B,.45*a1);fill(0,1,1,2,Y,.45*a2);fill(0,1,-2,-1,Y,.45*a2);fill(0,1,2,4.1,R,.5*a3);fill(0,1,-4.1,-2,R,.5*a3);
+tx('34.13%',X(.5),BY-U*.55,F,.23,a1);tx('34.13%',X(-.5),BY-U*.55,F,.23,a1);tx('13.59%',X(1.5),BY-U*.35,Y,.26,a2);tx('13.59%',X(-1.5),BY-U*.35,Y,.26,a2);tx('2.28%',X(2.7),BY-U*.45,R,.26,a3);tx('2.28%',X(-2.7),BY-U*.45,R,.26,a3)}],
+[11,[[0,'סטיית התקן קובעת את הרוחב'],[3,'S קטנה: הנתונים צפופים, עקומה צרה וגבוהה'],[7,'S גדולה: הנתונים מפוזרים, עקומה רחבה ונמוכה']],function(t){axis(1);var s=1;if(t>3)s=1-.45*ez(sg(t,3,5));if(t>7)s=.55+1.05*ez(sg(t,7,9));
+curve(0,1,F,.25,1,.03);curve(0,s,B,1);fill(0,s,-4.1,4.1,B,.18);tx('S = '+s.toFixed(2),X(2.6),BY-U*1.9,Y,.34,1)}],
+[9,[[0,'הממוצע קובע את המיקום'],[2.5,'כשמגדילים את x̄, כל העקומה זזה ימינה, והצורה לא משתנה']],function(t){axis(1);var mu=-1.2+2.4*ez(sg(t,2.5,6.5));curve(0,1,F,.25,1,.03);curve(mu,1,GR,1);vline(mu,Y,1,Yv(pdf(mu,mu,1)));tx('x̄',X(mu),Yv(pdf(mu,mu,1))-U*.25,Y,.36,1)}],
+[14,[[0,'דוגמה: ציונים עם '+L+'x̄ = 72'+P+' ו־'+L+'S = 8'+P],[3,'איזה אחוז קיבלו פחות מ־84?'],[6,'ציון תקן: '+L+'z = (84 '+m+' 72) : 8 = 1.5'+P],[9.5,'בטבלה: '+L+'f(1.5) = 0.9332'+P+', כלומר 93.32%']],function(t){axis(1);curve(0,1,B,1);
+var vals=['48','56','64','72','80','88','96'];for(var k=-3;3>=k;k++)tick(k,vals[k+3],1);
+var a=ez(sg(t,3,4));vline(1.5,Y,a,Yv(pdf(1.5,0,1)));tx('84',X(1.5),BY+U*.32,Y,.26,a);
+if(t>6){tx('z = 1.5',X(1.5),Yv(pdf(1.5,0,1))-U*.3,Y,.32,ez(sg(t,6,6.6)))}fill(0,1,-4.1,-4.1+5.6*ez(sg(t,7,9.5)),B,.38);tx('93.32%',X(-.8),BY-U*1.2,F,.5,ez(sg(t,9.5,10.2)))}]
+];
+var i=0,t=0,last=null;
+function cap(){var c=SC[i][1],s=c[0][1];for(var k=0;c.length>k;k++)if(t>=c[k][0])s=c[k][1];return s}
+function fr(ts){if(last!=null)t+=Math.min(.1,(ts-last)/1000);last=ts;if(t>=SC[i][0]){i=(i+1)%SC.length;t=0}
+g.fillStyle=BG;g.fillRect(0,0,W,H);SC[i][2](t);
+g.save();g.globalAlpha=ez(sg(t,0,.4));g.fillStyle=F;g.font='bold '+Math.max(26,U*.26)+'px '+HF;g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.fillText(cap(),W/2,H*.91);g.restore();
+for(var k=0;SC.length>k;k++){g.fillStyle=k==i?B:'#3a3f49';g.beginPath();g.arc(W/2+(2.5-k)*U*.18,H*.975,U*.035,0,7);g.fill()}
+if(t<.4){g.fillStyle='rgba(28,30,36,'+(1-t/.4)+')';g.fillRect(0,0,W,H*.86)}
+requestAnimationFrame(fr)}
+addEventListener('resize',rs);rs();requestAnimationFrame(fr);
+})();
+</script>
