@@ -4287,6 +4287,14 @@
     "grade": "10",
     "level": "5",
     "topic": "פונקציית חזקה",
+    "title": "מצגת – חותך או נוגע? חזקה זוגית ואי-זוגית, סימני הפונקציה לפני ואחרי השורשים, סקיצה ואי-שוויון (2 תרגילים עם פתרון מלא, PDF)",
+    "type": "presentation",
+    "file": "materials/10/10-cross-or-touch-presentation.pdf"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
     "title": "אנימציה: אי-שוויונות בדרך גרפית",
     "type": "video",
     "file": "materials/10/animations/inequalities.html"
