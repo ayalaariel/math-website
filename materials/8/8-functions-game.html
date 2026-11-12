@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרוץ הפונקציות – עולה/יורדת והצבה בטבלה – איילה אריאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24345c; --ink-soft:#4a5a80; --teal:#14a3a3; --teal-soft:#d6f2f1;
+    --bg:#f4f7fb; --card:#ffffff; --line:#dfe5ef;
+    --good:#1f9d55; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3e3;
+    --gold:#f2b705; --teamB:#e0712c; --teamB-soft:#fde9dc;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Rubik",system-ui,sans-serif}
+  body{min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+  /* header / branding */
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .pi{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+      font-size:26px;font-weight:700;box-shadow:0 0 0 3px var(--teal-soft), 0 0 0 5px var(--teal)}
+  .brand-text b{display:block;font-size:17px;line-height:1.1}
+  .brand-text span{font-size:13px;color:var(--teal);font-weight:600}
+  .gtitle{font-weight:800;font-size:clamp(18px,4.5vw,26px);color:var(--ink)}
+  .gtitle em{font-style:normal;color:var(--teal)}
+
+  .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(36,52,92,.07);border:1px solid var(--line)}
+  .stack>*+*{margin-top:14px}
+  h2{margin:0 0 8px;font-size:19px}
+  .muted{color:var(--ink-soft)}
+
+  /* start screen */
+  .opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;text-align:right;font-size:15px;color:var(--ink)}
+  .opt b{display:block;font-size:16px;margin-bottom:2px}
+  .opt small{color:var(--ink-soft)}
+  .opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+  .big-btn{width:100%;border:0;border-radius:16px;padding:16px;font-size:20px;font-weight:700;background:var(--teal);color:#fff;
+           box-shadow:0 4px 0 #0e7d7d}
+  .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0e7d7d}
+  .ghost{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600}
+
+  .remind{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .rbox{background:var(--bg);border-radius:14px;padding:12px;border:1px dashed #c5cfe0}
+  .rbox h3{margin:0 0 6px;font-size:15px;color:var(--teal)}
+
+  /* fractions */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1.25}
+  .frac .num{padding:0 6px 2px;border-bottom:2px solid currentColor}
+  .frac .den{padding:2px 6px 0}
+  .formula{font-size:17px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .eq{font-size:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px;unicode-bidi:isolate}
+
+  /* game */
+  .hud{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:15px}
+  .pill.team{border-width:2px}
+  .pill.team.on{box-shadow:0 0 0 3px var(--teal-soft)}
+  .pill.tA{border-color:var(--teal)} .pill.tB{border-color:var(--teamB)}
+  .pill.tB.on{box-shadow:0 0 0 3px var(--teamB-soft)}
+  .progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+  .qtag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+  .qtag.a{background:var(--teal-soft);color:#0d7272}
+  .qtag.b{background:#e7e9fb;color:#3f46a8}
+  .turn{font-weight:700;font-size:15px;margin-bottom:6px}
+  .question{font-size:clamp(20px,5vw,28px);font-weight:600;line-height:1.5;margin:4px 0 6px}
+  .question .n{color:var(--teal);font-weight:800}
+  .givens{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .given{background:var(--bg);border-radius:10px;padding:6px 10px;font-size:15px}
+  .given b{color:var(--ink)}
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .ans{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 8px;font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink);
+       box-shadow:0 3px 0 var(--line);transition:background .15s}
+  .ans:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .ans.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+  .ans.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);opacity:.75}
+  .ans:disabled{cursor:default}
+
+  .typebox{display:flex;gap:8px;margin-top:14px;align-items:stretch}
+  .typebox input{flex:1;min-width:0;font-size:28px;font-weight:700;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px;font-family:inherit;color:var(--ink)}
+  .typebox input:focus{outline:none;border-color:var(--teal)}
+  .typebox .suffix{display:grid;place-items:center;font-size:26px;font-weight:700;padding:0 4px}
+  .typebox button{border:0;border-radius:14px;background:var(--teal);color:#fff;font-size:18px;font-weight:700;padding:0 18px}
+
+  .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hint{margin-top:12px;background:#fff8e1;border:1px solid #f3dd8f;border-radius:14px;padding:12px}
+  .hint h3{margin:0 0 6px;font-size:15px;color:#9a7300}
+  .feedback{margin-top:12px;border-radius:14px;padding:12px}
+  .feedback.good{background:var(--good-soft);border:1px solid #9fd9b6}
+  .feedback.bad{background:var(--bad-soft);border:1px solid #f0b2b2}
+  .feedback.retry{background:#fff3e6;border:1px solid #f5c99a}
+  .feedback h3{margin:0 0 6px;font-size:18px}
+
+  .bar{position:relative;height:30px;background:#fff;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:10px 0 4px}
+  .bar i{position:absolute;inset-block:0;right:0;background:var(--teal);transition:width .6s}
+  .bar-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .next{margin-top:12px}
+
+  .pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:800;color:var(--good);pointer-events:none;
+       animation:pop .9s ease-out forwards;z-index:9;text-shadow:0 2px 0 #fff}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+
+  /* end */
+  .stars{font-size:46px;letter-spacing:6px;text-align:center;margin:6px 0}
+  .stars .off{filter:grayscale(1);opacity:.3}
+  .score-big{text-align:center;font-size:44px;font-weight:800;color:var(--teal)}
+  .center{text-align:center}
+  .teams-end{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tbox{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--line)}
+  .tbox.win{border-color:var(--gold);background:#fff9e0}
+  .tbox b{display:block;font-size:34px}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:20px}
+</style>
+<style>
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-weight:600}
+  .eq{direction:ltr;unicode-bidi:isolate;display:inline-block;font-size:clamp(26px,7vw,38px);font-weight:800;color:var(--ink);margin:4px 0}
+  .eq .x{color:#0d7272}.eq .y{color:#c25a17}
+  .center-q{text-align:center}
+  .fig{display:flex;justify-content:center;margin:4px 0}
+  .fig svg{width:100%;max-width:320px;height:auto}
+  .tbl{border-collapse:collapse;margin:10px auto;direction:ltr;font-size:22px;font-weight:700}
+  .tbl td,.tbl th{border:2px solid var(--ink);padding:8px 14px;text-align:center;min-width:44px}
+  .tbl th{background:var(--teal-soft);color:var(--ink)}
+  .tbl .q{background:#fde3e3;color:#d64545}
+  .steps{line-height:2}.steps .ltr{font-size:19px;white-space:nowrap}
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;line-height:1.2}
+  .frac .num{padding:0 5px 1px;border-bottom:2px solid currentColor}.frac .den{padding:1px 5px 0}
+  .question{font-size:clamp(19px,4.8vw,25px)}
+  .rules li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="pi">π</div><div class="brand-text"><b>איילה אריאל</b><span>מתמטיקה</span></div></div>
+    <div class="gtitle">מרוץ <em>הפונקציות</em> 📈</div>
+  </header>
+  <section id="start" class="stack">
+    <div class="card">
+      <h2>תזכורת לפני שמתחילים</h2>
+      <ul class="rules" style="margin:0;padding-inline-start:20px">
+        <li>בפונקציה <span class="ltr">y = mx + b</span>, המספר שליד <span class="ltr">x</span> הוא <b>השיפוע</b>.</li>
+        <li>שיפוע <b>חיובי</b> ← הפונקציה <b>עולה</b> 📈. שיפוע <b>שלילי</b> ← <b>יורדת</b> 📉. אין <span class="ltr">x</span> (שיפוע 0) ← <b>קבועה</b> ➡️.</li>
+        <li>בגרף: מסתכלים <b>משמאל לימין</b> – הקו עולה או יורד?</li>
+        <li><b>מוצאים y:</b> מציבים את <span class="ltr">x</span> ומחשבים. <b>מוצאים x:</b> מציבים את <span class="ltr">y</span> ופותרים משוואה.</li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <div>
+        <h2>מה מתרגלים?</h2>
+        <div class="opts" data-group="mode">
+          <button class="opt" data-val="dir"><b>עולה או יורדת?</b><small>מנוסחה, מגרף ומטבלה</small></button>
+          <button class="opt" data-val="sub"><b>הצבה בטבלה</b><small>מוצאים y לפי x, ו-x לפי y</small></button>
+          <button class="opt sel" data-val="mix"><b>מעורב</b><small>גם וגם</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>באיזו רמה?</h2>
+        <div class="opts" data-group="level">
+          <button class="opt sel" data-val="1"><b>⭐ רמה 1</b><small>ערכי x חיוביים, מספרים קטנים</small></button>
+          <button class="opt" data-val="2"><b>⭐⭐ רמה 2</b><small>גם מספרים שליליים</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>איך עונים?</h2>
+        <div class="opts" data-group="style">
+          <button class="opt sel" data-val="choice"><b>בחירה מתוך תשובות</b><small>לוחצים על התשובה</small></button>
+          <button class="opt" data-val="type"><b>מקלידים תשובה</b><small>בשאלות ההצבה</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>מי משחק?</h2>
+        <div class="opts" data-group="teams">
+          <button class="opt sel" data-val="1"><b>משחק יחיד</b><small>10 שאלות</small></button>
+          <button class="opt" data-val="2"><b>שתי קבוצות</b><small>12 שאלות, לסירוגין – לכיתה</small></button>
+        </div>
+      </div>
+      <button class="big-btn" id="goBtn">יאללה, מתחילים! 🚀</button>
+    </div>
+    <div class="card muted" style="font-size:14px"><b>ניקוד:</b> תשובה נכונה בניסיון ראשון = 10 נקודות. עם רמז או בניסיון שני = 5 נקודות. 3 ברצף = בונוס 5 🔥.</div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="hud"><div class="pill" id="qCount"></div><div id="scoreArea" style="display:flex;gap:6px"></div></div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="card" id="qCard">
+      <div class="turn hidden" id="turn"></div>
+      <span class="qtag a" id="qtag"></span>
+      <div class="question" id="qText"></div>
+      <div class="center-q" id="body"></div>
+      <div class="answers" id="answers"></div>
+      <div class="typebox hidden" id="typebox" style="direction:ltr">
+        <button class="ghost" id="signBtn" style="font-size:24px;padding:0 16px">±</button>
+        <input id="typeIn" inputmode="numeric" autocomplete="off" placeholder="?">
+        <button id="checkBtn">בדיקה</button>
+      </div>
+      <div class="tools"><button class="ghost" id="hintBtn">💡 רמז</button></div>
+      <div class="hint hidden" id="hint"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="big-btn next hidden" id="nextBtn">לשאלה הבאה ←</button>
+    </div>
+  </section>
+  <section id="end" class="hidden"><div class="card stack" id="endCard"></div></section>
+  <footer>נוצר על ידי איילה אריאל · מתמטיקה</footer>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const MI='−';const sn=n=>n<0?MI+(-n):String(n);const par=n=>n<0?`(${MI}${-n})`:String(n);
+const L=s=>`<span class="ltr">${s}</span>`;
+const frac=(n,d)=>`<span class="frac"><span class="num">${n}</span><span class="den">${d}</span></span>`;
+const settings={mode:'mix',level:1,style:'choice',teams:1};
+document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const v=b.dataset.val;settings[g.dataset.group]=['level','teams'].includes(g.dataset.group)?Number(v):v;}));
+let audio=null;
+function beep(good){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[300,220]).forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.setValueAtTime(.0001,audio.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.18,audio.currentTime+i*.12+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.12+.18);o.connect(g).connect(audio.destination);o.start(audio.currentTime+i*.12);o.stop(audio.currentTime+i*.12+.2);});}catch(e){}}
+
+/* ---------- functions ---------- */
+function eqText(m,b){ // plain text y = mx + b
+  let s='y = ';
+  if(m===0) return s+sn(b);
+  s+= m===1?'x':m===-1?MI+'x':sn(m)+'x';
+  if(b>0) s+=' + '+b; else if(b<0) s+=' '+MI+' '+(-b);
+  return s;
+}
+const eqHTML=(m,b)=>`<span class="eq">${eqText(m,b).replace(/x/g,'<span class="x">x</span>').replace(/^y/,'<span class="y">y</span>')}</span>`;
+const DIR={up:'עולה 📈',down:'יורדת 📉',flat:'קבועה ➡️'};
+const dirOf=m=>m>0?'up':m<0?'down':'flat';
+function pickMB(lvl){
+  if(lvl===1){return {m:pick([1,2,3,4,-1,-2,-3]),b:rint(0,6)};}
+  return {m:pick([1,2,3,-1,-2,-3,-4,5]),b:rint(-6,6)};
+}
+function graph(m,b){
+  const S=24,O=[150,130],X=x=>O[0]+x*S,Y=y=>O[1]-y*S;let g='';
+  for(let i=-5;i<=5;i++){g+=`<line x1="${X(i)}" y1="${Y(-5)}" x2="${X(i)}" y2="${Y(5)}" stroke="#e3e7ef"/><line x1="${X(-5)}" y1="${Y(i)}" x2="${X(5)}" y2="${Y(i)}" stroke="#e3e7ef"/>`;}
+  g+=`<line x1="${X(-5.4)}" y1="${O[1]}" x2="${X(5.4)}" y2="${O[1]}" stroke="#24345c" stroke-width="1.8"/><line x1="${O[0]}" y1="${Y(-5.4)}" x2="${O[0]}" y2="${Y(5.4)}" stroke="#24345c" stroke-width="1.8"/>`;
+  g+=`<text x="${X(5.4)+8}" y="${O[1]+5}" font-size="15" font-weight="700" fill="#0d7272">x</text><text x="${O[0]+8}" y="${Y(5.4)+4}" font-size="15" font-weight="700" fill="#c25a17">y</text>`;
+  // clip line to box
+  let x1=-5,x2=5;const clamp=(x)=>{const y=m*x+b;return y};
+  if(m!==0){const xa=(5-b)/m,xb=(-5-b)/m;x1=Math.max(-5,Math.min(xa,xb));x2=Math.min(5,Math.max(xa,xb));}
+  g+=`<line x1="${X(x1)}" y1="${Y(clamp(x1))}" x2="${X(x2)}" y2="${Y(clamp(x2))}" stroke="#14a3a3" stroke-width="3.5" stroke-linecap="round"/>`;
+  return `<div class="fig"><svg viewBox="0 0 300 260" direction="ltr">${g}</svg></div>`;
+}
+function table(xs,ys,qIdx,qRow){
+  const cell=(v,isQ)=>`<td class="${isQ?'q':''}">${isQ?'?':sn(v)}</td>`;
+  return `<table class="tbl"><tr><th>x</th>${xs.map((v,i)=>cell(v,qRow==='x'&&i===qIdx)).join('')}</tr><tr><th>y</th>${ys.map((v,i)=>cell(v,qRow==='y'&&i===qIdx)).join('')}</tr></table>`;
+}
+function numOpts(ans,c){const o=[ans];for(const v of shuffle(c))if(o.length<4&&Number.isInteger(v)&&!o.includes(v))o.push(v);let k=1;while(o.length<4){for(const v of [ans+k,ans-k])if(o.length<4&&!o.includes(v))o.push(v);k++;}return shuffle(o).map(v=>({v,t:sn(v)}));}
+const DIRopts=(d)=>['up','down','flat'].map(k=>({v:k,t:DIR[k]}));
+
+/* ---------- question types ---------- */
+function qDirEq(){const lvl=settings.level;let {m,b}=pickMB(lvl);if(Math.random()<.15)m=0;
+  return {tag:'עולה, יורדת או קבועה?',q:'האם הפונקציה עולה, יורדת או קבועה?',body:eqHTML(m,b),ans:dirOf(m),opts:DIRopts(),
+    hint:`מסתכלים על המספר שליד ${L('x')} (השיפוע): חיובי ← עולה, שלילי ← יורדת, אין ${L('x')} ← קבועה.`,
+    sol:m===0?`אין ${L('x')} בפונקציה – ${L('y')} תמיד שווה ל-${L(sn(b))}, ולכן הפונקציה <b>קבועה</b>.`:`השיפוע (המספר שליד ${L('x')}) הוא ${L(sn(m))} – ${m>0?'<b>חיובי</b>, ולכן הפונקציה <b>עולה</b>':'<b>שלילי</b>, ולכן הפונקציה <b>יורדת</b>'}.${b!==0?` (המספר ${L(sn(b))} לא קובע אם היא עולה או יורדת.)`:''}`};}
+function qDirGraph(){let m=pick([1,2,-1,-2,0,1,-1,3,-3]);let b=rint(-2,3);if(m===0)b=rint(-3,3)||2;
+  return {tag:'עולה, יורדת או קבועה?',q:'לפי הגרף – האם הפונקציה עולה, יורדת או קבועה?',body:graph(m,b),ans:dirOf(m),opts:DIRopts(),
+    hint:'עוקבים אחרי הקו <b>משמאל לימין</b>, כמו שקוראים מספרים על ציר x.',
+    sol:m===0?'הקו ישר ומקביל לציר x – ערך y לא משתנה, ולכן הפונקציה <b>קבועה</b>.':`משמאל לימין הקו ${m>0?'<b>עולה</b> למעלה – הפונקציה עולה':'<b>יורד</b> למטה – הפונקציה יורדת'}.`};}
+function qDirTable(){const lvl=settings.level;let {m,b}=pickMB(lvl);if(Math.random()<.12)m=0;
+  const xs=lvl===1?[0,1,2,3]:[-1,0,1,2];const ys=xs.map(x=>m*x+b);
+  return {tag:'עולה, יורדת או קבועה?',q:'לפי הטבלה – האם הפונקציה עולה, יורדת או קבועה?',body:table(xs,ys),ans:dirOf(m),opts:DIRopts(),
+    hint:'כש-x גדל (משמאל לימין בטבלה), מה קורה ל-y? גדל, קטן או נשאר?',
+    sol:m===0?`כש-${L('x')} גדל, ${L('y')} נשאר ${L(sn(b))} – הפונקציה <b>קבועה</b>.`:`כש-${L('x')} גדל, ${L('y')} ${m>0?'<b>גדל</b>':'<b>קטן</b>'}: ${L(ys.map(sn).join(' → '))}, ולכן הפונקציה <b>${m>0?'עולה':'יורדת'}</b>.`};}
+function qFindY(){const lvl=settings.level;let {m,b}=pickMB(lvl);if(m===0)m=2;
+  const xs=lvl===1?[0,1,2,3,4]:[-2,-1,0,1,2];const qi=lvl===1?rint(1,4):pick([0,1,3,4]);const x=xs[qi],y=m*x+b;const ys=xs.map(v=>m*v+b);
+  const withTable=Math.random()<.6;
+  return {tag:'הצבה: מוצאים y',q:withTable?'השלימו את הערך החסר בטבלה (מוצאים y):':`מה ערך ${L('y')} כאשר ${L('x = '+sn(x))}?`,
+    body:eqHTML(m,b)+(withTable?table(xs,ys,qi,'y'):''),ans:y,opts:numOpts(y,[m*x-b,m+x+b,-y,m*(x+1)+b,y+m,y-1]),num:true,
+    hint:`מציבים ${L('x = '+sn(x))} במקום ${L('x')} בנוסחה ומחשבים. כפל לפני חיבור!`,
+    sol:`${L(`y = ${m===1?par(x):m===-1?MI+par(x):sn(m)+'·'+par(x)}${b>0?' + '+b:b<0?' '+MI+' '+(-b):''}`)}<br>${L(`y = ${sn(m*x)}${b>0?' + '+b:b<0?' '+MI+' '+(-b):''} = ${sn(y)}`)}`};}
+function qFindX(){const lvl=settings.level;let {m,b}=pickMB(lvl);if(m===0)m=2;
+  const x=lvl===1?rint(1,6):rint(-5,5);const y=m*x+b;
+  const xs=lvl===1?[1,2,3,4,5,6].filter(v=>v!==x).slice(0,3).concat([x]).sort((a,c)=>a-c):[-2,0,2,x].filter((v,i,a)=>a.indexOf(v)===i).sort((a,c)=>a-c);
+  const ys=xs.map(v=>m*v+b);const qi=xs.indexOf(x);const withTable=Math.random()<.5;
+  const rhs=y-b;
+  return {tag:'הצבה הפוכה: מוצאים x',q:withTable?'השלימו את הערך החסר בטבלה (מוצאים x):':`עבור איזה ${L('x')} מתקיים ${L('y = '+sn(y))}?`,
+    body:eqHTML(m,b)+(withTable?table(xs,ys,qi,'x'):''),ans:x,opts:numOpts(x,[-x,y-b,y+b,x+1,x-1,Math.round(y/m)!==x?Math.round(y/m):x+2]),num:true,
+    hint:`מציבים ${L('y = '+sn(y))} בנוסחה, ופותרים משוואה: מעבירים את המספר החופשי לצד השני, ואז מחלקים במקדם של ${L('x')}.`,
+    sol:`${L(`${sn(y)} = ${eqText(m,b).slice(4)}`)}<br>${b!==0?L(`${sn(y)} ${b>0?MI+' '+b:'+ '+(-b)} = ${m===1?'':m===-1?MI:sn(m)}x`)+'<br>'+L(`${sn(rhs)} = ${m===1?'':m===-1?MI:sn(m)}x`)+'<br>':''}${m!==1?`<span class="ltr">x = ${frac(sn(rhs),sn(m))} = ${sn(x)}</span>`:L(`x = ${sn(x)}`)}`};}
+
+function makeQ(){
+  const dir=[qDirEq,qDirGraph,qDirTable],sub=[qFindY,qFindY,qFindX];
+  const pool=settings.mode==='dir'?dir:settings.mode==='sub'?sub:dir.concat(sub);
+  return pick(pool)();
+}
+
+/* ---------- game loop ---------- */
+let S;const PRAISE=['מעולה!','כל הכבוד!','יפה מאוד!','בדיוק!','מושלם!','וואו! 🎯'];
+const team=()=>settings.teams===2?S.i%2:0;
+function start(){const total=settings.teams===2?12:10;S={total,i:0,scores:[0,0],streak:[0,0],first:[0,0]};$('start').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');show();}
+$('goBtn').addEventListener('click',()=>{beep(true);start();});
+function hud(){$('qCount').textContent=`שאלה ${S.i+1} מתוך ${S.total}`;$('prog').style.width=(S.i/S.total*100)+'%';
+  $('scoreArea').innerHTML=settings.teams===2?`<div class="pill team tA ${team()===0?'on':''}">קבוצה א׳: ${S.scores[0]}</div><div class="pill team tB ${team()===1?'on':''}">קבוצה ב׳: ${S.scores[1]}</div>`:`<div class="pill">⭐ ${S.scores[0]}</div>${S.streak[0]>=2?`<div class="pill">🔥 ${S.streak[0]}</div>`:''}`;}
+function show(){
+  if(S.i>=S.total)return finish();
+  const q=S.q=makeQ();S.tries=0;S.hint=false;S.done=false;hud();
+  const tu=$('turn');if(settings.teams===2){tu.classList.remove('hidden');tu.textContent=team()===0?'🟢 תור קבוצה א׳':'🟠 תור קבוצה ב׳';tu.style.color=team()===0?'var(--teal)':'var(--teamB)';}else tu.classList.add('hidden');
+  $('qtag').textContent=q.tag;$('qText').innerHTML=q.q;$('body').innerHTML=q.body;
+  ['hint','feedback','nextBtn'].forEach(id=>$(id).classList.add('hidden'));$('hintBtn').disabled=false;
+  const typed=settings.style==='type'&&q.num;
+  if(!typed){$('typebox').classList.add('hidden');$('answers').classList.remove('hidden');$('answers').style.gridTemplateColumns=q.opts.length===3?'1fr':'1fr 1fr';
+    $('answers').innerHTML=q.opts.map((o,i)=>`<button class="ans" data-i="${i}"><span class="${q.num?'ltr':''}">${o.t}</span></button>`).join('');}
+  else{$('answers').classList.add('hidden');$('typebox').classList.remove('hidden');$('typeIn').value='';['typeIn','checkBtn','signBtn'].forEach(id=>$(id).disabled=false);setTimeout(()=>{try{$('typeIn').focus()}catch(e){}},50);}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('answers').addEventListener('click',e=>{const b=e.target.closest('.ans');if(!b||b.disabled||S.done)return;check(S.q.opts[+b.dataset.i].v===S.q.ans,b);});
+$('signBtn').addEventListener('click',()=>{const v=$('typeIn').value.trim();$('typeIn').value=(v.startsWith('-')||v.startsWith(MI))?v.slice(1):'-'+v;$('typeIn').focus();});
+$('checkBtn').addEventListener('click',submitTyped);$('typeIn').addEventListener('keydown',e=>{if(e.key==='Enter')submitTyped();});
+function submitTyped(){if(S.done)return;const raw=$('typeIn').value.replace(MI,'-').replace(/\s/g,'');if(!/^[+-]?\d+$/.test(raw)){$('typeIn').classList.add('shake');setTimeout(()=>$('typeIn').classList.remove('shake'),400);return;}check(parseInt(raw,10)===S.q.ans,null);}
+$('hintBtn').addEventListener('click',()=>{if(S.done)return;S.hint=true;$('hint').innerHTML='<h3>💡 רמז</h3>'+S.q.hint;$('hint').classList.remove('hidden');$('hintBtn').disabled=true;});
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950);}
+function lock(){document.querySelectorAll('.ans').forEach(x=>{x.disabled=true;if(S.q.opts[+x.dataset.i].v===S.q.ans)x.classList.add('good');});['typeIn','checkBtn','signBtn'].forEach(id=>$(id).disabled=true);}
+function check(ok,btn){
+  const q=S.q,t=team(),fb=$('feedback');S.tries++;const one=q.opts.length===3&&!q.num;
+  if(ok){S.done=true;beep(true);const pts=(S.tries===1&&!S.hint)?10:5;let bonus=0;
+    if(S.tries===1){S.streak[t]++;S.first[t]++;if(S.streak[t]>=3)bonus=5;}else S.streak[t]=0;
+    S.scores[t]+=pts+bonus;if(btn)btn.classList.add('good');lock();pop('+'+(pts+bonus));
+    fb.className='feedback good';fb.innerHTML=`<h3>✅ ${pick(PRAISE)} ${bonus?'🔥 בונוס רצף +5':''}</h3><div class="steps">${q.sol}</div>`;fb.classList.remove('hidden');next();}
+  else{beep(false);if(btn){btn.classList.add('bad');btn.disabled=true;}S.streak[t]=0;$('qCard').classList.add('shake');setTimeout(()=>$('qCard').classList.remove('shake'),400);
+    if(S.tries===1&&!one){fb.className='feedback retry';fb.innerHTML='<h3>🤏 כמעט! נסו שוב</h3><div>אפשר להיעזר ברמז 💡</div>';fb.classList.remove('hidden');}
+    else{S.done=true;lock();fb.className='feedback bad';fb.innerHTML=`<h3>הפעם לא הצליח – בואו נראה:</h3><div>התשובה: ${q.num?L(sn(q.ans)):'<b>'+DIR[q.ans]+'</b>'}</div><div class="steps">${q.sol}</div>`;fb.classList.remove('hidden');next();}}
+  hud();
+}
+function next(){$('hintBtn').disabled=true;const nb=$('nextBtn');nb.textContent=S.i+1>=S.total?'לתוצאות 🏁':'לשאלה הבאה ←';nb.classList.remove('hidden');setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'nearest'}),150);}
+$('nextBtn').addEventListener('click',()=>{S.i++;show();});
+function finish(){
+  $('prog').style.width='100%';$('game').classList.add('hidden');$('end').classList.remove('hidden');const ec=$('endCard');
+  const btns=`<button class="big-btn" id="again">משחק נוסף 🔁</button><button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+  if(settings.teams===2){const[a,b]=S.scores,half=S.total/2;
+    ec.innerHTML=`<h2 class="center" style="font-size:26px">${a===b?'תיקו! שתי הקבוצות אלופות 🤝':a>b?'קבוצה א׳ ניצחה! 🏆':'קבוצה ב׳ ניצחה! 🏆'}</h2><div class="teams-end"><div class="tbox ${a>=b?'win':''}">קבוצה א׳<b>${a}</b><small>${S.first[0]} מתוך ${half} בניסיון ראשון</small></div><div class="tbox ${b>=a?'win':''}">קבוצה ב׳<b>${b}</b><small>${S.first[1]} מתוך ${half} בניסיון ראשון</small></div></div>${btns}`;}
+  else{const sc=S.scores[0],r=sc/(S.total*10),st=r>=.85?3:r>=.6?2:r>=.3?1:0;
+    ec.innerHTML=`<div class="stars">${[0,1,2].map(k=>`<span class="${k<st?'':'off'}">⭐</span>`).join('')}</div><div class="score-big">${sc} נקודות</div><h2 class="center">${st===3?'אלופי הפונקציות! 🏆':st===2?'עבודה מצוינת! 💪':st===1?'יפה! עוד סיבוב ותשתפרו 🌱':'נסו שוב עם רמזים 💡'}</h2><div class="center muted">תשובה נכונה בניסיון ראשון: ${S.first[0]} מתוך ${S.total}</div>${btns}`;}
+  $('again').addEventListener('click',start);$('menu').addEventListener('click',()=>{$('end').classList.add('hidden');$('start').classList.remove('hidden');window.scrollTo({top:0});});
+}
+window.__T__={makeQ,settings,eqText,qFindY,qFindX,qDirEq,qDirGraph,qDirTable};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרוץ פיתגורס – איילה אריאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24345c; --ink-soft:#4a5a80; --teal:#14a3a3; --teal-soft:#d6f2f1;
+    --bg:#f4f7fb; --card:#ffffff; --line:#dfe5ef;
+    --good:#1f9d55; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3e3;
+    --gold:#f2b705; --teamB:#e0712c; --teamB-soft:#fde9dc;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Rubik",system-ui,sans-serif}
+  body{min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+  /* header / branding */
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .pi{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+      font-size:26px;font-weight:700;box-shadow:0 0 0 3px var(--teal-soft), 0 0 0 5px var(--teal)}
+  .brand-text b{display:block;font-size:17px;line-height:1.1}
+  .brand-text span{font-size:13px;color:var(--teal);font-weight:600}
+  .gtitle{font-weight:800;font-size:clamp(18px,4.5vw,26px);color:var(--ink)}
+  .gtitle em{font-style:normal;color:var(--teal)}
+
+  .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(36,52,92,.07);border:1px solid var(--line)}
+  .stack>*+*{margin-top:14px}
+  h2{margin:0 0 8px;font-size:19px}
+  .muted{color:var(--ink-soft)}
+
+  /* start screen */
+  .opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;text-align:right;font-size:15px;color:var(--ink)}
+  .opt b{display:block;font-size:16px;margin-bottom:2px}
+  .opt small{color:var(--ink-soft)}
+  .opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+  .big-btn{width:100%;border:0;border-radius:16px;padding:16px;font-size:20px;font-weight:700;background:var(--teal);color:#fff;
+           box-shadow:0 4px 0 #0e7d7d}
+  .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0e7d7d}
+  .ghost{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600}
+
+  .remind{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .rbox{background:var(--bg);border-radius:14px;padding:12px;border:1px dashed #c5cfe0}
+  .rbox h3{margin:0 0 6px;font-size:15px;color:var(--teal)}
+
+  /* fractions */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1.25}
+  .frac .num{padding:0 6px 2px;border-bottom:2px solid currentColor}
+  .frac .den{padding:2px 6px 0}
+  .formula{font-size:17px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .eq{font-size:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px;unicode-bidi:isolate}
+
+  /* game */
+  .hud{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:15px}
+  .pill.team{border-width:2px}
+  .pill.team.on{box-shadow:0 0 0 3px var(--teal-soft)}
+  .pill.tA{border-color:var(--teal)} .pill.tB{border-color:var(--teamB)}
+  .pill.tB.on{box-shadow:0 0 0 3px var(--teamB-soft)}
+  .progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+  .qtag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+  .qtag.a{background:var(--teal-soft);color:#0d7272}
+  .qtag.b{background:#e7e9fb;color:#3f46a8}
+  .turn{font-weight:700;font-size:15px;margin-bottom:6px}
+  .question{font-size:clamp(20px,5vw,28px);font-weight:600;line-height:1.5;margin:4px 0 6px}
+  .question .n{color:var(--teal);font-weight:800}
+  .givens{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .given{background:var(--bg);border-radius:10px;padding:6px 10px;font-size:15px}
+  .given b{color:var(--ink)}
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .ans{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 8px;font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink);
+       box-shadow:0 3px 0 var(--line);transition:background .15s}
+  .ans:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .ans.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+  .ans.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);opacity:.75}
+  .ans:disabled{cursor:default}
+
+  .typebox{display:flex;gap:8px;margin-top:14px;align-items:stretch}
+  .typebox input{flex:1;min-width:0;font-size:28px;font-weight:700;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px;font-family:inherit;color:var(--ink)}
+  .typebox input:focus{outline:none;border-color:var(--teal)}
+  .typebox .suffix{display:grid;place-items:center;font-size:26px;font-weight:700;padding:0 4px}
+  .typebox button{border:0;border-radius:14px;background:var(--teal);color:#fff;font-size:18px;font-weight:700;padding:0 18px}
+
+  .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hint{margin-top:12px;background:#fff8e1;border:1px solid #f3dd8f;border-radius:14px;padding:12px}
+  .hint h3{margin:0 0 6px;font-size:15px;color:#9a7300}
+  .feedback{margin-top:12px;border-radius:14px;padding:12px}
+  .feedback.good{background:var(--good-soft);border:1px solid #9fd9b6}
+  .feedback.bad{background:var(--bad-soft);border:1px solid #f0b2b2}
+  .feedback.retry{background:#fff3e6;border:1px solid #f5c99a}
+  .feedback h3{margin:0 0 6px;font-size:18px}
+
+  .bar{position:relative;height:30px;background:#fff;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:10px 0 4px}
+  .bar i{position:absolute;inset-block:0;right:0;background:var(--teal);transition:width .6s}
+  .bar-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .next{margin-top:12px}
+
+  .pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:800;color:var(--good);pointer-events:none;
+       animation:pop .9s ease-out forwards;z-index:9;text-shadow:0 2px 0 #fff}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+
+  /* end */
+  .stars{font-size:46px;letter-spacing:6px;text-align:center;margin:6px 0}
+  .stars .off{filter:grayscale(1);opacity:.3}
+  .score-big{text-align:center;font-size:44px;font-weight:800;color:var(--teal)}
+  .center{text-align:center}
+  .teams-end{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tbox{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--line)}
+  .tbox.win{border-color:var(--gold);background:#fff9e0}
+  .tbox b{display:block;font-size:34px}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:20px}
+</style>
+<style>
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-weight:600}
+  .fig{display:flex;justify-content:center;margin:4px 0}
+  .fig svg{width:100%;max-width:340px;height:auto}
+  .fig .ln{stroke:var(--ink);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .fig .hyp{stroke:var(--teal);stroke-width:3.5}
+  .fig text{font-family:Rubik,sans-serif;font-size:18px;font-weight:700;fill:var(--ink)}
+  .fig .val{fill:#0d7272}.fig .unk{fill:#d64545;font-size:21px}
+  .steps{line-height:2}.steps .ltr{font-size:19px;white-space:nowrap}
+  .question{font-size:clamp(19px,4.8vw,25px)}
+  .ans .ltr{font-weight:800}
+  .rules li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="pi">π</div><div class="brand-text"><b>איילה אריאל</b><span>מתמטיקה</span></div></div>
+    <div class="gtitle">מרוץ <em>פיתגורס</em> ◺</div>
+  </header>
+
+  <section id="start" class="stack">
+    <div class="card">
+      <h2>תזכורת – משפט פיתגורס</h2>
+      <ul class="rules" style="margin:0;padding-inline-start:20px">
+        <li>במשולש ישר זווית: <b>ניצב² + ניצב² = יתר²</b> &nbsp; <span class="ltr">a² + b² = c²</span></li>
+        <li><b>היתר</b> הוא הצלע הארוכה ביותר – הצלע שמול הזווית הישרה.</li>
+        <li>מחפשים יתר? <b>מחברים</b> את ריבועי הניצבים. מחפשים ניצב? <b>מחסרים</b>: <span class="ltr">b² = c² − a²</span></li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <div>
+        <h2>באיזו רמה?</h2>
+        <div class="opts" data-group="level">
+          <button class="opt sel" data-val="1"><b>⭐ רמה בסיסית</b><small>זיהוי יתר, חישוב יתר וניצב, מספרים שלמים</small></button>
+          <button class="opt" data-val="2"><b>⭐⭐ רמה מתקדמת</b><small>תשובות עם שורש, "האם המשולש ישר זווית?", בעיות מילוליות</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>איך עונים?</h2>
+        <div class="opts" data-group="style">
+          <button class="opt sel" data-val="choice"><b>בחירה מתוך 4</b><small>לוחצים על התשובה</small></button>
+          <button class="opt" data-val="type"><b>מקלידים תשובה</b><small>כשהתשובה מספר שלם</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>מי משחק?</h2>
+        <div class="opts" data-group="teams">
+          <button class="opt sel" data-val="1"><b>משחק יחיד</b><small>10 שאלות</small></button>
+          <button class="opt" data-val="2"><b>שתי קבוצות</b><small>12 שאלות, לסירוגין – לכיתה</small></button>
+        </div>
+      </div>
+      <button class="big-btn" id="goBtn">יאללה, מתחילים! 🚀</button>
+    </div>
+    <div class="card muted" style="font-size:14px"><b>ניקוד:</b> תשובה נכונה בניסיון ראשון = 10 נקודות. עם רמז או בניסיון שני = 5 נקודות. 3 ברצף = בונוס 5 🔥. אחרי כל שאלה מופיע פתרון מלא.</div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="hud"><div class="pill" id="qCount"></div><div id="scoreArea" style="display:flex;gap:6px"></div></div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="card" id="qCard">
+      <div class="turn hidden" id="turn"></div>
+      <span class="qtag a" id="qtag"></span>
+      <div class="question" id="qText"></div>
+      <div class="fig" id="fig"></div>
+      <div class="answers" id="answers"></div>
+      <div class="typebox hidden" id="typebox"><input id="typeIn" inputmode="numeric" autocomplete="off" placeholder="?"><button id="checkBtn">בדיקה</button></div>
+      <div class="tools"><button class="ghost" id="hintBtn">💡 רמז</button></div>
+      <div class="hint hidden" id="hint"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="big-btn next hidden" id="nextBtn">לשאלה הבאה ←</button>
+    </div>
+  </section>
+  <section id="end" class="hidden"><div class="card stack" id="endCard"></div></section>
+  <footer>נוצר על ידי איילה אריאל · מתמטיקה</footer>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L=s=>`<span class="ltr">${s}</span>`;
+const settings={level:1,style:'choice',teams:1};
+document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const v=b.dataset.val;settings[g.dataset.group]=g.dataset.group==='style'?v:Number(v);}));
+let audio=null;
+function beep(good){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[300,220]).forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.setValueAtTime(.0001,audio.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.18,audio.currentTime+i*.12+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.12+.18);o.connect(g).connect(audio.destination);o.start(audio.currentTime+i*.12);o.stop(audio.currentTime+i*.12+.2);});}catch(e){}}
+
+/* ---------- values: integer or √n ---------- */
+const isSq=n=>Number.isInteger(Math.sqrt(n));
+const R=n=>isSq(n)?{v:Math.sqrt(n),t:String(Math.sqrt(n))}:{v:Math.sqrt(n),t:'√'+n};   // value of √n
+const N=x=>({v:x,t:String(x)});
+const same=(a,b)=>a.t===b.t;
+function opts(ans,cands){const o=[ans];for(const c of shuffle(cands)){if(o.length>=4)break;if(c&&c.v>0&&!o.some(x=>same(x,c)))o.push(c);}let k=1;while(o.length<4){const c=N(Math.round(ans.v)+k++);if(!o.some(x=>same(x,c)))o.push(c);}return shuffle(o);}
+
+/* ---------- figure ---------- */
+function tri(lab,unkSide){ // lab: {a: leg1 (vertical), b: leg2 (horizontal), c: hyp}
+  const C=[70,200],A=[70,40],B=[300,200];
+  const S=(t,cls,x,y)=>t==null?'':`<text x="${x}" y="${y}" text-anchor="middle" class="${cls}">${t}</text>`;
+  return `<svg viewBox="0 0 360 240" direction="ltr"><polygon points="${A} ${B} ${C}" class="ln"/><line x1="${A[0]}" y1="${A[1]}" x2="${B[0]}" y2="${B[1]}" class="ln hyp"/>
+   <polyline points="70,184 86,184 86,200" class="ln" style="stroke-width:1.6"/>
+   ${S('A','',58,36)}${S('C','',58,222)}${S('B','',314,222)}
+   ${S(lab.a,unkSide==='a'?'unk':'val',44,126)}${S(lab.b,unkSide==='b'?'unk':'val',185,226)}${S(lab.c,unkSide==='c'?'unk':'val',205,108)}</svg>`;
+}
+
+/* ---------- question generators ---------- */
+const TRIPLES=[[3,4,5],[6,8,10],[5,12,13],[9,12,15],[8,15,17],[12,16,20],[7,24,25],[15,20,25]];
+const sq=x=>x*x;
+function hypQ(a,b){const c2=sq(a)+sq(b),ans=R(c2);
+  return {tag:'מוצאים את היתר',q:`במשולש ישר זווית הניצבים הם ${L('AC = '+a)} ו-${L('BC = '+b)}. מצאו את היתר ${L('AB')}.`,
+    fig:tri({a,b,c:'x'},'c'),ans,opts:opts(ans,[N(a+b),R(Math.abs(sq(b)-sq(a))),N(c2),R(c2+2),N(Math.max(a,b)+1),R(c2-1)]),
+    hint:`מחפשים יתר → <b>מחברים</b> את ריבועי הניצבים: ${L('AB² = AC² + BC²')}`,
+    sol:`${L('AB² = AC² + BC²')}<br>${L(`AB² = ${a}² + ${b}² = ${sq(a)} + ${sq(b)} = ${c2}`)}<br>${L(`AB = √${c2}${isSq(c2)?' = '+Math.sqrt(c2):''}`)}`};}
+function legQ(a,c){const b2=sq(c)-sq(a),ans=R(b2);
+  return {tag:'מוצאים ניצב',q:`במשולש ישר זווית היתר הוא ${L('AB = '+c)} והניצב ${L('AC = '+a)}. מצאו את הניצב ${L('BC')}.`,
+    fig:tri({a,b:'x',c},'b'),ans,opts:opts(ans,[R(sq(a)+sq(c)),N(c-a),N(b2),N(c+a),R(b2+1),R(b2-3)]),
+    hint:`מחפשים ניצב → <b>מחסרים</b>: ${L('BC² = AB² − AC²')}`,
+    sol:`${L('BC² = AB² − AC²')}<br>${L(`BC² = ${c}² − ${a}² = ${sq(c)} − ${sq(a)} = ${b2}`)}<br>${L(`BC = √${b2}${isSq(b2)?' = '+Math.sqrt(b2):''}`)}`};}
+function whichHyp(){const v=pick(['A','B','C']);const map={A:'BC',B:'AC',C:'AB'};const ans={v:1,t:map[v]};
+  const P={A:[180,40],B:[60,200],C:[300,200]};
+  // right angle at vertex v: draw a right triangle with right angle at v
+  const pts={A:[[180,30],[40,170],[320,170]],B:[[60,30],[60,200],[300,200]],C:[[300,30],[60,200],[300,200]]}[v];
+  const [Ap,Bp,Cp]=pts,V={A:Ap,B:Bp,C:Cp}[v];const others=['A','B','C'].filter(x=>x!==v).map(x=>({A:Ap,B:Bp,C:Cp}[x]));
+  const u=others.map(p=>{const d=[p[0]-V[0],p[1]-V[1]],l=Math.hypot(...d);return [d[0]/l*16,d[1]/l*16]});
+  const mark=`<polyline points="${V[0]+u[0][0]},${V[1]+u[0][1]} ${V[0]+u[0][0]+u[1][0]},${V[1]+u[0][1]+u[1][1]} ${V[0]+u[1][0]},${V[1]+u[1][1]}" class="ln" style="stroke-width:1.6"/>`;
+  const lab=(t,p,dx,dy)=>`<text x="${p[0]+dx}" y="${p[1]+dy}" text-anchor="middle">${t}</text>`;
+  const fig=`<svg viewBox="0 0 360 230" direction="ltr"><polygon points="${Ap} ${Bp} ${Cp}" class="ln"/>${mark}${lab('A',Ap,0,-8)}${lab('B',Bp,-14,20)}${lab('C',Cp,14,20)}</svg>`;
+  return {tag:'איזו צלע היא היתר?',q:`במשולש ${L('ABC')} הזווית ${L('∠'+v)} ישרה. איזו צלע היא היתר?`,fig,ans,
+    opts:shuffle([ans,{v:2,t:map[v===  'A'?'B':'A']},{v:3,t:map[v==='C'?'B':'C']},{v:4,t:'אין יתר'}]),
+    hint:'היתר נמצא <b>מול</b> הזווית הישרה – הצלע שלא נוגעת בקודקוד של הזווית הישרה.',
+    sol:`הזווית הישרה היא ${L('∠'+v)}, והצלע שמולה (שלא יוצאת מ-${v}) היא ${L(map[v])} – היא היתר.`};}
+function squaresQ(a,b){const s=sq(a)+sq(b),ans=N(s);
+  return {tag:'חישוב ריבועים',q:`חשבו: ${L(`${a}² + ${b}²`)}`,fig:'',ans,opts:opts(ans,[N(2*a+2*b),N(sq(a+b)),N(s+a),N(s-b),N(a*b*2)]),
+    hint:`${L('a²')} פירושו ${L('a · a')}. למשל ${L('5² = 5 · 5 = 25')}`,sol:L(`${a}² + ${b}² = ${a}·${a} + ${b}·${b} = ${sq(a)} + ${sq(b)} = ${s}`)};}
+function isRightQ(){let s,yes=Math.random()<.5;
+  if(yes){const [a,b,c]=pick(TRIPLES.concat([[20,21,29],[9,40,41],[11,60,61]]));s=[a,b,c];}else{do{s=[rint(3,12),rint(4,14),0];s[2]=Math.max(s[0],s[1])+rint(1,4);}while(sq(s[0])+sq(s[1])===sq(s[2]));}
+  const [a,b,c]=s;const ans={v:yes?1:0,t:yes?'כן, ישר זווית':'לא, אינו ישר זווית'};
+  return {tag:'האם המשולש ישר זווית?',q:`צלעות משולש הן ${L(a)}, ${L(b)} ו-${L(c)}. האם המשולש ישר זווית?`,fig:'',ans,
+    opts:[ans,{v:yes?0:1,t:yes?'לא, אינו ישר זווית':'כן, ישר זווית'}],
+    hint:'בודקים אם ריבוע הצלע הגדולה שווה לסכום ריבועי שתי האחרות (המשפט ההפוך של פיתגורס).',
+    sol:`${L(`${a}² + ${b}² = ${sq(a)} + ${sq(b)} = ${sq(a)+sq(b)}`)}<br>${L(`${c}² = ${sq(c)}`)}<br>${yes?'הם שווים, ולכן לפי המשפט ההפוך של פיתגורס המשולש ישר זווית.':'הם לא שווים, ולכן המשולש אינו ישר זווית.'}`};}
+function wordQ(){
+  const k=pick([0,1,2,3,4]);
+  if(k===0){const [d,h,l]=pick([[5,12,13],[6,8,10],[3,4,5],[7,24,25],[9,12,15]]);const ans=N(h);
+    return {tag:'בעיה מילולית',q:`סולם באורך ${L(l+' מ\'')} נשען על קיר. המרחק מתחתית הסולם לקיר הוא ${L(d+' מ\'')}. לאיזה גובה מגיע הסולם?`,fig:tri({a:'x',b:d,c:l},'a'),ans,
+      opts:opts(ans,[N(l-d),R(sq(l)+sq(d)),N(l+d),N(h+1)]),hint:'הסולם הוא היתר, הקיר והרצפה הם הניצבים.',sol:L(`x² = ${l}² − ${d}² = ${sq(l)} − ${sq(d)} = ${sq(h)}`)+'<br>'+L(`x = √${sq(h)} = ${h} m`)};}
+  if(k===1){const [a,b]=pick([[6,8],[5,12],[3,4],[4,7],[2,5],[9,12]]);const ans=R(sq(a)+sq(b));
+    return {tag:'בעיה מילולית',q:`אורכי צלעות מלבן הם ${L(a)} ו-${L(b)}. מה אורך האלכסון שלו?`,fig:'',ans,opts:opts(ans,[N(a+b),R(Math.abs(sq(b)-sq(a))),N(2*(a+b)),N(sq(a)+sq(b))]),
+      hint:'האלכסון מחלק את המלבן לשני משולשים ישרי זווית – האלכסון הוא היתר.',sol:L(`d² = ${a}² + ${b}² = ${sq(a)+sq(b)}`)+'<br>'+L(`d = √${sq(a)+sq(b)}${isSq(sq(a)+sq(b))?' = '+Math.sqrt(sq(a)+sq(b)):''}`)};}
+  if(k===2){const a=rint(2,9);const ans=R(2*sq(a));
+    return {tag:'בעיה מילולית',q:`צלע ריבוע היא ${L(a)}. מה אורך האלכסון שלו?`,fig:'',ans,opts:opts(ans,[N(2*a),R(sq(a)),N(sq(a)),R(2*a)]),
+      hint:'האלכסון הוא יתר במשולש ישר זווית ששני ניצביו הם צלעות הריבוע.',sol:L(`d² = ${a}² + ${a}² = ${2*sq(a)}`)+'<br>'+L(`d = √${2*sq(a)}`)};}
+  if(k===3){const [h,half,s]=pick([[8,6,10],[4,3,5],[12,5,13],[12,9,15],[15,8,17]]);const ans=N(h);
+    return {tag:'בעיה מילולית',q:`במשולש שווה שוקיים אורך כל שוק ${L(s)} ואורך הבסיס ${L(2*half)}. מה אורך הגובה לבסיס?`,fig:'',ans,opts:opts(ans,[R(sq(s)-sq(2*half)>0?sq(s)-sq(2*half):1),N(s-half),R(sq(s)+sq(half)),N(h+2)]),
+      hint:'הגובה לבסיס חוצה את הבסיס. מקבלים משולש ישר זווית: השוק היא היתר, וחצי הבסיס ניצב.',sol:`חצי בסיס = ${half}<br>`+L(`h² = ${s}² − ${half}² = ${sq(s)} − ${sq(half)} = ${sq(h)}`)+'<br>'+L(`h = ${h}`)};}
+  const [a,b,c]=pick([[30,40,50],[60,80,100],[50,120,130],[90,120,150]]);const ans=N(c);
+  return {tag:'בעיה מילולית',q:`נועם הלך ${L(a+' מ\'')} צפונה ואחר כך ${L(b+' מ\'')} מזרחה. מה המרחק בקו ישר מנקודת ההתחלה?`,fig:'',ans,opts:opts(ans,[N(a+b),N(b-a),N(c+10),N(c-10)]),
+    hint:'צפונה ומזרחה יוצרים זווית ישרה – הדרך הישירה היא היתר.',sol:L(`d² = ${a}² + ${b}² = ${sq(a)} + ${sq(b)} = ${sq(c)}`)+'<br>'+L(`d = ${c} m`)};
+}
+function makeQ(i,total){
+  if(settings.level===1){
+    const t=pick(i<3?['hyp','which','squares']:['hyp','hyp','leg','leg','which','squares']);
+    if(t==='which')return whichHyp();
+    if(t==='squares'){const [a,b]=pick(TRIPLES);return squaresQ(a,b);}
+    const [a,b,c]=pick(i<total/2?TRIPLES.slice(0,4):TRIPLES);
+    return t==='hyp'?hypQ(a,b):legQ(a,c);
+  }
+  const t=pick(['hypR','legR','isRight','word','word','hypR','legR']);
+  if(t==='isRight')return isRightQ();if(t==='word')return wordQ();
+  if(t==='hypR'){let a,b;do{a=rint(1,9);b=rint(2,10)}while(isSq(sq(a)+sq(b))&&Math.random()<.7);return hypQ(a,b);}
+  let a,c;do{c=rint(4,12);a=rint(1,c-1)}while(isSq(sq(c)-sq(a))&&Math.random()<.7);return legQ(a,c);
+}
+
+/* ---------- game loop ---------- */
+let S;const PRAISE=['מעולה!','כל הכבוד!','יפה מאוד!','בדיוק!','מושלם!','וואו! 🎯','פיתגורס גאה בכם! 🏛️'];
+const team=()=>settings.teams===2?S.i%2:0;
+function start(){const total=settings.teams===2?12:10;S={total,i:0,scores:[0,0],streak:[0,0],first:[0,0]};$('start').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');show();}
+$('goBtn').addEventListener('click',()=>{beep(true);start();});
+function hud(){$('qCount').textContent=`שאלה ${S.i+1} מתוך ${S.total}`;$('prog').style.width=(S.i/S.total*100)+'%';
+  $('scoreArea').innerHTML=settings.teams===2?`<div class="pill team tA ${team()===0?'on':''}">קבוצה א׳: ${S.scores[0]}</div><div class="pill team tB ${team()===1?'on':''}">קבוצה ב׳: ${S.scores[1]}</div>`:`<div class="pill">⭐ ${S.scores[0]}</div>${S.streak[0]>=2?`<div class="pill">🔥 ${S.streak[0]}</div>`:''}`;}
+function show(){
+  if(S.i>=S.total)return finish();
+  const q=S.q=makeQ(S.i,S.total);S.tries=0;S.hint=false;S.done=false;hud();
+  const tu=$('turn');if(settings.teams===2){tu.classList.remove('hidden');tu.textContent=team()===0?'🟢 תור קבוצה א׳':'🟠 תור קבוצה ב׳';tu.style.color=team()===0?'var(--teal)':'var(--teamB)';}else tu.classList.add('hidden');
+  $('qtag').textContent=q.tag;$('qText').innerHTML=q.q;$('fig').innerHTML=q.fig||'';
+  ['hint','feedback','nextBtn'].forEach(id=>$(id).classList.add('hidden'));$('hintBtn').disabled=false;
+  const typed=settings.style==='type'&&/^\d+$/.test(q.ans.t);
+  if(!typed){$('typebox').classList.add('hidden');$('answers').classList.remove('hidden');$('answers').style.gridTemplateColumns=q.opts.length===2?'1fr':'1fr 1fr';
+    $('answers').innerHTML=q.opts.map((o,i)=>`<button class="ans" data-i="${i}"><span class="ltr">${o.t}</span></button>`).join('');}
+  else{$('answers').classList.add('hidden');$('typebox').classList.remove('hidden');$('typeIn').value='';$('typeIn').disabled=false;$('checkBtn').disabled=false;setTimeout(()=>{try{$('typeIn').focus()}catch(e){}},50);}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('answers').addEventListener('click',e=>{const b=e.target.closest('.ans');if(!b||b.disabled||S.done)return;check(same(S.q.opts[+b.dataset.i],S.q.ans),b);});
+$('checkBtn').addEventListener('click',submitTyped);$('typeIn').addEventListener('keydown',e=>{if(e.key==='Enter')submitTyped();});
+function submitTyped(){if(S.done)return;const raw=$('typeIn').value.trim();if(!/^\d+$/.test(raw)){$('typeIn').classList.add('shake');setTimeout(()=>$('typeIn').classList.remove('shake'),400);return;}check(raw===S.q.ans.t,null);}
+$('hintBtn').addEventListener('click',()=>{if(S.done)return;S.hint=true;$('hint').innerHTML='<h3>💡 רמז</h3>'+S.q.hint;$('hint').classList.remove('hidden');$('hintBtn').disabled=true;});
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950);}
+function lock(){document.querySelectorAll('.ans').forEach(x=>{x.disabled=true;if(same(S.q.opts[+x.dataset.i],S.q.ans))x.classList.add('good');});$('typeIn').disabled=true;$('checkBtn').disabled=true;}
+function check(ok,btn){
+  const q=S.q,t=team(),fb=$('feedback');S.tries++;const two=q.opts.length===2;
+  if(ok){S.done=true;beep(true);const pts=(S.tries===1&&!S.hint)?10:5;let bonus=0;
+    if(S.tries===1){S.streak[t]++;S.first[t]++;if(S.streak[t]>=3)bonus=5;}else S.streak[t]=0;
+    S.scores[t]+=pts+bonus;if(btn)btn.classList.add('good');lock();pop('+'+(pts+bonus));
+    fb.className='feedback good';fb.innerHTML=`<h3>✅ ${pick(PRAISE)} ${bonus?'🔥 בונוס רצף +5':''}</h3><div class="steps">${q.sol}</div>`;fb.classList.remove('hidden');next();}
+  else{beep(false);if(btn){btn.classList.add('bad');btn.disabled=true;}S.streak[t]=0;$('qCard').classList.add('shake');setTimeout(()=>$('qCard').classList.remove('shake'),400);
+    if(S.tries===1&&!two){fb.className='feedback retry';fb.innerHTML='<h3>🤏 כמעט! נסו שוב</h3><div>אפשר להיעזר ברמז 💡</div>';fb.classList.remove('hidden');}
+    else{S.done=true;lock();fb.className='feedback bad';fb.innerHTML=`<h3>הפעם לא הצליח – בואו נראה איך פותרים:</h3><div>התשובה: ${L(q.ans.t)}</div><div class="steps">${q.sol}</div>`;fb.classList.remove('hidden');next();}}
+  hud();
+}
+function next(){$('hintBtn').disabled=true;const nb=$('nextBtn');nb.textContent=S.i+1>=S.total?'לתוצאות 🏁':'לשאלה הבאה ←';nb.classList.remove('hidden');setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'nearest'}),150);}
+$('nextBtn').addEventListener('click',()=>{S.i++;show();});
+function finish(){
+  $('prog').style.width='100%';$('game').classList.add('hidden');$('end').classList.remove('hidden');const ec=$('endCard');
+  const btns=`<button class="big-btn" id="again">משחק נוסף 🔁</button><button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+  if(settings.teams===2){const[a,b]=S.scores,half=S.total/2;
+    ec.innerHTML=`<h2 class="center" style="font-size:26px">${a===b?'תיקו! שתי הקבוצות אלופות 🤝':a>b?'קבוצה א׳ ניצחה! 🏆':'קבוצה ב׳ ניצחה! 🏆'}</h2><div class="teams-end"><div class="tbox ${a>=b?'win':''}">קבוצה א׳<b>${a}</b><small>${S.first[0]} מתוך ${half} בניסיון ראשון</small></div><div class="tbox ${b>=a?'win':''}">קבוצה ב׳<b>${b}</b><small>${S.first[1]} מתוך ${half} בניסיון ראשון</small></div></div>${btns}`;}
+  else{const sc=S.scores[0],r=sc/(S.total*10),st=r>=.85?3:r>=.6?2:r>=.3?1:0;
+    ec.innerHTML=`<div class="stars">${[0,1,2].map(k=>`<span class="${k<st?'':'off'}">⭐</span>`).join('')}</div><div class="score-big">${sc} נקודות</div><h2 class="center">${st===3?'אלופי פיתגורס! 🏆':st===2?'עבודה מצוינת! 💪':st===1?'יפה! עוד סיבוב ותשתפרו 🌱':'נסו שוב עם רמזים 💡'}</h2><div class="center muted">תשובה נכונה בניסיון ראשון: ${S.first[0]} מתוך ${S.total}</div>${st===3&&settings.level<2?'<div class="center" style="font-weight:600">מוכנים לרמה המתקדמת? ⬆️</div>':''}${btns}`;}
+  $('again').addEventListener('click',start);$('menu').addEventListener('click',()=>{$('end').classList.add('hidden');$('start').classList.remove('hidden');window.scrollTo({top:0});});
+}
+window.__T__={makeQ,settings};
+})();
+</script>
+</body>
+</html>

@@ -4468,5 +4468,50 @@
     "title": "משחק – מרוץ המשפטים: משולשים, מרובעים, קטע אמצעים ומשפט התיכונים",
     "type": "game",
     "file": "materials/10/10-geometry-theorems-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משחק – מרוץ פיתגורס (רמה בסיסית ורמה מתקדמת)",
+    "type": "game",
+    "file": "materials/8/8-pythagoras-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "משחק – מרוץ פיתגורס (רמה בסיסית ורמה מתקדמת)",
+    "type": "game",
+    "file": "materials/8/8-pythagoras-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דומינו ומשחק זיכרון בפיתגורס – רמה בסיסית, להדפסה (כולל פתרונות)",
+    "type": "game",
+    "file": "materials/8/8-pythagoras-domino-memory-basic.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משפט פיתגורס",
+    "title": "דומינו ומשחק זיכרון בפיתגורס – רמה מתקדמת, להדפסה (כולל פתרונות)",
+    "type": "game",
+    "file": "materials/8/8-pythagoras-domino-memory-advanced.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "פונקציה קווית ושיפוע",
+    "title": "משחק – מרוץ הפונקציות: עולה או יורדת, והצבה בטבלה (מוצאים y לפי x והפוך)",
+    "type": "game",
+    "file": "materials/8/8-functions-game.html"
   }
 ]
