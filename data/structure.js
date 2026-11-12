@@ -37,4 +37,5 @@ const TYPE_LABELS = {
   presentation: "מצגת",
   video: "סרטון",
   link: "קישור",
+  game: "משחק",
 };

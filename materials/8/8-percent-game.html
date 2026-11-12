@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרוץ האחוזים – איילה אריאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24345c; --ink-soft:#4a5a80; --teal:#14a3a3; --teal-soft:#d6f2f1;
+    --bg:#f4f7fb; --card:#ffffff; --line:#dfe5ef;
+    --good:#1f9d55; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3e3;
+    --gold:#f2b705; --teamB:#e0712c; --teamB-soft:#fde9dc;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Rubik",system-ui,sans-serif}
+  body{min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+  /* header / branding */
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .pi{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+      font-size:26px;font-weight:700;box-shadow:0 0 0 3px var(--teal-soft), 0 0 0 5px var(--teal)}
+  .brand-text b{display:block;font-size:17px;line-height:1.1}
+  .brand-text span{font-size:13px;color:var(--teal);font-weight:600}
+  .gtitle{font-weight:800;font-size:clamp(18px,4.5vw,26px);color:var(--ink)}
+  .gtitle em{font-style:normal;color:var(--teal)}
+
+  .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(36,52,92,.07);border:1px solid var(--line)}
+  .stack>*+*{margin-top:14px}
+  h2{margin:0 0 8px;font-size:19px}
+  .muted{color:var(--ink-soft)}
+
+  /* start screen */
+  .opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;text-align:right;font-size:15px;color:var(--ink)}
+  .opt b{display:block;font-size:16px;margin-bottom:2px}
+  .opt small{color:var(--ink-soft)}
+  .opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+  .big-btn{width:100%;border:0;border-radius:16px;padding:16px;font-size:20px;font-weight:700;background:var(--teal);color:#fff;
+           box-shadow:0 4px 0 #0e7d7d}
+  .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0e7d7d}
+  .ghost{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600}
+
+  .remind{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .rbox{background:var(--bg);border-radius:14px;padding:12px;border:1px dashed #c5cfe0}
+  .rbox h3{margin:0 0 6px;font-size:15px;color:var(--teal)}
+
+  /* fractions */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1.25}
+  .frac .num{padding:0 6px 2px;border-bottom:2px solid currentColor}
+  .frac .den{padding:2px 6px 0}
+  .formula{font-size:17px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .eq{font-size:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px;unicode-bidi:isolate}
+
+  /* game */
+  .hud{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:15px}
+  .pill.team{border-width:2px}
+  .pill.team.on{box-shadow:0 0 0 3px var(--teal-soft)}
+  .pill.tA{border-color:var(--teal)} .pill.tB{border-color:var(--teamB)}
+  .pill.tB.on{box-shadow:0 0 0 3px var(--teamB-soft)}
+  .progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+  .qtag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+  .qtag.a{background:var(--teal-soft);color:#0d7272}
+  .qtag.b{background:#e7e9fb;color:#3f46a8}
+  .turn{font-weight:700;font-size:15px;margin-bottom:6px}
+  .question{font-size:clamp(20px,5vw,28px);font-weight:600;line-height:1.5;margin:4px 0 6px}
+  .question .n{color:var(--teal);font-weight:800}
+  .givens{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .given{background:var(--bg);border-radius:10px;padding:6px 10px;font-size:15px}
+  .given b{color:var(--ink)}
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .ans{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 8px;font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink);
+       box-shadow:0 3px 0 var(--line);transition:background .15s}
+  .ans:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .ans.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+  .ans.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);opacity:.75}
+  .ans:disabled{cursor:default}
+
+  .typebox{display:flex;gap:8px;margin-top:14px;align-items:stretch}
+  .typebox input{flex:1;min-width:0;font-size:28px;font-weight:700;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px;font-family:inherit;color:var(--ink)}
+  .typebox input:focus{outline:none;border-color:var(--teal)}
+  .typebox .suffix{display:grid;place-items:center;font-size:26px;font-weight:700;padding:0 4px}
+  .typebox button{border:0;border-radius:14px;background:var(--teal);color:#fff;font-size:18px;font-weight:700;padding:0 18px}
+
+  .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hint{margin-top:12px;background:#fff8e1;border:1px solid #f3dd8f;border-radius:14px;padding:12px}
+  .hint h3{margin:0 0 6px;font-size:15px;color:#9a7300}
+  .feedback{margin-top:12px;border-radius:14px;padding:12px}
+  .feedback.good{background:var(--good-soft);border:1px solid #9fd9b6}
+  .feedback.bad{background:var(--bad-soft);border:1px solid #f0b2b2}
+  .feedback.retry{background:#fff3e6;border:1px solid #f5c99a}
+  .feedback h3{margin:0 0 6px;font-size:18px}
+
+  .bar{position:relative;height:30px;background:#fff;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:10px 0 4px}
+  .bar i{position:absolute;inset-block:0;right:0;background:var(--teal);transition:width .6s}
+  .bar-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .next{margin-top:12px}
+
+  .pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:800;color:var(--good);pointer-events:none;
+       animation:pop .9s ease-out forwards;z-index:9;text-shadow:0 2px 0 #fff}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+
+  /* end */
+  .stars{font-size:46px;letter-spacing:6px;text-align:center;margin:6px 0}
+  .stars .off{filter:grayscale(1);opacity:.3}
+  .score-big{text-align:center;font-size:44px;font-weight:800;color:var(--teal)}
+  .center{text-align:center}
+  .teams-end{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tbox{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--line)}
+  .tbox.win{border-color:var(--gold);background:#fff9e0}
+  .tbox b{display:block;font-size:34px}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="pi">π</div>
+      <div class="brand-text"><b>איילה אריאל</b><span>מתמטיקה</span></div>
+    </div>
+    <div class="gtitle">מרוץ <em>האחוזים</em> %</div>
+  </header>
+
+  <!-- START -->
+  <section id="start" class="stack">
+    <div class="card">
+      <h2>תזכורת לפני שמתחילות</h2>
+      <div class="remind">
+        <div class="rbox">
+          <h3>מוצאים את תמורת האחוז</h3>
+          <div class="muted" style="font-size:14px;margin-bottom:6px">יודעות את השלם ואת האחוז</div>
+          <div class="formula">תמורת האחוז = <span class="frac"><span class="num">השלם · האחוז</span><span class="den">100</span></span></div>
+        </div>
+        <div class="rbox">
+          <h3>מוצאים את האחוז</h3>
+          <div class="muted" style="font-size:14px;margin-bottom:6px">יודעות את תמורת האחוז ואת השלם</div>
+          <div class="formula">האחוז = <span class="frac"><span class="num">תמורת האחוז · 100</span><span class="den">השלם</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card stack">
+      <div>
+        <h2>מה מתרגלות?</h2>
+        <div class="opts" data-group="mode">
+          <button class="opt" data-val="amount"><b>תמורת האחוז</b><small>כמה זה 25% מתוך 80?</small></button>
+          <button class="opt" data-val="percent"><b>מהו האחוז?</b><small>20 הם כמה אחוז מ-80?</small></button>
+          <button class="opt sel" data-val="mix"><b>מעורב</b><small>גם וגם</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>איך עונים?</h2>
+        <div class="opts" data-group="style">
+          <button class="opt sel" data-val="choice"><b>בחירה מתוך 4</b><small>לוחצים על התשובה</small></button>
+          <button class="opt" data-val="type"><b>מקלידות תשובה</b><small>אתגר!</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>מי משחק?</h2>
+        <div class="opts" data-group="teams">
+          <button class="opt sel" data-val="1"><b>משחק יחיד</b><small>10 שאלות</small></button>
+          <button class="opt" data-val="2"><b>שתי קבוצות</b><small>12 שאלות, לסירוגין – לכיתה</small></button>
+        </div>
+      </div>
+      <button class="big-btn" id="goBtn">יאללה, מתחילים! 🚀</button>
+    </div>
+    <div class="card muted" style="font-size:14px">
+      <b>ניקוד:</b> תשובה נכונה בניסיון ראשון = 10 נקודות. עם רמז או בניסיון שני = 5 נקודות.
+      3 תשובות נכונות ברצף = בונוס 5 🔥. השאלות מתחילות קלות ונעשות קצת יותר מאתגרות.
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game" class="hidden">
+    <div class="hud">
+      <div class="pill" id="qCount">שאלה 1 מתוך 10</div>
+      <div id="scoreArea" style="display:flex;gap:6px"></div>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+
+    <div class="card" id="qCard">
+      <div class="turn hidden" id="turn"></div>
+      <span class="qtag" id="qtag"></span>
+      <div class="question" id="qText"></div>
+      <div class="givens" id="givens"></div>
+
+      <div class="answers" id="answers"></div>
+      <div class="typebox hidden" id="typebox">
+        <input id="typeIn" inputmode="decimal" autocomplete="off" placeholder="?">
+        <span class="suffix" id="suffix"></span>
+        <button id="checkBtn">בדיקה</button>
+      </div>
+
+      <div class="tools">
+        <button class="ghost" id="hintBtn">💡 רמז</button>
+      </div>
+      <div class="hint hidden" id="hint"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="big-btn next hidden" id="nextBtn">לשאלה הבאה ←</button>
+    </div>
+  </section>
+
+  <!-- END -->
+  <section id="end" class="hidden">
+    <div class="card stack" id="endCard"></div>
+  </section>
+
+  <footer>נוצר על ידי איילה אריאל · מתמטיקה</footer>
+</div>
+
+<script>
+(function(){
+  // ---------- settings ----------
+  const settings = {mode:'mix', style:'choice', teams:1};
+  document.querySelectorAll('.opts').forEach(g=>{
+    g.addEventListener('click',e=>{
+      const b=e.target.closest('.opt'); if(!b) return;
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');
+      const v=b.dataset.val;
+      settings[g.dataset.group] = g.dataset.group==='teams' ? Number(v) : v;
+    });
+  });
+
+  // ---------- helpers ----------
+  const $=id=>document.getElementById(id);
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+  const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const frac=(n,d)=>`<span class="frac"><span class="num">${n}</span><span class="den">${d}</span></span>`;
+  const N=x=>`<span class="n">${x}</span>`;
+
+  let audio=null;
+  function beep(good){
+    try{
+      audio = audio || new (window.AudioContext||window.webkitAudioContext)();
+      const notes = good ? [660,880] : [300,220];
+      notes.forEach((f,i)=>{
+        const o=audio.createOscillator(), g=audio.createGain();
+        o.type='sine'; o.frequency.value=f;
+        g.gain.setValueAtTime(.0001,audio.currentTime+i*.12);
+        g.gain.exponentialRampToValueAtTime(.18,audio.currentTime+i*.12+.02);
+        g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.12+.18);
+        o.connect(g).connect(audio.destination);
+        o.start(audio.currentTime+i*.12); o.stop(audio.currentTime+i*.12+.2);
+      });
+    }catch(e){}
+  }
+
+  // ---------- numbers ----------
+  const P_BY_LEVEL = [
+    [10,50,25,20],
+    [5,30,40,60,75,10,20],
+    [15,35,45,80,90,12,70,25]
+  ];
+  function wholeFor(level){
+    if(level===0) return pick([20,40,60,80,100,120,200,300,400,500]);
+    if(level===1) return rint(2,40)*10;
+    return rint(4,120)*5;
+  }
+  function genNumbers(level){
+    for(let t=0;t<500;t++){
+      const p=pick(P_BY_LEVEL[level]), W=wholeFor(level);
+      if((W*p)%100===0){ const A=W*p/100; if(A>0 && A<W) return {p,W,A}; }
+    }
+    return {p:50,W:80,A:40};
+  }
+
+  // ---------- word problems ----------
+  const CTX = [
+    {
+      a:(W,p)=>`בשכבה יש ${N(W)} תלמידות. ${N(p+'%')} מהן משתתפות בחוג ספורט. כמה תלמידות משתתפות בחוג?`,
+      b:(W,A)=>`בשכבה יש ${N(W)} תלמידות. ${N(A)} מהן משתתפות בחוג ספורט. כמה אחוזים מהתלמידות משתתפות בחוג?`,
+      unit:'תלמידות', ok:W=>W<=600
+    },
+    {
+      a:(W,p)=>`מחיר שמלה הוא ${N(W+' ₪')}. בחנות יש הנחה של ${N(p+'%')}. בכמה שקלים הנחה?`,
+      b:(W,A)=>`מחיר שמלה הוא ${N(W+' ₪')}. בקופה קיבלה מיכל הנחה של ${N(A+' ₪')}. כמה אחוזים הנחה קיבלה?`,
+      unit:'₪', ok:W=>W>=40
+    },
+    {
+      a:(W,p)=>`בספר יש ${N(W)} עמודים. נועה קראה ${N(p+'%')} מהספר. כמה עמודים קראה?`,
+      b:(W,A)=>`בספר יש ${N(W)} עמודים. נועה קראה ${N(A)} עמודים. איזה אחוז מהספר קראה?`,
+      unit:'עמודים', ok:W=>W>=40
+    },
+    {
+      a:(W,p)=>`בשקית יש ${N(W)} סוכריות. ${N(p+'%')} מהן אדומות. כמה סוכריות אדומות יש בשקית?`,
+      b:(W,A)=>`בשקית יש ${N(W)} סוכריות. ${N(A)} מהן אדומות. כמה אחוזים מהסוכריות אדומות?`,
+      unit:'סוכריות', ok:W=>W<=300
+    },
+    {
+      a:(W,p)=>`תמר זרקה ${N(W)} זריקות לסל. ${N(p+'%')} מהזריקות נכנסו. כמה זריקות נכנסו?`,
+      b:(W,A)=>`תמר זרקה ${N(W)} זריקות לסל. ${N(A)} זריקות נכנסו. כמה אחוזים מהזריקות נכנסו?`,
+      unit:'זריקות', ok:W=>W<=200
+    },
+    {
+      a:(W,p)=>`למופע נמכרו ${N(W)} כרטיסים. ${N(p+'%')} מהכרטיסים נמכרו לילדים. כמה כרטיסים נמכרו לילדים?`,
+      b:(W,A)=>`למופע נמכרו ${N(W)} כרטיסים. ${N(A)} מהם נמכרו לילדים. כמה אחוזים מהכרטיסים נמכרו לילדים?`,
+      unit:'כרטיסים', ok:W=>W>=50
+    }
+  ];
+
+  function makeQuestion(i,total){
+    const level = i < Math.round(total*0.4) ? 0 : (i < Math.round(total*0.8) ? 1 : 2);
+    const type = settings.mode==='mix' ? (Math.random()<.5?'a':'b') : (settings.mode==='amount'?'a':'b');
+    const {p,W,A} = genNumbers(level);
+    let text;
+    const ctxs = CTX.filter(c=>c.ok(W));
+    if(Math.random()<.55 && ctxs.length){
+      const c=pick(ctxs);
+      text = type==='a' ? c.a(W,p) : c.b(W,A);
+    }else{
+      text = type==='a'
+        ? `כמה זה ${N(p+'%')} מתוך ${N(W)}?`
+        : `${N(A)} הם כמה אחוזים מתוך ${N(W)}?`;
+    }
+    const answer = type==='a' ? A : p;
+    return {type,p,W,A,answer,text,options:makeOptions(type,p,W,A)};
+  }
+
+  function makeOptions(type,p,W,A){
+    let c;
+    if(type==='a'){
+      c=[A*2, A/2, W-A, p, A+W/10, A-W/10, A+10, A+5, A-5, W*p/10];
+    }else{
+      c=[100-p, p+10, p-10, p*2, p/2, A, p+5, p-5, Math.round(W/A)];
+    }
+    const ans = type==='a'?A:p;
+    const pool=[...new Set(c.filter(x=>Number.isInteger(x) && x>0 && x!==ans && (type==='a' || x<=100)))];
+    shuffle(pool);
+    const opts=[ans, ...pool.slice(0,3)];
+    let k=1; while(opts.length<4){ const x=ans+k*(type==='a'?2:5); if(!opts.includes(x)) opts.push(x); k++; }
+    return shuffle(opts);
+  }
+
+  // ---------- explanations ----------
+  function shortcut(p){
+    const m={10:'10% זה לחלק ב-10',50:'50% זה חצי – לחלק ב-2',25:'25% זה רבע – לחלק ב-4',
+             20:'20% זה חמישית – לחלק ב-5',5:'5% זה חצי מ-10%',75:'75% זה שלושה רבעים',
+             30:'30% = 3 פעמים 10%',40:'40% = 4 פעמים 10%',60:'60% = 6 פעמים 10%',
+             80:'80% = 8 פעמים 10%',90:'90% = 9 פעמים 10%',15:'15% = 10% ועוד 5%',
+             35:'35% = 30% ועוד 5%',45:'45% = 40% ועוד 5%',70:'70% = 7 פעמים 10%',12:'12% = 10% ועוד 2 פעמים 1%'};
+    return m[p]||'';
+  }
+  function hintHTML(q){
+    if(q.type==='a'){
+      const sc=shortcut(q.p);
+      return `<h3>💡 רמז</h3>
+        <div>השלם = <b>${q.W}</b>, האחוז = <b>${q.p}%</b>. מחפשות את <b>תמורת האחוז</b>.</div>
+        <div class="formula" style="margin-top:8px">תמורת האחוז = ${frac('השלם · האחוז','100')}</div>
+        <div style="margin-top:6px"><span class="eq" dir="ltr">${frac(q.W+' · '+q.p,'100')} = ?</span></div>
+        ${sc?`<div style="margin-top:6px">✨ דרך קיצור: ${sc}</div>`:''}`;
+    }
+    return `<h3>💡 רמז</h3>
+      <div>תמורת האחוז = <b>${q.A}</b>, השלם = <b>${q.W}</b>. מחפשות את <b>האחוז</b>.</div>
+      <div class="formula" style="margin-top:8px">האחוז = ${frac('תמורת האחוז · 100','השלם')}</div>
+      <div style="margin-top:6px"><span class="eq" dir="ltr">${frac(q.A+' · 100',q.W)} = ?</span></div>`;
+  }
+  function solutionHTML(q){
+    const pct=Math.max(2,Math.min(100,q.A/q.W*100));
+    const bar=`<div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="bar-labels"><span>השלם: ${q.W} (100%)</span><span>תמורת האחוז: ${q.A} (${q.p}%)</span></div>`;
+    if(q.type==='a'){
+      return `<div class="formula">תמורת האחוז = ${frac('השלם · האחוז','100')}</div>
+        <div style="margin-top:4px"><span class="eq" dir="ltr">${frac(q.W+' · '+q.p,'100')} = ${frac(q.W*q.p,'100')} = <b>${q.A}</b></span></div>${bar}`;
+    }
+    return `<div class="formula">האחוז = ${frac('תמורת האחוז · 100','השלם')}</div>
+      <div style="margin-top:4px"><span class="eq" dir="ltr">${frac(q.A+' · 100',q.W)} = ${frac(q.A*100,q.W)} = <b>${q.p}%</b></span></div>${bar}`;
+  }
+
+  // ---------- game state ----------
+  let S;
+  const PRAISE=['מעולה!','כל הכבוד!','יפה מאוד!','בדיוק!','אלופה!','מושלם!','וואו! 🎯'];
+
+  function start(){
+    const total = settings.teams===2 ? 12 : 10;
+    S={total,i:0,scores:settings.teams===2?[0,0]:[0],streak:settings.teams===2?[0,0]:[0],
+       firstTry:settings.teams===2?[0,0]:[0],q:null,tries:0,hintUsed:false,done:false};
+    $('start').classList.add('hidden'); $('end').classList.add('hidden'); $('game').classList.remove('hidden');
+    nextQuestion();
+  }
+  $('goBtn').addEventListener('click',()=>{beep(true);start();});
+
+  function team(){return settings.teams===2 ? S.i%2 : 0;}
+
+  function renderHUD(){
+    $('qCount').textContent=`שאלה ${S.i+1} מתוך ${S.total}`;
+    $('prog').style.width=(S.i/S.total*100)+'%';
+    const sa=$('scoreArea');
+    if(settings.teams===2){
+      const t=team();
+      sa.innerHTML=`<div class="pill team tA ${t===0?'on':''}">קבוצה א׳: ${S.scores[0]}</div>
+                    <div class="pill team tB ${t===1?'on':''}">קבוצה ב׳: ${S.scores[1]}</div>`;
+    }else{
+      sa.innerHTML=`<div class="pill">⭐ ${S.scores[0]}</div>${S.streak[0]>=2?`<div class="pill">🔥 ${S.streak[0]}</div>`:''}`;
+    }
+  }
+
+  function nextQuestion(){
+    if(S.i>=S.total){ return finish(); }
+    S.q=makeQuestion(S.i,S.total); S.tries=0; S.hintUsed=false; S.done=false;
+    const q=S.q;
+    renderHUD();
+    const turn=$('turn');
+    if(settings.teams===2){
+      turn.classList.remove('hidden');
+      turn.textContent = team()===0 ? '🟢 תור קבוצה א׳' : '🟠 תור קבוצה ב׳';
+      turn.style.color = team()===0 ? 'var(--teal)' : 'var(--teamB)';
+    } else turn.classList.add('hidden');
+
+    const tag=$('qtag');
+    tag.className='qtag '+q.type;
+    tag.textContent = q.type==='a' ? 'מוצאים את תמורת האחוז' : 'מוצאים את האחוז';
+    $('qText').innerHTML=q.text;
+    $('givens').innerHTML = q.type==='a'
+      ? `<span class="given">השלם: <b>${q.W}</b></span><span class="given">האחוז: <b>${q.p}%</b></span><span class="given">תמורת האחוז: <b>?</b></span>`
+      : `<span class="given">השלם: <b>${q.W}</b></span><span class="given">תמורת האחוז: <b>${q.A}</b></span><span class="given">האחוז: <b>?</b></span>`;
+
+    $('hint').classList.add('hidden'); $('feedback').classList.add('hidden'); $('nextBtn').classList.add('hidden');
+    $('hintBtn').disabled=false;
+
+    const ans=$('answers'), tb=$('typebox');
+    if(settings.style==='choice'){
+      tb.classList.add('hidden'); ans.classList.remove('hidden');
+      ans.innerHTML = q.options.map(o=>`<button class="ans" data-v="${o}">${q.type==='b'?o+'%':o}</button>`).join('');
+    }else{
+      ans.classList.add('hidden'); tb.classList.remove('hidden');
+      $('typeIn').value=''; $('typeIn').disabled=false; $('checkBtn').disabled=false;
+      $('suffix').textContent = q.type==='b' ? '%' : '';
+      setTimeout(()=>{try{$('typeIn').focus()}catch(e){}},50);
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  $('answers').addEventListener('click',e=>{
+    const b=e.target.closest('.ans'); if(!b||b.disabled||S.done) return;
+    check(Number(b.dataset.v), b);
+  });
+  $('checkBtn').addEventListener('click',submitTyped);
+  $('typeIn').addEventListener('keydown',e=>{ if(e.key==='Enter') submitTyped(); });
+  function submitTyped(){
+    if(S.done) return;
+    const raw=$('typeIn').value.replace('%','').replace(',','.').trim();
+    if(raw===''){ $('typeIn').classList.add('shake'); setTimeout(()=>$('typeIn').classList.remove('shake'),400); return; }
+    check(Number(raw), null);
+  }
+
+  $('hintBtn').addEventListener('click',()=>{
+    if(S.done) return;
+    S.hintUsed=true;
+    const h=$('hint'); h.innerHTML=hintHTML(S.q); h.classList.remove('hidden');
+    $('hintBtn').disabled=true;
+  });
+
+  function popup(txt){
+    const d=document.createElement('div'); d.className='pop'; d.textContent=txt;
+    document.body.appendChild(d); setTimeout(()=>d.remove(),950);
+  }
+
+  function check(v, btn){
+    const q=S.q, t=team(), fb=$('feedback');
+    S.tries++;
+    if(v===q.answer){
+      S.done=true; beep(true);
+      let pts = (S.tries===1 && !S.hintUsed) ? 10 : 5;
+      let bonus=0;
+      if(S.tries===1){ S.streak[t]++; S.firstTry[t]++; } else S.streak[t]=0;
+      if(S.tries===1 && S.streak[t]>=3){ bonus=5; }
+      S.scores[t]+=pts+bonus;
+      if(btn) btn.classList.add('good');
+      document.querySelectorAll('.ans').forEach(x=>x.disabled=true);
+      $('typeIn').disabled=true; $('checkBtn').disabled=true;
+      popup('+'+(pts+bonus));
+      fb.className='feedback good';
+      fb.innerHTML=`<h3>✅ ${pick(PRAISE)} ${bonus?'🔥 בונוס רצף +5':''}</h3>${solutionHTML(q)}`;
+      fb.classList.remove('hidden');
+      showNext();
+    }else{
+      beep(false);
+      if(btn){ btn.classList.add('bad'); btn.disabled=true; }
+      $('qCard').classList.add('shake'); setTimeout(()=>$('qCard').classList.remove('shake'),400);
+      S.streak[t]=0;
+      if(S.tries===1){
+        fb.className='feedback retry';
+        fb.innerHTML=`<h3>🤏 כמעט! נסי שוב</h3><div>אפשר להיעזר ברמז 💡</div>`;
+        fb.classList.remove('hidden');
+        if(!btn){ $('typeIn').select(); }
+      }else{
+        S.done=true;
+        document.querySelectorAll('.ans').forEach(x=>{ x.disabled=true; if(Number(x.dataset.v)===q.answer) x.classList.add('good'); });
+        $('typeIn').disabled=true; $('checkBtn').disabled=true;
+        fb.className='feedback bad';
+        fb.innerHTML=`<h3>הפעם לא הצליח – בואי נראה איך פותרים:</h3>
+          <div style="margin-bottom:6px">התשובה הנכונה: <b>${q.type==='b'?q.answer+'%':q.answer}</b></div>${solutionHTML(q)}`;
+        fb.classList.remove('hidden');
+        showNext();
+      }
+    }
+    renderHUD();
+  }
+
+  function showNext(){
+    $('hintBtn').disabled=true;
+    const nb=$('nextBtn');
+    nb.textContent = S.i+1>=S.total ? 'לתוצאות 🏁' : 'לשאלה הבאה ←';
+    nb.classList.remove('hidden');
+    setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'nearest'}),150);
+  }
+  $('nextBtn').addEventListener('click',()=>{ S.i++; nextQuestion(); });
+
+  function starsHTML(n){ let s=''; for(let k=0;k<3;k++) s+=`<span class="${k<n?'':'off'}">⭐</span>`; return s; }
+
+  function finish(){
+    $('prog').style.width='100%';
+    $('game').classList.add('hidden'); $('end').classList.remove('hidden');
+    const ec=$('endCard');
+    if(settings.teams===2){
+      const [a,b]=S.scores;
+      const msg = a===b ? 'תיקו! שתי הקבוצות אלופות 🤝' : (a>b?'קבוצה א׳ ניצחה! 🏆':'קבוצה ב׳ ניצחה! 🏆');
+      ec.innerHTML=`<h2 class="center" style="font-size:26px">${msg}</h2>
+        <div class="teams-end">
+          <div class="tbox ${a>=b?'win':''}">קבוצה א׳<b>${a}</b><small>${S.firstTry[0]} מתוך 6 בניסיון ראשון</small></div>
+          <div class="tbox ${b>=a?'win':''}">קבוצה ב׳<b>${b}</b><small>${S.firstTry[1]} מתוך 6 בניסיון ראשון</small></div>
+        </div>
+        <button class="big-btn" id="again">משחק נוסף 🔁</button>
+        <button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+    }else{
+      const sc=S.scores[0], max=S.total*10;
+      const r=sc/max, st= r>=.85?3 : r>=.6?2 : r>=.3?1:0;
+      const msg = st===3?'אלופת האחוזים! 🏆' : st===2?'עבודה מצוינת! 💪' : st===1?'יפה! עוד סיבוב ותשתפרי 🌱':'כל התחלה קשה – נסי שוב עם רמזים 💡';
+      ec.innerHTML=`<div class="stars">${starsHTML(st)}</div>
+        <div class="score-big">${sc} נקודות</div>
+        <h2 class="center">${msg}</h2>
+        <div class="center muted">ענית נכון בניסיון ראשון על ${S.firstTry[0]} מתוך ${S.total} שאלות</div>
+        <button class="big-btn" id="again">משחק נוסף 🔁</button>
+        <button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+    }
+    $('again').addEventListener('click',start);
+    $('menu').addEventListener('click',()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); window.scrollTo({top:0}); });
+  }
+})();
+</script>
+</body>
+</html>

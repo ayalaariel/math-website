@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרוץ המשפטים – גיאומטריה י' – איילה אריאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24345c; --ink-soft:#4a5a80; --teal:#14a3a3; --teal-soft:#d6f2f1;
+    --bg:#f4f7fb; --card:#ffffff; --line:#dfe5ef;
+    --good:#1f9d55; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3e3;
+    --gold:#f2b705; --teamB:#e0712c; --teamB-soft:#fde9dc;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Rubik",system-ui,sans-serif}
+  body{min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+  /* header / branding */
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .pi{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+      font-size:26px;font-weight:700;box-shadow:0 0 0 3px var(--teal-soft), 0 0 0 5px var(--teal)}
+  .brand-text b{display:block;font-size:17px;line-height:1.1}
+  .brand-text span{font-size:13px;color:var(--teal);font-weight:600}
+  .gtitle{font-weight:800;font-size:clamp(18px,4.5vw,26px);color:var(--ink)}
+  .gtitle em{font-style:normal;color:var(--teal)}
+
+  .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(36,52,92,.07);border:1px solid var(--line)}
+  .stack>*+*{margin-top:14px}
+  h2{margin:0 0 8px;font-size:19px}
+  .muted{color:var(--ink-soft)}
+
+  /* start screen */
+  .opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;text-align:right;font-size:15px;color:var(--ink)}
+  .opt b{display:block;font-size:16px;margin-bottom:2px}
+  .opt small{color:var(--ink-soft)}
+  .opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+  .big-btn{width:100%;border:0;border-radius:16px;padding:16px;font-size:20px;font-weight:700;background:var(--teal);color:#fff;
+           box-shadow:0 4px 0 #0e7d7d}
+  .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0e7d7d}
+  .ghost{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600}
+
+  .remind{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .rbox{background:var(--bg);border-radius:14px;padding:12px;border:1px dashed #c5cfe0}
+  .rbox h3{margin:0 0 6px;font-size:15px;color:var(--teal)}
+
+  /* fractions */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1.25}
+  .frac .num{padding:0 6px 2px;border-bottom:2px solid currentColor}
+  .frac .den{padding:2px 6px 0}
+  .formula{font-size:17px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .eq{font-size:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px;unicode-bidi:isolate}
+
+  /* game */
+  .hud{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:15px}
+  .pill.team{border-width:2px}
+  .pill.team.on{box-shadow:0 0 0 3px var(--teal-soft)}
+  .pill.tA{border-color:var(--teal)} .pill.tB{border-color:var(--teamB)}
+  .pill.tB.on{box-shadow:0 0 0 3px var(--teamB-soft)}
+  .progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+  .qtag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+  .qtag.a{background:var(--teal-soft);color:#0d7272}
+  .qtag.b{background:#e7e9fb;color:#3f46a8}
+  .turn{font-weight:700;font-size:15px;margin-bottom:6px}
+  .question{font-size:clamp(20px,5vw,28px);font-weight:600;line-height:1.5;margin:4px 0 6px}
+  .question .n{color:var(--teal);font-weight:800}
+  .givens{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .given{background:var(--bg);border-radius:10px;padding:6px 10px;font-size:15px}
+  .given b{color:var(--ink)}
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .ans{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 8px;font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink);
+       box-shadow:0 3px 0 var(--line);transition:background .15s}
+  .ans:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .ans.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+  .ans.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);opacity:.75}
+  .ans:disabled{cursor:default}
+
+  .typebox{display:flex;gap:8px;margin-top:14px;align-items:stretch}
+  .typebox input{flex:1;min-width:0;font-size:28px;font-weight:700;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px;font-family:inherit;color:var(--ink)}
+  .typebox input:focus{outline:none;border-color:var(--teal)}
+  .typebox .suffix{display:grid;place-items:center;font-size:26px;font-weight:700;padding:0 4px}
+  .typebox button{border:0;border-radius:14px;background:var(--teal);color:#fff;font-size:18px;font-weight:700;padding:0 18px}
+
+  .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hint{margin-top:12px;background:#fff8e1;border:1px solid #f3dd8f;border-radius:14px;padding:12px}
+  .hint h3{margin:0 0 6px;font-size:15px;color:#9a7300}
+  .feedback{margin-top:12px;border-radius:14px;padding:12px}
+  .feedback.good{background:var(--good-soft);border:1px solid #9fd9b6}
+  .feedback.bad{background:var(--bad-soft);border:1px solid #f0b2b2}
+  .feedback.retry{background:#fff3e6;border:1px solid #f5c99a}
+  .feedback h3{margin:0 0 6px;font-size:18px}
+
+  .bar{position:relative;height:30px;background:#fff;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:10px 0 4px}
+  .bar i{position:absolute;inset-block:0;right:0;background:var(--teal);transition:width .6s}
+  .bar-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .next{margin-top:12px}
+
+  .pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:800;color:var(--good);pointer-events:none;
+       animation:pop .9s ease-out forwards;z-index:9;text-shadow:0 2px 0 #fff}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+
+  /* end */
+  .stars{font-size:46px;letter-spacing:6px;text-align:center;margin:6px 0}
+  .stars .off{filter:grayscale(1);opacity:.3}
+  .score-big{text-align:center;font-size:44px;font-weight:800;color:var(--teal)}
+  .center{text-align:center}
+  .teams-end{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tbox{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--line)}
+  .tbox.win{border-color:var(--gold);background:#fff9e0}
+  .tbox b{display:block;font-size:34px}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:20px}
+</style>
+<style>
+  .fig{display:flex;justify-content:center;margin:6px 0 2px}
+  .fig svg{width:100%;max-width:360px;height:auto}
+  .fig .ln{stroke:var(--ink);stroke-width:2.5;fill:none;stroke-linecap:round}
+  .fig .ln2{stroke:var(--teal);stroke-width:2.5;fill:none}
+  .fig .thin{stroke:#8a96b2;stroke-width:1.5;fill:none;stroke-dasharray:5 4}
+  .fig .tick{stroke:var(--teal);stroke-width:2.5}
+  .fig text{font-family:Rubik,sans-serif;font-size:17px;fill:var(--ink);font-weight:600}
+  .fig .val{fill:#0d7272;font-weight:700}
+  .fig .unk{fill:#d64545;font-weight:800;font-size:19px}
+  .fig .pt{fill:var(--ink)}
+  .fig .arc{stroke:var(--teal);stroke-width:2;fill:none}
+  .fig .arc2{stroke:#e0712c;stroke-width:2;fill:none}
+  .fig .val2{fill:#c25a17;font-weight:700}
+  .fig .chev{stroke:var(--ink);stroke-width:2;fill:none}
+  .fig .barl{fill:#fff;font-size:15px}
+  .fig .small{font-size:15px;font-weight:500}
+  .m{direction:ltr;unicode-bidi:isolate;font-weight:600;white-space:nowrap}
+  .tf .ans{font-size:22px}
+  .cats{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .theorem{margin-top:8px;background:#fff;border-radius:10px;padding:8px 10px;border-right:4px solid var(--teal);font-size:16px;line-height:1.5}
+  .glist{background:var(--bg);border-radius:12px;padding:8px 12px;margin:6px 0;font-size:.85em;line-height:1.6;border-right:4px solid var(--teal)}
+  .gl-t{font-weight:700;color:var(--teal)}
+  .gl-i::before{content:"• ";color:var(--teal)}
+  .ask{font-weight:700}
+  .figNote{font-size:12px;color:var(--ink-soft);text-align:center}
+  .question{font-size:clamp(19px,4.6vw,25px)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="pi">π</div>
+      <div class="brand-text"><b>איילה אריאל</b><span>מתמטיקה</span></div>
+    </div>
+    <div class="gtitle">מרוץ <em>המשפטים</em> △</div>
+  </header>
+
+  <section id="start" class="stack">
+    <div class="card">
+      <h2>גיאומטריה – כיתה י'</h2>
+      <div class="muted">שאלות על תכונות משולשים ומרובעים ועל המשפטים עד משפט התיכונים: השלמת משפטים, "נכון או לא נכון", זיהוי משפט חפיפה וחישובים עם שרטוט. אחרי כל שאלה מופיע המשפט המתאים.</div>
+    </div>
+    <div class="card stack">
+      <div>
+        <h2>אילו נושאים?</h2>
+        <div class="muted" style="font-size:14px;margin-bottom:6px">אפשר לבחור כמה</div>
+        <div class="cats" id="cats">
+          <button class="opt sel" data-cat="tri"><b>סוגי משולשים ותכונותיהם</b><small>חד/ישר/קהה זווית, גובה, תיכון, חוצה זווית</small></button>
+          <button class="opt sel" data-cat="ang"><b>זוויות ומקבילים</b><small>קודקודיות, צמודות, מקבילים, סכום זוויות, זווית חיצונית</small></button>
+          <button class="opt sel" data-cat="cong"><b>חפיפת משולשים</b><small>צ.ז.צ, ז.צ.ז, צ.צ.צ, צ.צ.ז</small></button>
+          <button class="opt sel" data-cat="iso"><b>שווה שוקיים ואי-שוויונים</b><small>זוויות בסיס, חוצה זווית ראש, אי-שוויון המשולש, אנך אמצעי</small></button>
+          <button class="opt sel" data-cat="right"><b>משולש ישר זווית</b><small>תיכון ליתר, זווית 30°, פיתגורס</small></button>
+          <button class="opt sel" data-cat="mid"><b>קטע אמצעים ותיכונים</b><small>קטע אמצעים במשולש ובטרפז – הגדרות ומשפטים, משפט התיכונים</small></button>
+          <button class="opt sel" data-cat="quad"><b>מרובעים</b><small>מקבילית, מלבן, מעוין, ריבוע, טרפז, דלתון</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>מי משחק?</h2>
+        <div class="opts" data-group="teams">
+          <button class="opt sel" data-val="1"><b>משחק יחיד</b><small>12 שאלות</small></button>
+          <button class="opt" data-val="2"><b>שתי קבוצות</b><small>14 שאלות, לסירוגין – לכיתה</small></button>
+        </div>
+      </div>
+      <button class="big-btn" id="goBtn">יאללה, מתחילים! 🚀</button>
+    </div>
+    <div class="card muted" style="font-size:14px">
+      <b>ניקוד:</b> תשובה נכונה בניסיון ראשון = 10 נקודות. עם רמז או בניסיון שני = 5 נקודות (ב"נכון / לא נכון" יש ניסיון אחד בלבד).
+      3 תשובות נכונות ברצף = בונוס 5 🔥.
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="hud">
+      <div class="pill" id="qCount"></div>
+      <div id="scoreArea" style="display:flex;gap:6px"></div>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="card" id="qCard">
+      <div class="turn hidden" id="turn"></div>
+      <span class="qtag a" id="qtag"></span>
+      <div class="question" id="qText"></div>
+      <div class="fig" id="fig"></div>
+      <div class="figNote hidden" id="figNote">השרטוט להמחשה בלבד</div>
+      <div class="answers" id="answers"></div>
+      <div class="tools"><button class="ghost" id="hintBtn">💡 רמז</button></div>
+      <div class="hint hidden" id="hint"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="big-btn next hidden" id="nextBtn">לשאלה הבאה ←</button>
+    </div>
+  </section>
+
+  <section id="end" class="hidden"><div class="card stack" id="endCard"></div></section>
+  <footer>נוצר על ידי איילה אריאל · מתמטיקה</footer>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const m=s=>`<span class="m">${s}</span>`;
+const GV=(items,ask,intro='')=>`${intro?`<div>${intro}</div>`:''}<div class="glist"><div class="gl-t">נתון:</div>${items.map(i=>`<div class="gl-i">${i}</div>`).join('')}</div><div class="ask">${ask}</div>`;
+const CAT_NAME={tri:'סוגי משולשים ותכונותיהם',quad:'מרובעים',ang:'זוויות ומקבילים',cong:'חפיפת משולשים',iso:'שווה שוקיים ואי-שוויונים',right:'משולש ישר זווית',mid:'קטע אמצעים (משולש וטרפז) ותיכונים'};
+const CAT_HINT={
+  tri:'סוגי משולשים לפי זוויות: חד זווית, ישר זווית, קהה זווית • לפי צלעות: שווה שוקיים, שווה צלעות • גובה = אנך לצלע שמול הקודקוד • תיכון = לאמצע הצלע שמול הקודקוד • חוצה זווית = מחלק את הזווית לשתיים.',
+  quad:'סכום זוויות במרובע 360° • מקבילית: צלעות נגדיות שוות ומקבילות, זוויות נגדיות שוות, אלכסונים חוצים זה את זה • מלבן: אלכסונים שווים • מעוין: אלכסונים מאונכים וחוצי זוויות • ריבוע: גם מלבן וגם מעוין • טרפז: קטע אמצעים = מחצית סכום הבסיסים.',
+  ang:'חשבי: זוויות קודקודיות שוות • סכום זוויות צמודות 180° • בין מקבילים: מתאימות שוות, מתחלפות שוות, חד-צדדיות סכומן 180° • סכום זוויות במשולש 180° • זווית חיצונית = סכום שתי הפנימיות שאינן צמודות לה.',
+  cong:'ארבעת משפטי החפיפה: צ.ז.צ (הזווית בין הצלעות) • ז.צ.ז (שתי הזוויות שליד הצלע) • צ.צ.צ • צ.צ.ז (הזווית מול הגדולה מבין שתי הצלעות). ז.ז.ז אינו משפט חפיפה!',
+  iso:'שווה שוקיים: זוויות הבסיס שוות, וחוצה זווית הראש הוא גם תיכון וגם גובה • מול צלע גדולה – זווית גדולה • סכום שתי צלעות גדול מהשלישית.',
+  right:'במשולש ישר זווית: התיכון ליתר = מחצית היתר • מול זווית 30° – ניצב שהוא מחצית היתר • סכום הזוויות החדות 90° • פיתגורס: a² + b² = c².',
+  mid:'קטע אמצעים במשולש מחבר אמצעי שתי צלעות, מקביל לצלע השלישית ושווה למחציתה • ישר מאמצע צלע ומקביל לצלע שנייה חוצה את השלישית • קטע אמצעים בטרפז מחבר אמצעי שוקיים, מקביל לבסיסים ושווה למחצית סכומם • התיכונים נפגשים בנקודה אחת שמחלקת כל תיכון ביחס 2:1 (החלק הארוך ליד הקודקוד).'
+};
+
+/* ---------------- static bank ---------------- */
+const BANK=[];
+const mc=(cat,q,opts,exp)=>BANK.push({cat,kind:'mc',q,opts,exp});
+const tf=(cat,q,val,exp)=>BANK.push({cat,kind:'tf',q,opts:val?['נכון','לא נכון']:['לא נכון','נכון'],exp});
+const CONG_OPTS=['צ.ז.צ','ז.צ.ז','צ.צ.צ','צ.צ.ז'];
+const congQ=(given,ans,exp,sp)=>BANK.push({cat:'cong',kind:'mc',figSpec:sp,q:GV(given,'לפי איזה משפט המשולשים חופפים?',`במשולשים ${m('△ABC')} ו-${m('△DEF')}:`),opts:[ans,...CONG_OPTS.filter(x=>x!==ans)],exp});
+
+// זוויות ומקבילים
+mc('ang','זוויות קודקודיות הן ___',['שוות זו לזו','סכומן 180°','סכומן 90°','תמיד ישרות'],'משפט: זוויות קודקודיות שוות זו לזו.');
+mc('ang','סכום שתי זוויות צמודות הוא ___',['180°','90°','360°','תלוי בזוויות'],'משפט: סכום זוויות צמודות הוא 180°.');
+mc('ang','אם שני ישרים מקבילים נחתכים על ידי ישר שלישי, אז הזוויות המתחלפות ___',['שוות זו לזו','סכומן 180°','סכומן 90°','אחת כפולה מהשנייה'],'בין ישרים מקבילים: זוויות מתאימות שוות, זוויות מתחלפות שוות, וסכום זוויות חד-צדדיות הוא 180°.');
+mc('ang','בין שני ישרים מקבילים, סכום הזוויות החד-צדדיות הוא ___',['180°','90°','360°','הן שוות זו לזו'],'בין ישרים מקבילים סכום זוויות חד-צדדיות הוא 180°.');
+mc('ang','סכום הזוויות במשולש הוא ___',['180°','360°','90°','תלוי בסוג המשולש'],'משפט: סכום הזוויות הפנימיות במשולש הוא 180°.');
+mc('ang','זווית חיצונית למשולש שווה ל___',['סכום שתי הזוויות הפנימיות שאינן צמודות לה','הזווית הפנימית הצמודה לה','סכום כל הזוויות הפנימיות','הפרש שתי הזוויות הפנימיות שאינן צמודות לה'],'משפט: זווית חיצונית למשולש שווה לסכום שתי הזוויות הפנימיות שאינן צמודות לה.');
+mc('ang','כדי להוכיח ששני ישרים מקבילים, מספיק להראות ש___',['זוג זוויות מתחלפות שוות','זוג זוויות קודקודיות שוות','סכום זוג זוויות צמודות הוא 180°','הישרים לא נחתכים בשרטוט'],'משפט הפוך: אם זוויות מתחלפות (או מתאימות) שוות, או שסכום זוויות חד-צדדיות 180° – הישרים מקבילים. קודקודיות וצמודות מתקיימות תמיד ולכן לא מוכיחות הקבלה.');
+tf('ang','בין ישרים מקבילים, זוויות חד-צדדיות שוות זו לזו.',false,'סכום זוויות חד-צדדיות בין מקבילים הוא 180°. הן שוות רק אם כל אחת מהן 90°.');
+tf('ang','זווית חיצונית למשולש גדולה מכל זווית פנימית שאינה צמודה לה.',true,'זווית חיצונית שווה לסכום שתי הזוויות הפנימיות שאינן צמודות לה, ולכן גדולה מכל אחת מהן.');
+tf('ang','במשולש יכולות להיות שתי זוויות קהות.',false,'שתי זוויות קהות ביחד הן יותר מ-180°, אבל סכום כל הזוויות במשולש הוא 180°.');
+tf('ang','אם זוויות מתאימות שוות, אז הישרים מקבילים.',true,'זהו המשפט ההפוך למשפט הזוויות המתאימות.');
+
+// חפיפה
+mc('cong','משפט חפיפה צ.ז.צ: שני משולשים חופפים אם יש להם שתי צלעות שוות בהתאמה ו___',['הזווית שבין שתי הצלעות שווה','זווית כלשהי שווה','הזווית שמול אחת הצלעות שווה','הצלע השלישית קטנה יותר'],'צ.ז.צ – צלע, זווית, צלע: הזווית חייבת להיות הזווית שכלואה בין שתי הצלעות.');
+mc('cong','משפט חפיפה ז.צ.ז: שני משולשים חופפים אם יש להם צלע שווה ו___',['שתי הזוויות שליד הצלע הזו שוות בהתאמה','זווית אחת שליד הצלע שווה','צלע נוספת שווה','הזווית שמול הצלע שווה בלבד'],'ז.צ.ז – זווית, צלע, זווית: צלע ושתי הזוויות שליד הצלע.');
+mc('cong','משפט חפיפה צ.צ.ז: שתי צלעות שוות בהתאמה, והזווית ש___',['מול הגדולה מבין שתי הצלעות שווה','מול הקטנה מבין שתי הצלעות שווה','ליד הצלע הקטנה שווה','מחוץ למשולש שווה'],'צ.צ.ז – שתי צלעות והזווית שמול הגדולה מביניהן.');
+mc('cong','במשולשים חופפים, מול זוויות שוות נמצאות ___',['צלעות שוות','צלעות מקבילות','צלעות מאונכות','צלעות שסכומן קבוע'],'במשולשים חופפים: מול זוויות שוות מונחות צלעות שוות, ומול צלעות שוות מונחות זוויות שוות.');
+congQ([m('AB = DE'),m('∠A = ∠D'),m('AC = DF')],'צ.ז.צ','הזווית ∠A נמצאת בין הצלעות AB ו-AC, ולכן זה צ.ז.צ.',{s:[['AB',1],['AC',2]],a:[['A',1]]});
+congQ([m('∠B = ∠E'),m('BC = EF'),m('∠C = ∠F')],'ז.צ.ז','הצלע BC ושתי הזוויות שלידה (∠B ו-∠C) – ז.צ.ז.',{s:[['BC',1]],a:[['B',1],['C',2]]});
+congQ([m('AB = DE'),m('BC = EF'),m('AC = DF')],'צ.צ.צ','שלוש צלעות שוות בהתאמה – צ.צ.צ.',{s:[['AB',1],['BC',2],['AC',3]]});
+congQ([m('AB = DE'),m('AC = DF'),m('∠C = ∠F'),m('AB > AC')],'צ.צ.ז','∠C נמצאת מול הצלע AB, שהיא הגדולה מבין AB ו-AC – צ.צ.ז.',{s:[['AB',1],['AC',2]],a:[['C',1]]});
+congQ([m('∠A = ∠D'),m('AB = DE'),m('∠B = ∠E')],'ז.צ.ז','הצלע AB ושתי הזוויות שלידה – ז.צ.ז.',{s:[['AB',1]],a:[['A',1],['B',2]]});
+congQ([m('BA = ED'),m('∠B = ∠E'),m('BC = EF')],'צ.ז.צ','∠B כלואה בין BA ל-BC – צ.ז.צ.',{s:[['AB',1],['BC',2]],a:[['B',1]]});
+BANK.push({cat:'cong',kind:'mc',q:GV([m('∠A = ∠D'),m('∠B = ∠E'),m('∠C = ∠F')],'מה אפשר לומר?',`במשולשים ${m('△ABC')} ו-${m('△DEF')}:`),opts:['אי אפשר לקבוע שהמשולשים חופפים','חופפים לפי ז.צ.ז','חופפים לפי צ.ז.צ','חופפים לפי צ.צ.צ'],exp:'ז.ז.ז אינו משפט חפיפה: למשולשים יכולות להיות אותן זוויות ובכל זאת גדלים שונים.'});
+tf('cong','שני משולשים שכל הזוויות שלהם שוות בהתאמה – חופפים.',false,'ז.ז.ז אינו משפט חפיפה: משולש "מוגדל" שומר על הזוויות אבל הצלעות שלו גדולות יותר.');
+tf('cong','שני משולשים ישרי זווית, שהיתר ואחד הניצבים שלהם שווים בהתאמה – חופפים.',true,'לפי צ.צ.ז: היתר הוא הצלע הגדולה, והזווית הישרה נמצאת מולו.');
+
+// שווה שוקיים ואי-שוויונים
+mc('iso','במשולש שווה שוקיים, זוויות הבסיס ___',['שוות זו לזו','סכומן 90°','שוות לזווית הראש','סכומן 180°'],'משפט: במשולש שווה שוקיים זוויות הבסיס שוות.');
+mc('iso','במשולש שווה שוקיים, חוצה זווית הראש הוא גם ___',['תיכון לבסיס וגובה לבסיס','מקביל לבסיס','שווה באורכו לבסיס','שווה באורכו לשוק'],'משפט: במשולש שווה שוקיים חוצה זווית הראש, התיכון לבסיס והגובה לבסיס מתלכדים.');
+mc('iso','כל זווית במשולש שווה צלעות היא ___',['60°','90°','45°','30°'],'במשולש שווה צלעות כל הזוויות שוות, ו-180° : 3 = 60°.');
+mc('iso','במשולש, מול הצלע הגדולה יותר נמצאת ___',['הזווית הגדולה יותר','הזווית הקטנה יותר','תמיד זווית ישרה','תמיד זווית של 60°'],'משפט: במשולש, מול צלע גדולה יותר נמצאת זווית גדולה יותר (וגם להפך).');
+mc('iso','משפט אי-שוויון המשולש: במשולש, סכום שתי צלעות ___',['גדול מהצלע השלישית','שווה לצלע השלישית','קטן מהצלע השלישית','שווה לפעמיים הצלע השלישית'],'אי-שוויון המשולש: סכום כל שתי צלעות גדול מהצלע השלישית.');
+mc('iso','כל נקודה על האנך האמצעי לקטע ___',['נמצאת במרחקים שווים מקצות הקטע','נמצאת על הקטע עצמו','קרובה יותר לאחד מקצות הקטע','נמצאת במרחקים שווים משוקי זווית'],'משפט: כל נקודה על האנך האמצעי לקטע נמצאת במרחקים שווים מקצות הקטע.');
+mc('iso','כל נקודה על חוצה זווית ___',['נמצאת במרחקים שווים משוקי הזווית','נמצאת במרחקים שווים מקצות קטע','נמצאת על אחד משוקי הזווית','רחוקה יותר מהשוק הארוכה'],'משפט: כל נקודה על חוצה זווית נמצאת במרחקים שווים משוקי הזווית.');
+tf('iso','אם במשולש יש שתי זוויות שוות, אז המשולש שווה שוקיים.',true,'משפט הפוך: מול זוויות שוות מונחות צלעות שוות.');
+tf('iso','אם במשולש התיכון לצלע הוא גם הגובה לאותה צלע, אז המשולש שווה שוקיים.',true,'משפט: אם במשולש מתלכדים שניים מתוך: חוצה זווית, תיכון, גובה – המשולש שווה שוקיים.');
+tf('iso','אפשר לבנות משולש שאורכי צלעותיו 3, 4 ו-8.',false,'3 + 4 = 7, וזה קטן מ-8. לפי אי-שוויון המשולש אי אפשר.');
+tf('iso','אפשר לבנות משולש שאורכי צלעותיו 5, 7 ו-10.',true,'5 + 7 = 12 > 10, 5 + 10 > 7, 7 + 10 > 5 – אי-שוויון המשולש מתקיים.');
+tf('iso','אפשר לבנות משולש שאורכי צלעותיו 4, 6 ו-10.',false,'4 + 6 = 10 – הסכום שווה לצלע השלישית ולא גדול ממנה, ולכן אין משולש.');
+
+// משולש ישר זווית
+mc('right','במשולש ישר זווית, התיכון ליתר שווה ל___',['מחצית היתר','היתר','הניצב הקצר','מחצית הניצב הארוך'],'משפט: במשולש ישר זווית התיכון ליתר שווה למחצית היתר.');
+mc('right','במשולש ישר זווית עם זווית של 30°, הניצב שמול זווית ה-30° שווה ל___',['מחצית היתר','מחצית הניצב השני','היתר','שליש היתר'],'משפט: במשולש ישר זווית, הניצב שמול זווית של 30° שווה למחצית היתר.');
+mc('right','במשולש ישר זווית, סכום שתי הזוויות החדות הוא ___',['90°','180°','60°','45°'],'180° − 90° = 90°.');
+tf('right','אם במשולש התיכון לצלע שווה למחצית הצלע הזו, אז המשולש ישר זווית.',true,'זהו המשפט ההפוך למשפט התיכון ליתר. הזווית הישרה נמצאת מול הצלע הזו.');
+tf('right','במשולש ישר זווית, התיכון לניצב שווה למחצית הניצב.',false,'רק התיכון ליתר שווה למחצית הצלע שאליה הוא יורד.');
+tf('right','אם במשולש ישר זווית ניצב שווה למחצית היתר, אז הזווית שמולו היא 30°.',true,'זהו המשפט ההפוך למשפט הזווית של 30°.');
+
+// קטע אמצעים ותיכונים
+mc('mid','קטע אמצעים במשולש ___',['מקביל לצלע השלישית ושווה למחציתה','מאונך לצלע השלישית','שווה לצלע השלישית','מקביל לצלע השלישית ושווה לשליש ממנה'],'משפט: קטע אמצעים במשולש מקביל לצלע השלישית ושווה למחציתה.');
+mc('mid','ישר שיוצא מאמצע צלע אחת במשולש ומקביל לצלע שנייה ___',['חוצה את הצלע השלישית','מאונך לצלע השלישית','עובר דרך הקודקוד השלישי','שווה לצלע השלישית'],'משפט: ישר שיוצא מאמצע צלע אחת ומקביל לצלע שנייה חוצה את הצלע השלישית (ולכן הוא קטע אמצעים).');
+mc('mid','שלושת התיכונים במשולש ___',['נפגשים בנקודה אחת שמחלקת כל תיכון ביחס 2:1 מהקודקוד','נפגשים בנקודה אחת שחוצה כל תיכון לשני חצאים שווים','מקבילים זה לזה','תמיד שווים זה לזה'],'משפט התיכונים: שלושת התיכונים נפגשים בנקודה אחת, שמחלקת כל תיכון ביחס 2:1 – החלק הארוך ליד הקודקוד.');
+mc('mid','קטע במשולש שמחבר את אמצעי שתי צלעות נקרא ___',['קטע אמצעים','תיכון','גובה','חוצה זווית'],'קטע שמחבר אמצעי שתי צלעות במשולש הוא קטע אמצעים. (תיכון מחבר קודקוד לאמצע הצלע שמולו.)');
+tf('mid','נקודת מפגש התיכונים מחלקת כל תיכון כך שהחלק הקצר נמצא ליד הקודקוד.',false,'החלק הארוך (2 חלקים מתוך 3) נמצא ליד הקודקוד, והקצר ליד הצלע.');
+tf('mid','שלושת קטעי האמצעים של משולש יוצרים משולש שהיקפו חצי מהיקף המשולש המקורי.',true,'כל קטע אמצעים שווה למחצית הצלע שמקבילה לו, ולכן ההיקף הוא חצי.');
+tf('mid','תיכון במשולש מחבר קודקוד עם אמצע הצלע שמולו.',true,'זו ההגדרה של תיכון.');
+
+// סוגי משולשים ותכונותיהם
+mc('tri','משולש שכל זוויותיו חדות נקרא ___',['משולש חד זווית','משולש ישר זווית','משולש קהה זווית','משולש שווה שוקיים'],'משולש חד זווית – כל שלוש הזוויות קטנות מ-90°.');
+mc('tri','הגובה במשולש הוא ___',['אנך מקודקוד לישר שמכיל את הצלע שמולו','קטע מקודקוד לאמצע הצלע שמולו','קטע שחוצה את זווית הקודקוד','קטע שמחבר אמצעי שתי צלעות'],'גובה – אנך מקודקוד לצלע שמולו (או להמשכה). קטע לאמצע הצלע הוא תיכון.');
+mc('tri','חוצה זווית במשולש ___',['מחלק את הזווית לשתי זוויות שוות','מחלק את הצלע שמולו לשני חלקים שווים','תמיד מאונך לצלע שמולו','מקביל לאחת הצלעות'],'חוצה זווית מחלק את הזווית לשתי זוויות שוות (ובדרך כלל לא חוצה את הצלע שמולו).');
+mc('tri','במשולש קהה זווית, הגבהים מהקודקודים של הזוויות החדות ___',['נמצאים מחוץ למשולש','נמצאים בתוך המשולש','מתלכדים עם הצלעות','שווים לתיכונים'],'במשולש קהה זווית הגבהים האלה יורדים להמשכי הצלעות, ולכן נמצאים מחוץ למשולש.');
+mc('tri','במשולש ישר זווית, הגבהים לניצבים ___',['הם הניצבים עצמם','נמצאים מחוץ למשולש','שווים ליתר','חוצים את היתר'],'כל ניצב מאונך לניצב השני, ולכן הוא עצמו הגובה אליו.');
+mc('tri','במשולש ישר זווית ושווה שוקיים, כל אחת מהזוויות החדות היא ___',['45°','30°','60°','90°'],'זוויות הבסיס שוות וסכומן 90°, ולכן כל אחת 45°.');
+tf('tri','משולש שווה צלעות הוא גם משולש שווה שוקיים.',true,'יש בו (לפחות) שתי צלעות שוות, ולכן הוא גם שווה שוקיים.');
+tf('tri','משולש ישר זווית יכול להיות גם שווה שוקיים.',true,'למשל משולש עם זוויות 90°, 45°, 45°.');
+tf('tri','במשולש שווה צלעות, כל תיכון הוא גם גובה וגם חוצה זווית.',true,'משולש שווה צלעות הוא שווה שוקיים לכל בסיס, ולכן בכל קודקוד התיכון, הגובה וחוצה הזווית מתלכדים.');
+tf('tri','משולש יכול להיות גם ישר זווית וגם קהה זווית.',false,'90° ועוד זווית קהה זה יותר מ-180°.');
+tf('tri','במשולש שווה שוקיים זווית הראש תמיד חדה.',false,'זווית הראש יכולה להיות גם ישרה או קהה, למשל 120° (ואז כל זווית בסיס 30°).');
+
+// מרובעים
+mc('quad','סכום הזוויות במרובע הוא ___',['360°','180°','540°','תלוי בסוג המרובע'],'אלכסון מחלק מרובע לשני משולשים: 2 · 180° = 360°.');
+mc('quad','במקבילית, הצלעות הנגדיות ___',['שוות זו לזו','מאונכות זו לזו','שוות לאלכסונים','חוצות זו את זו'],'תכונת מקבילית: צלעות נגדיות מקבילות ושוות.');
+mc('quad','אלכסוני המקבילית ___',['חוצים זה את זה','שווים זה לזה','מאונכים זה לזה','חוצים את זוויות המקבילית'],'תכונת מקבילית: האלכסונים חוצים זה את זה. (שווים – רק במלבן, מאונכים – רק במעוין.)');
+mc('quad','במקבילית, סכום שתי זוויות סמוכות הוא ___',['180°','90°','360°','הן תמיד שוות'],'זוויות סמוכות במקבילית הן זוויות חד-צדדיות בין מקבילים, ולכן סכומן 180°. זוויות נגדיות שוות.');
+mc('quad','אלכסוני המלבן ___',['שווים זה לזה וחוצים זה את זה','מאונכים זה לזה','חוצים את זוויות המלבן','שווים לצלעות המלבן'],'מלבן הוא מקבילית (אלכסונים חוצים זה את זה) שאלכסוניה גם שווים.');
+mc('quad','אלכסוני המעוין ___',['מאונכים זה לזה וחוצים את זוויות המעוין','שווים זה לזה','מקבילים זה לזה','שווים לצלע המעוין'],'במעוין האלכסונים חוצים זה את זה, מאונכים זה לזה וחוצים את הזוויות.');
+mc('quad','טרפז הוא מרובע ש___',['יש לו בדיוק זוג אחד של צלעות נגדיות מקבילות','כל צלעותיו שוות','אלכסוניו מאונכים','יש לו שני זוגות של צלעות מקבילות'],'טרפז – מרובע עם זוג אחד בלבד של צלעות מקבילות (הבסיסים).');
+mc('quad','בטרפז שווה שוקיים ___',['זוויות הבסיס שוות והאלכסונים שווים','האלכסונים מאונכים זה לזה','כל הצלעות שוות','הבסיסים שווים זה לזה'],'בטרפז שווה שוקיים זוויות הבסיס שוות והאלכסונים שווים.');
+mc('quad','קטע האמצעים בטרפז ___',['מקביל לבסיסים ושווה למחצית סכומם','שווה לבסיס הגדול','מאונך לבסיסים','שווה למחצית הבסיס הקטן'],'משפט: קטע אמצעים בטרפז מקביל לבסיסים ושווה למחצית סכומם.');
+mc('quad','מרובע שבו האלכסונים חוצים זה את זה הוא ___',['מקבילית','טרפז','דלתון','תמיד ריבוע'],'משפט: מרובע שאלכסוניו חוצים זה את זה הוא מקבילית.');
+mc('quad','מקבילית שאלכסוניה שווים היא ___',['מלבן','מעוין','טרפז','דלתון'],'משפט: מקבילית שאלכסוניה שווים היא מלבן.');
+mc('quad','מקבילית שאלכסוניה מאונכים זה לזה היא ___',['מעוין','מלבן','טרפז','תמיד ריבוע'],'משפט: מקבילית שאלכסוניה מאונכים היא מעוין.');
+mc('quad','מקבילית שבה שתי צלעות סמוכות שוות היא ___',['מעוין','מלבן','טרפז','דלתון'],'משפט: מקבילית עם זוג צלעות סמוכות שוות היא מעוין.');
+mc('quad','בדלתון, האלכסונים ___',['מאונכים זה לזה','שווים זה לזה','חוצים זה את זה','מקבילים זה לזה'],'בדלתון האלכסונים מאונכים, והאלכסון הראשי חוצה את האלכסון השני.');
+tf('quad','כל ריבוע הוא מעוין.',true,'ריבוע הוא מקבילית שכל צלעותיה שוות – כלומר מעוין (עם זוויות ישרות).');
+tf('quad','כל מעוין הוא ריבוע.',false,'במעוין הזוויות לא חייבות להיות ישרות.');
+tf('quad','כל מלבן הוא מקבילית.',true,'במלבן שני זוגות של צלעות נגדיות מקבילות.');
+tf('quad','אלכסוני המקבילית תמיד שווים זה לזה.',false,'הם שווים רק במלבן (ובריבוע). במקבילית הם רק חוצים זה את זה.');
+tf('quad','מרובע שיש לו זוג צלעות נגדיות שהן גם שוות וגם מקבילות – הוא מקבילית.',true,'זהו אחד ממשפטי הזיהוי של מקבילית.');
+tf('quad','מרובע שכל זוויותיו ישרות הוא מלבן.',true,'זו ההגדרה של מלבן (וזה גם משפט זיהוי).');
+
+// קטע אמצעים במשולש ובטרפז – הגדרות ומשפטים
+mc('mid','במשולש יש ___ קטעי אמצעים',['3','1','2','6'],'לכל זוג צלעות יש קטע אמצעים אחד, ובמשולש יש 3 זוגות של צלעות.');
+mc('mid','במשולש ABC, הקטע DE מחבר את אמצע AB ואת אמצע AC. איזו צלע מקבילה ל-DE?',['BC','AB','AC','אף צלע'],'קטע אמצעים מקביל לצלע השלישית – הצלע שאין עליה אף אחד מקצותיו, כלומר BC.');
+mc('mid','במשולש ABC, הנקודה D היא אמצע AB, ודרכה עובר ישר שמקביל ל-BC וחותך את AC בנקודה E. מה אפשר להסיק על הנקודה E?',['E היא אמצע AC','DE = BC','DE מאונך ל-AC','E נמצאת על BC'],'משפט: ישר שיוצא מאמצע צלע אחת ומקביל לצלע שנייה חוצה את הצלע השלישית. לכן E אמצע AC, ו-DE קטע אמצעים.');
+tf('mid','קטע שקצותיו על שתי צלעות של משולש, מקביל לצלע השלישית ושווה למחציתה – הוא קטע אמצעים.',true,'משפט הפוך: קטע כזה הוא קטע אמצעים (קצותיו הם אמצעי הצלעות).');
+tf('mid','קטע שיוצא מאמצע צלע אחת במשולש ומגיע לצלע אחרת הוא תמיד קטע אמצעים.',false,'רק אם הוא גם מקביל לצלע השלישית (או מגיע לאמצע הצלע השנייה) הוא קטע אמצעים.');
+tf('mid','קטע אמצעים מחלק את המשולש לשני משולשים חופפים.',false,'קטע האמצעים יוצר משולש קטן ומרובע (טרפז) – לא שני משולשים.');
+mc('mid','קטע אמצעים בטרפז הוא קטע ש___',['מחבר את אמצעי השוקיים','מחבר את אמצעי הבסיסים','מחבר את אמצעי האלכסונים','מחבר שני קודקודים נגדיים'],'הגדרה: קטע אמצעים בטרפז הוא הקטע שמחבר את אמצעי השוקיים.');
+mc('mid','ישר שיוצא מאמצע שוק אחת בטרפז ומקביל לבסיסים ___',['חוצה את השוק השנייה','חוצה את הבסיס הגדול','מאונך לשוק השנייה','עובר דרך קודקוד'],'משפט: ישר שיוצא מאמצע שוק אחת בטרפז ומקביל לבסיסים חוצה את השוק השנייה, ולכן הוא קטע אמצעים.');
+tf('mid','קטע אמצעים בטרפז שווה למחצית הבסיס הגדול.',false,'הוא שווה למחצית סכום הבסיסים: (a + b) : 2.');
+tf('mid','קטע שמחבר אמצעי שוקיים בטרפז מקביל לבסיסים.',true,'משפט: קטע אמצעים בטרפז מקביל לבסיסים ושווה למחצית סכומם.');
+mc('mid','קטע אמצעים בטרפז מקביל ל___ ושווה ל___',['בסיסים; מחצית סכום הבסיסים','שוקיים; מחצית סכום השוקיים','בסיס הגדול; מחצית הבסיס הגדול','אלכסונים; מחצית האלכסון'],'משפט: קטע אמצעים בטרפז מקביל לבסיסים ושווה למחצית סכומם.');
+
+/* ---------------- figures ---------------- */
+const svg=(inner,h=250)=>`<svg viewBox="0 0 400 ${h}" direction="ltr" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const T=(x,y,s,c='')=>`<text x="${x}" y="${y}" text-anchor="middle" class="${c}">${s}</text>`;
+const L=(a,b,c='ln')=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="${c}"/>`;
+const tick=(a,b,n=1)=>{const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,px=-uy*7,py=ux*7;let s='';for(let i=0;i<n;i++){const o=(i-(n-1)/2)*6;s+=`<line x1="${mx+ux*o-px}" y1="${my+uy*o-py}" x2="${mx+ux*o+px}" y2="${my+uy*o+py}" class="tick"/>`}return s};
+const dot=(p)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" class="pt"/>`;
+
+/* ---------------- static-question figures ---------------- */
+function arc(V,P,Q,r=24,cls='arc',lab='',n=1){
+  const a1=Math.atan2(P[1]-V[1],P[0]-V[0]),a2=Math.atan2(Q[1]-V[1],Q[0]-V[0]);let d=a2-a1;
+  while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;let s='';
+  for(let i=0;i<n;i++){const rr=r+i*5;s+=`<path d="M${V[0]+rr*Math.cos(a1)} ${V[1]+rr*Math.sin(a1)} A${rr} ${rr} 0 0 ${d>0?1:0} ${V[0]+rr*Math.cos(a1+d)} ${V[1]+rr*Math.sin(a1+d)}" class="${cls}"/>`;}
+  if(lab){const am=a1+d/2;s+=T(V[0]+(r+17)*Math.cos(am),V[1]+(r+17)*Math.sin(am)+6,lab,cls==='arc2'?'val2':'val');}
+  return s;
+}
+function rmark(V,P,Q,s=14){const u=[P[0]-V[0],P[1]-V[1]],v=[Q[0]-V[0],Q[1]-V[1]],lu=Math.hypot(...u),lv=Math.hypot(...v);
+  const a=[V[0]+u[0]/lu*s,V[1]+u[1]/lu*s],b=[V[0]+v[0]/lv*s,V[1]+v[1]/lv*s],c=[a[0]+b[0]-V[0],a[1]+b[1]-V[1]];
+  return `<polyline points="${a} ${c} ${b}" class="ln" style="stroke-width:1.6"/>`;}
+function chev(P,Q,n=1){const mx=P[0]+(Q[0]-P[0])*0.68,my=P[1]+(Q[1]-P[1])*0.68,dx=Q[0]-P[0],dy=Q[1]-P[1],l=Math.hypot(dx,dy),u=[dx/l,dy/l],p=[-u[1],u[0]];let s='';
+  for(let i=0;i<n;i++){const o=(i-(n-1)/2)*8,cx=mx+u[0]*o,cy=my+u[1]*o;
+    s+=`<polyline points="${cx-u[0]*5+p[0]*6},${cy-u[1]*5+p[1]*6} ${cx+u[0]*5},${cy+u[1]*5} ${cx-u[0]*5-p[0]*6},${cy-u[1]*5-p[1]*6}" class="chev"/>`;}return s;}
+const poly=(pts,c='ln')=>pts.map((p,i)=>L(p,pts[(i+1)%pts.length],c)).join('');
+const labs=(o)=>Object.entries(o).map(([k,[x,y]])=>T(x,y,k)).join('');
+const mid=(P,Q)=>[(P[0]+Q[0])/2,(P[1]+Q[1])/2];
+
+const F={
+  vertical(){const O=[200,125],a=[60,60],b=[340,190],c=[80,200],d=[320,50];
+    return svg(L(a,b)+L(c,d)+arc(O,a,c,26,'arc','α')+arc(O,b,d,26,'arc','α')+dot(O));},
+  adjacent(){const O=[200,180];return svg(L([40,180],[360,180])+L(O,[290,50])+arc(O,[360,180],[290,50],30,'arc','β')+arc(O,[290,50],[40,180],30,'arc2','α')+dot(O));},
+  par(kind){const T1=[243.6,80],B1=[156.4,200],up=[280,30],dn=[120,250];
+    const R=p=>[p[0]+60,p[1]],Lf=p=>[p[0]-60,p[1]];
+    const q={1:(P)=>[R(P),up],2:(P)=>[up,Lf(P)],3:(P)=>[Lf(P),dn],4:(P)=>[dn,R(P)]};
+    const pair={alt:[[T1,3],[B1,1]],corr:[[T1,1],[B1,1]],same:[[T1,3],[B1,2]]}[kind];
+    let s=L([20,80],[380,80])+L([20,200],[380,200])+L(dn,up,'ln2')+T(30,70,'a')+T(30,190,'b')+chev([60,80],[100,80])+chev([60,200],[100,200]);
+    pair.forEach(([P,k],i)=>{const [p1,p2]=q[k](P);s+=arc(P,p1,p2,24,i?'arc2':'arc',i?'β':'α');});
+    return svg(s);},
+  tri(){const A=[200,35],B=[60,215],C=[340,215];return svg(poly([A,B,C])+labs({A:[200,25],B:[48,233],C:[352,233]})+arc(A,B,C,26,'arc','α')+arc(B,C,A,30,'arc','β')+arc(C,A,B,30,'arc','γ'));},
+  ext(){const A=[200,40],B=[70,210],C=[300,210],D=[385,210];return svg(poly([A,B,C])+L(C,D,'thin')+labs({A:[200,30],B:[58,228],C:[300,232],D:[380,232]})+
+    arc(A,B,C,26,'arc','α')+arc(B,C,A,30,'arc','β')+arc(C,D,A,22,'arc2','δ'));},
+  cong(sp){const t1={A:[105,40],B:[25,205],C:[185,205]},t2={A:[305,40],B:[225,205],C:[385,205]},nm={A:'D',B:'E',C:'F'};
+    let s='';[[t1,null],[t2,nm]].forEach(([t,map])=>{s+=poly([t.A,t.B,t.C]);
+      ['A','B','C'].forEach(k=>{const p=t[k];s+=T(p[0]+(k==='A'?0:k==='B'?-12:12),p[1]+(k==='A'?-8:20),map?map[k]:k);});
+      (sp.s||[]).forEach(([e,n])=>{s+=tick(t[e[0]],t[e[1]],n);});
+      (sp.a||[]).forEach(([k,n])=>{const o=['A','B','C'].filter(x=>x!==k);s+=arc(t[k],t[o[0]],t[o[1]],18,'arc','',n);});});
+    return svg(s);},
+  similar(){const s1=[[90,90],[40,200],[150,200]],s2=[[280,30],[190,210],[390,210]];let s=poly(s1)+poly(s2);
+    [s1,s2].forEach(t=>{s+=arc(t[0],t[1],t[2],18,'arc','',1)+arc(t[1],t[2],t[0],18,'arc','',2)+arc(t[2],t[0],t[1],18,'arc','',3);});return svg(s);},
+  congRight(){let s='';[[0,'A','B','C'],[200,'D','E','F']].forEach(([dx,a,b,c])=>{const A=[40+dx,40],C=[40+dx,205],B=[180+dx,205];
+    s+=poly([A,B,C])+rmark(C,A,B)+tick(A,B,2)+tick(A,C,1)+T(A[0]-12,A[1],a)+T(C[0]-12,C[1]+18,c)+T(B[0]+12,B[1]+18,b);});return svg(s);},
+  iso(line){const A=[200,30],B=[90,220],C=[310,220],D=[200,220];let s=poly([A,B,C])+tick(A,B)+tick(A,C)+labs({A:[200,22],B:[78,238],C:[322,238]})+
+    arc(B,C,A,26,'arc','',1)+arc(C,A,B,26,'arc','',1);
+    if(line)s+=L(A,D,'ln2')+rmark(D,C,A)+tick(B,D,2)+tick(D,C,2)+arc(A,B,D,30,'arc2','',1)+arc(A,D,C,36,'arc2','',1)+T(200,240,'D');return svg(s,250);},
+  isoAngles(){const A=[200,30],B=[90,220],C=[310,220];return svg(poly([A,B,C])+labs({A:[200,22],B:[78,238],C:[322,238]})+arc(B,C,A,26,'arc','',2)+arc(C,A,B,26,'arc','',2)+T(130,130,'?','unk')+T(270,130,'?','unk'),250);},
+  isoObtuse(){const A=[200,130],B=[40,215],C=[360,215];return svg(poly([A,B,C])+tick(A,B)+tick(A,C)+labs({A:[200,118],B:[28,233],C:[372,233]})+arc(A,B,C,20,'arc2','120°'),250);},
+  equi(med){const A=[200,30],B=[87,226],C=[313,226],D=[200,226];let s=poly([A,B,C])+tick(A,B)+tick(B,C)+tick(A,C)+labs({A:[200,22],B:[75,244],C:[325,244]});
+    if(med)s+=L(A,D,'ln2')+rmark(D,C,A)+tick(B,D,2)+tick(D,C,2)+arc(A,B,D,30,'arc2','',1)+arc(A,D,C,36,'arc2','',1)+T(200,246,'D');
+    else s+=arc(A,B,C,26,'arc','60°')+arc(B,C,A,26,'arc','60°')+arc(C,A,B,26,'arc','60°');return svg(s,255);},
+  ineq(){const A=[150,40],B=[40,215],C=[360,215];return svg(poly([A,B,C])+L(B,C,'ln2')+labs({A:[150,30],B:[28,233],C:[372,233]})+T(200,240,'הצלע הגדולה','val')+arc(A,B,C,24,'arc2','?'),250);},
+  bars(v){const u=v.some(x=>x>12)?14:22;const x0=380;let s='';const row=(y,parts)=>{let x=x0;parts.forEach(([len,c])=>{const w=len*u;s+=`<rect x="${x-w}" y="${y}" width="${w}" height="22" rx="4" fill="${c}" opacity=".85"/>`+T(x-w/2,y+17,len,'barl');x-=w;});};
+    row(50,[[v[0],'#14a3a3'],[v[1],'#24345c']]);row(130,[[v[2],'#e0712c']]);
+    return svg(s+`<text x="${x0}" y="100" text-anchor="end" class="small">שתי צלעות: ${v[0]} + ${v[1]} = ${v[0]+v[1]}</text><text x="${x0}" y="180" text-anchor="end" class="small">הצלע השלישית: ${v[2]}</text>`,200);},
+  perpBis(){const A=[80,200],B=[320,200],M=[200,200],P=[200,70];return svg(L(A,B)+L([200,30],[200,235],'ln2')+L(P,A,'thin')+L(P,B,'thin')+tick(A,M)+tick(M,B)+tick(P,A,2)+tick(P,B,2)+rmark(M,B,P)+dot(P)+dot(A)+dot(B)+labs({A:[70,222],B:[330,222],P:[218,68],M:[214,222]}),250);},
+  angBis(){const O=[50,200],P=[262.6,143.6],F1=[262.6,200],F2=[234.5,94.6];return svg(L(O,[370,200])+L(O,[330,40])+L(O,[360,117.7],'ln2')+L(P,F1,'thin')+L(P,F2,'thin')+rmark(F1,O,P,10)+rmark(F2,O,P,10)+tick(P,F1,2)+tick(P,F2,2)+
+    arc(O,[370,200],P,50,'arc','',1)+arc(O,P,[330,40],56,'arc','',1)+dot(P)+T(278,140,'P')+T(40,214,'O'),240);},
+  rmed(){const C=[60,215],A=[60,40],B=[340,215],M=[200,127.5];return svg(poly([A,B,C])+L(C,M,'ln2')+rmark(C,A,B)+dot(M)+tick(A,M)+tick(M,B)+tick(C,M)+labs({A:[48,35],C:[48,235],B:[352,235],M:[210,116]}));},
+  rmedLeg(){const C=[60,215],A=[60,40],B=[340,215],M=[60,127.5];return svg(poly([A,B,C])+L(B,M,'thin')+rmark(C,A,B)+dot(M)+tick(A,M)+tick(M,C)+labs({A:[48,35],C:[48,235],B:[352,235],M:[44,132]}));},
+  r30(){return svg(poly([[60,40],[340,215],[60,215]])+rmark([60,215],[60,40],[340,215])+arc([340,215],[60,215],[60,40],40,'arc','30°')+L([60,40],[60,215],'ln2')+labs({A:[48,35],C:[48,235],B:[352,235]})+T(215,112,'יתר','val'));},
+  rightAngles(){const C=[60,215],A=[60,40],B=[340,215];return svg(poly([A,B,C])+rmark(C,A,B)+arc(A,C,B,26,'arc','α')+arc(B,A,C,40,'arc2','β')+labs({A:[48,35],C:[48,235],B:[352,235]}));},
+  rightIso(){const C=[80,215],A=[80,45],B=[250,215];return svg(poly([A,B,C])+rmark(C,A,B)+tick(C,A)+tick(C,B)+arc(A,C,B,26,'arc','')+arc(B,A,C,26,'arc','')+labs({A:[68,40],C:[68,235],B:[262,235]}));},
+  midTri(){const A=[170,30],B=[50,225],C=[350,225],D=[110,127.5],E=[260,127.5];return svg(poly([A,B,C])+L(D,E,'ln2')+dot(D)+dot(E)+tick(A,D)+tick(D,B)+tick(A,E,2)+tick(E,C,2)+chev(D,E)+chev(B,C)+labs({A:[170,22],B:[38,242],C:[362,242],D:[94,126],E:[276,126]}),255);},
+  midConv(){const A=[170,30],B=[50,225],C=[350,225],D=[110,127.5],E=[260,127.5];return svg(poly([A,B,C])+L(D,E,'ln2')+dot(D)+dot(E)+tick(A,D)+tick(D,B)+chev(D,E)+chev(B,C)+T(305,182,'?','unk')+T(215,80,'?','unk')+labs({A:[170,22],B:[38,242],C:[362,242],D:[94,126],E:[276,126]}),255);},
+  midTri3(){const A=[170,30],B=[50,225],C=[350,225],D=[110,127.5],E=[260,127.5],Fp=[200,225];return svg(poly([A,B,C])+poly([D,E,Fp],'ln2')+dot(D)+dot(E)+dot(Fp)+tick(A,D)+tick(D,B)+tick(A,E,2)+tick(E,C,2)+tick(B,Fp,3)+tick(Fp,C,3)+labs({A:[170,22],B:[38,242],C:[362,242],D:[94,126],E:[276,126],F:[200,247]}),255);},
+  medians(ratio){const A=[170,30],B=[40,225],C=[360,225],D=[200,225],E=[265,127.5],Fp=[105,127.5],G=[190,160];
+    return svg(poly([A,B,C])+L(A,D,'ln2')+L(B,E,'thin')+L(C,Fp,'thin')+dot(D)+dot(E)+dot(Fp)+dot(G)+tick(B,D)+tick(D,C)+tick(A,E,2)+tick(E,C,2)+tick(A,Fp,3)+tick(Fp,B,3)+
+      labs({A:[170,22],B:[28,242],C:[372,242],D:[200,247],E:[282,124],F:[88,124],G:[208,158]})+(ratio?T(165,100,'2','val')+T(208,198,'1','val'):''),255);},
+  median1(){const A=[170,30],B=[40,225],C=[360,225],D=[200,225];return svg(poly([A,B,C])+L(A,D,'ln2')+dot(D)+tick(B,D)+tick(D,C)+labs({A:[170,22],B:[28,242],C:[372,242],D:[200,247]}),255);},
+  acute(){const A=[180,35],B=[60,215],C=[330,215];return svg(poly([A,B,C])+arc(A,B,C,24,'arc','')+arc(B,C,A,28,'arc','')+arc(C,A,B,28,'arc','')+labs({A:[180,25],B:[48,233],C:[342,233]}));},
+  height(){const A=[150,35],B=[40,215],C=[360,215],D=[150,215];return svg(poly([A,B,C])+L(A,D,'ln2')+rmark(D,C,A)+labs({A:[150,25],B:[28,233],C:[372,233],D:[150,237]}));},
+  bis(){const A=[150,35],B=[40,215],C=[360,215],D=[178.5,215];return svg(poly([A,B,C])+L(A,D,'ln2')+arc(A,B,D,30,'arc','',1)+arc(A,D,C,36,'arc','',1)+labs({A:[150,25],B:[28,233],C:[372,233],D:[180,237]}));},
+  obtuseH(){const A=[60,60],B=[160,215],C=[370,215],H=[60,215];return svg(poly([A,B,C])+L(H,B,'thin')+L(A,H,'ln2')+rmark(H,B,A)+arc(B,C,A,22,'arc2','')+labs({A:[50,52],B:[165,237],C:[380,233],H:[50,237]}));},
+  quad(){const A=[60,200],B=[330,215],C=[300,60],D=[110,40];return svg(poly([A,B,C,D])+L(A,C,'thin')+labs({A:[46,215],B:[344,232],C:[312,52],D:[100,32]}));},
+  pgram(diag,adj){const A=[60,200],B=[280,200],C=[340,60],D=[120,60],O=[200,130];let s=poly([A,B,C,D])+labs({A:[46,218],B:[290,220],C:[352,56],D:[110,52]});
+    if(adj) s+=tick(A,B)+tick(A,D);
+    else s+=tick(A,B)+tick(D,C)+tick(A,D,2)+tick(B,C,2)+chev(A,B)+chev(D,C);
+    if(diag)s+=L(A,C,'ln2')+L(B,D,'ln2')+dot(O)+tick(A,O,3)+tick(O,C,3)+T(200,155,'O');return svg(s);},
+  pgramAngles(){const A=[60,200],B=[280,200],C=[340,60],D=[120,60];return svg(poly([A,B,C,D])+chev(A,B)+chev(D,C)+labs({A:[46,218],B:[290,220],C:[352,56],D:[110,52]})+arc(A,B,D,26,'arc','α')+arc(B,C,A,22,'arc2','β'));},
+  pgramPair(){const A=[60,200],B=[280,200],C=[340,60],D=[120,60];return svg(poly([A,B,C,D])+chev(A,B)+chev(D,C)+tick(A,B,2)+tick(D,C,2)+labs({A:[46,218],B:[290,220],C:[352,56],D:[110,52]}));},
+  rect(diag){const A=[60,205],B=[340,205],C=[340,55],D=[60,55],O=[200,130];let s=poly([A,B,C,D])+rmark(A,B,D)+rmark(B,C,A)+rmark(C,D,B)+rmark(D,A,C)+labs({A:[46,225],B:[354,225],C:[354,50],D:[46,50]});
+    if(diag)s+=L(A,C,'ln2')+L(B,D,'ln2')+dot(O)+tick(A,O)+tick(O,C)+tick(B,O)+tick(O,D)+T(200,152,'O');return svg(s);},
+  rhombus(){const A=[60,130],B=[200,215],C=[340,130],D=[200,45],O=[200,130];return svg(poly([A,B,C,D])+tick(A,B)+tick(B,C)+tick(C,D)+tick(D,A)+L(A,C,'ln2')+L(B,D,'ln2')+rmark(O,C,D,11)+arc(A,B,O,30,'arc','',1)+arc(A,O,D,36,'arc','',1)+labs({A:[44,136],B:[200,237],C:[356,136],D:[200,36]}));},
+  square(){const A=[110,215],B=[290,215],C=[290,35],D=[110,35];return svg(poly([A,B,C,D])+tick(A,B)+tick(B,C)+tick(C,D)+tick(D,A)+rmark(A,B,D)+rmark(B,C,A)+rmark(C,D,B)+rmark(D,A,C)+labs({A:[96,235],B:[304,235],C:[304,30],D:[96,30]}));},
+  trap(){const A=[40,210],B=[360,210],C=[280,60],D=[120,60];return svg(poly([A,B,C,D])+chev(A,B)+chev(D,C)+labs({A:[28,228],B:[372,228],C:[290,54],D:[110,54]}),245);},
+  isoTrap(){const A=[50,210],B=[350,210],C=[270,60],D=[130,60];return svg(poly([A,B,C,D])+chev(A,B)+chev(D,C)+tick(A,D)+tick(B,C)+L(A,C,'thin')+L(B,D,'thin')+arc(A,B,D,26,'arc','')+arc(B,C,A,26,'arc','')+labs({A:[38,228],B:[362,228],C:[280,54],D:[120,54]}),245);},
+  trapMid(conv){const A=[40,210],B=[360,210],C=[280,60],D=[120,60],E=[80,135],Fp=[320,135];
+    return svg(poly([A,B,C,D])+L(E,Fp,'ln2')+dot(E)+dot(Fp)+tick(A,E)+tick(E,D)+(conv?T(318,95,'?','unk')+T(352,180,'?','unk'):tick(B,Fp,2)+tick(Fp,C,2))+chev(A,B)+chev(D,C)+chev(E,Fp)+labs({A:[28,228],B:[372,228],C:[290,54],D:[110,54],E:[64,134],F:[336,134]}),245);},
+  kite(){const A=[200,30],B=[320,110],C=[200,230],D=[80,110],O=[200,110];return svg(poly([A,B,C,D])+tick(A,B)+tick(A,D)+tick(C,B,2)+tick(C,D,2)+L(A,C,'ln2')+L(B,D,'ln2')+rmark(O,B,A,11)+labs({A:[200,22],B:[336,114],C:[200,250],D:[64,114]}),255);},
+};
+const FIGMAP=[
+ ['זוויות קודקודיות הן',()=>F.vertical()],['סכום שתי זוויות צמודות',()=>F.adjacent()],['הזוויות המתחלפות ___',()=>F.par('alt')],
+ ['סכום הזוויות החד-צדדיות הוא',()=>F.par('same')],['סכום הזוויות במשולש הוא',()=>F.tri()],['זווית חיצונית למשולש שווה ל',()=>F.ext()],
+ ['כדי להוכיח ששני ישרים מקבילים',()=>F.par('alt')],['זוויות חד-צדדיות שוות זו לזו',()=>F.par('same')],['זווית חיצונית למשולש גדולה',()=>F.ext()],
+ ['אם זוויות מתאימות שוות',()=>F.par('corr')],
+ ['משפט חפיפה צ.ז.צ',()=>F.cong({s:[['AB',1],['AC',2]],a:[['A',1]]})],['משפט חפיפה ז.צ.ז',()=>F.cong({s:[['BC',1]],a:[['B',1],['C',2]]})],
+ ['משפט חפיפה צ.צ.ז',()=>F.cong({s:[['AB',1],['AC',2]],a:[['C',1]]})],['מול זוויות שוות נמצאות',()=>F.cong({s:[['AB',1],['BC',2],['AC',3]],a:[['A',1],['B',2],['C',3]]})],
+ ['כל הזוויות שלהם שוות בהתאמה',()=>F.similar()],['מה אפשר לומר?',()=>F.similar()],['היתר ואחד הניצבים',()=>F.congRight()],
+ ['זוויות הבסיס ___',()=>F.iso()],['חוצה זווית הראש הוא גם',()=>F.iso(true)],['כל זווית במשולש שווה צלעות',()=>F.equi()],
+ ['מול הצלע הגדולה יותר',()=>F.ineq()],['האנך האמצעי לקטע',()=>F.perpBis()],['כל נקודה על חוצה זווית',()=>F.angBis()],
+ ['שתי זוויות שוות, אז המשולש',()=>F.isoAngles()],['הוא גם הגובה לאותה צלע',()=>F.iso(true)],
+ ['3, 4 ו-8',()=>F.bars([3,4,8])],['5, 7 ו-10',()=>F.bars([5,7,10])],['4, 6 ו-10',()=>F.bars([4,6,10])],
+ ['התיכון ליתר שווה ל',()=>F.rmed()],['הניצב שמול זווית ה-30°',()=>F.r30()],['סכום שתי הזוויות החדות',()=>F.rightAngles()],
+ ['התיכון לצלע שווה למחצית הצלע הזו',()=>F.rmed()],['התיכון לניצב',()=>F.rmedLeg()],['ניצב שווה למחצית היתר',()=>F.r30()],
+ ['קטע אמצעים במשולש ___',()=>F.midTri()],['ומקביל לצלע שנייה ___',()=>F.midConv()],['שלושת התיכונים במשולש',()=>F.medians()],
+ ['קטע במשולש שמחבר את אמצעי',()=>F.midTri()],['החלק הקצר נמצא ליד הקודקוד',()=>F.medians(true)],['שלושת קטעי האמצעים',()=>F.midTri3()],
+ ['תיכון במשולש מחבר',()=>F.median1()],
+ ['משולש שכל זוויותיו חדות',()=>F.acute()],['הגובה במשולש הוא',()=>F.height()],['חוצה זווית במשולש ___',()=>F.bis()],
+ ['הגבהים מהקודקודים של הזוויות החדות',()=>F.obtuseH()],['הגבהים לניצבים',()=>F.rightAngles()],['ישר זווית ושווה שוקיים',()=>F.rightIso()],
+ ['שווה צלעות הוא גם משולש שווה שוקיים',()=>F.equi()],['יכול להיות גם שווה שוקיים',()=>F.rightIso()],['כל תיכון הוא גם גובה',()=>F.equi(true)],
+ ['זווית הראש תמיד חדה',()=>F.isoObtuse()],
+ ['סכום הזוויות במרובע',()=>F.quad()],['הצלעות הנגדיות ___',()=>F.pgram()],['אלכסוני המקבילית ___',()=>F.pgram(true)],
+ ['שתי זוויות סמוכות',()=>F.pgramAngles()],['אלכסוני המלבן',()=>F.rect(true)],['אלכסוני המעוין',()=>F.rhombus()],['טרפז הוא מרובע ש',()=>F.trap()],
+ ['בטרפז שווה שוקיים',()=>F.isoTrap()],['קטע האמצעים בטרפז ___',()=>F.trapMid()],['מרובע שבו האלכסונים חוצים',()=>F.pgram(true)],
+ ['מקבילית שאלכסוניה שווים',()=>F.pgram(true)],['מקבילית שאלכסוניה מאונכים',()=>F.rhombus()],['שתי צלעות סמוכות שוות',()=>F.pgram(false,true)],
+ ['בדלתון',()=>F.kite()],['כל ריבוע הוא מעוין',()=>F.square()],['כל מעוין הוא ריבוע',()=>F.rhombus()],['כל מלבן הוא מקבילית',()=>F.rect()],
+ ['אלכסוני המקבילית תמיד שווים',()=>F.pgram(true)],['גם שוות וגם מקבילות',()=>F.pgramPair()],['שכל זוויותיו ישרות',()=>F.rect()],
+ // new midsegment questions
+ ['במשולש יש ___ קטעי אמצעים',()=>F.midTri3()],['איזו צלע מקבילה ל-',()=>F.midTri()],['מה אפשר להסיק על הנקודה',()=>F.midConv()],
+ ['מקביל לצלע השלישית ושווה למחציתה – הוא',()=>F.midTri()],['ומגיע לצלע אחרת הוא תמיד',()=>F.midConv()],['מחלק את המשולש לשני משולשים חופפים',()=>F.midTri()],
+ ['קטע אמצעים בטרפז הוא קטע',()=>F.trapMid()],['ומקביל לבסיסים ___',()=>F.trapMid(true)],['שווה למחצית הבסיס הגדול',()=>F.trapMid()],
+ ['מחבר אמצעי שוקיים בטרפז',()=>F.trapMid()],['קטע אמצעים בטרפז מקביל',()=>F.trapMid()],['בטרפז יש ___ קטעי אמצעים',()=>F.trapMid()],
+];
+
+/* ---------------- generators ---------------- */
+function numOpts(ans,cands,unit=''){
+  const pool=[...new Set(cands.filter(x=>Number.isFinite(x)&&x>0&&x!==ans).map(x=>Math.round(x*10)/10))].filter(x=>x!==ans);
+  shuffle(pool);
+  const o=[ans,...pool.slice(0,3)];let k=1;
+  while(o.length<4){const x=ans+k*5;if(!o.includes(x))o.push(x);k++;}
+  return o.map(x=>x+unit);
+}
+const GEN=[];
+// parallel lines
+GEN.push({cat:'ang',make(){
+  const a=rint(35,75);
+  const T1=[243.6,80],B1=[156.4,200];
+  const qpos=(p,q)=>{const ang=[27,117,207,297][q]*Math.PI/180;return [p[0]+34*Math.cos(ang),p[1]-34*Math.sin(ang)+6]};
+  const rel=pick([
+    {p:B1,q:0,name:'מתחלפות',val:a,why:'בין ישרים מקבילים זוויות מתחלפות שוות'},
+    {p:B1,q:1,name:'חד-צדדיות',val:180-a,why:'בין ישרים מקבילים סכום זוויות חד-צדדיות 180°'},
+    {p:T1,q:0,name:'קודקודיות',val:a,why:'זוויות קודקודיות שוות'},
+    {p:T1,q:3,name:'צמודות',val:180-a,why:'סכום זוויות צמודות 180°'},
+    {p:B1,q:2,name:'מתאימות',val:a,why:'בין ישרים מקבילים זוויות מתאימות שוות'},
+  ]);
+  const pa=qpos(T1,2),pb=qpos(rel.p,rel.q);
+  const fig=svg(L([20,80],[380,80])+L([20,200],[380,200])+L([120,250],[280,30],'ln2')+
+    T(30,70,'a')+T(30,190,'b')+T(pa[0],pa[1],a+'°','val')+T(pb[0],pb[1],'x','unk'));
+  return {kind:'mc',q:GV([m('a ∥ b')],`מצאי את הזווית ${m('x')}.`),fig,
+    opts:numOpts(rel.val,[180-rel.val,90-a,a/2,2*a,rel.val+10],'°'),
+    exp:`הזוויות הן <b>${rel.name}</b>: ${rel.why}, ולכן ${m('x = '+rel.val+'°')}.`};
+}});
+// third angle
+GEN.push({cat:'ang',make(){
+  const A=rint(35,80),B=rint(30,75),C=180-A-B;
+  const fig=svg(L([200,30],[60,220])+L([60,220],[340,220])+L([340,220],[200,30])+T(200,22,'A')+T(48,238,'B')+T(352,238,'C')+
+    T(200,68,A+'°','val')+T(98,208,B+'°','val')+T(300,208,'x','unk'));
+  return {kind:'mc',q:GV([m('∠A = '+A+'°'),m('∠B = '+B+'°')],`מצאי את ${m('∠C')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(C,[A+B,360-A-B,180-A,180-B,90-C>0?C+10:C+20],'°'),
+    exp:`סכום הזוויות במשולש 180°: ${m('∠C = 180° − '+A+'° − '+B+'° = '+C+'°')}.`};
+}});
+// exterior angle
+GEN.push({cat:'ang',make(){
+  const A=rint(40,75),B=rint(35,65),X=A+B;
+  const fig=svg(L([200,40],[70,210])+L([70,210],[300,210])+L([300,210],[200,40])+L([300,210],[385,210],'thin')+
+    T(200,30,'A')+T(58,228,'B')+T(300,232,'C')+T(380,232,'D')+T(200,78,A+'°','val')+T(104,198,B+'°','val')+T(330,198,'x','unk'));
+  return {kind:'mc',q:GV([`הצלע ${m('BC')} הוארכה עד ${m('D')}`],`מצאי את הזווית החיצונית ${m('x = ∠ACD')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(X,[180-X,180-A,180-B,Math.abs(A-B)],'°'),
+    exp:`זווית חיצונית שווה לסכום שתי הזוויות הפנימיות שאינן צמודות לה: ${m('x = '+A+'° + '+B+'° = '+X+'°')}.`};
+}});
+// isosceles angles
+GEN.push({cat:'iso',make(){
+  const fig0=(top,base,ask)=>svg(L([200,30],[90,225])+L([90,225],[310,225])+L([310,225],[200,30])+tick([200,30],[90,225])+tick([200,30],[310,225])+
+    T(200,22,'A')+T(78,242,'B')+T(322,242,'C')+T(200,70,top,ask==='top'?'unk':'val')+T(130,212,base,ask==='base'?'unk':'val')+T(270,212,ask==='base'?'':'',''));
+  if(Math.random()<.5){
+    const top=pick([20,30,40,50,70,80,100,110,120]),base=(180-top)/2;
+    return {kind:'mc',q:GV([`${m('AB = AC')} (שווה שוקיים)`,`זווית הראש ${m('∠A = '+top+'°')}`],`מצאי את זווית הבסיס ${m('∠B')}.`,`ב-${m('△ABC')}:`),fig:fig0(top+'°','x','base'),
+      opts:numOpts(base,[180-top,top,(180-top),90-top/2+10,base+top/2],'°'),
+      exp:`זוויות הבסיס שוות, וסכום הזוויות 180°: ${m('∠B = (180° − '+top+'°) : 2 = '+base+'°')}.`};
+  }
+  const base=pick([35,40,50,55,65,70,75]),top=180-2*base;
+  return {kind:'mc',q:GV([`${m('AB = AC')} (שווה שוקיים)`,`זווית הבסיס ${m('∠B = '+base+'°')}`],`מצאי את זווית הראש ${m('∠A')}.`,`ב-${m('△ABC')}:`),fig:fig0('x',base+'°','top'),
+    opts:numOpts(top,[180-base,base,90-base,2*base],'°'),
+    exp:`גם ${m('∠C = '+base+'°')} (זוויות הבסיס שוות), ולכן ${m('∠A = 180° − 2·'+base+'° = '+top+'°')}.`};
+}});
+// largest angle
+GEN.push({cat:'iso',make(){
+  let s;do{s=[rint(4,15),rint(4,15),rint(4,15)]}while(new Set(s).size<3||Math.max(...s)*2>=s[0]+s[1]+s[2]);
+  const [ab,bc,ac]=s; const opp={ab:'∠C',bc:'∠A',ac:'∠B'};
+  const mx=Math.max(...s), key=mx===ab?'ab':mx===bc?'bc':'ac';
+  const others=['∠A','∠B','∠C'].filter(x=>x!==opp[key]);
+  const side=key.toUpperCase();
+  const fig=svg(poly([[150,40],[40,215],[360,215]])+labs({A:[150,30],B:[28,233],C:[372,233]})+T(78,122,ab,'val')+T(200,236,bc,'val')+T(272,118,ac,'val'),245);
+  return {kind:'mc',fig,q:GV([m('AB = '+ab),m('BC = '+bc),m('AC = '+ac)],'איזו זווית היא הגדולה ביותר?',`ב-${m('△ABC')}:`),
+    opts:[opp[key],...others,'כל הזוויות שוות'],
+    exp:`הצלע הגדולה היא ${m(side+' = '+mx)}, ומול הצלע הגדולה נמצאת הזווית הגדולה – ${m(opp[key])}.`};
+}});
+// median to hypotenuse
+GEN.push({cat:'right',make(){
+  const k=rint(3,12);const askMed=Math.random()<.5;
+  const C=[60,215],A=[60,40],B=[340,215],M=[200,127.5];
+  const fig=svg(L(A,B)+L(B,C)+L(C,A)+L(C,M,'ln2')+`<polyline points="60,197 78,197 78,215" class="ln"/>`+dot(M)+tick(A,M)+tick(M,B)+
+    T(48,35,'A')+T(48,235,'C')+T(352,235,'B')+T(208,116,'M')+
+    (askMed?T(245,105,'AB = '+(2*k),'val')+T(115,160,'x','unk'):T(245,105,'AB = x','unk')+T(108,160,'CM = '+k,'val')));
+  if(askMed) return {kind:'mc',q:GV([m('∠C = 90°'),`${m('CM')} תיכון ליתר`,m('AB = '+(2*k))],`מצאי את ${m('CM')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(k,[2*k,4*k,k+2,3*k]),exp:`התיכון ליתר שווה למחצית היתר: ${m('CM = '+(2*k)+' : 2 = '+k)}.`};
+  return {kind:'mc',q:GV([m('∠C = 90°'),`${m('CM')} תיכון ליתר`,m('CM = '+k)],`מצאי את היתר ${m('AB')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(2*k,[k,k/2,3*k,k+2]),exp:`התיכון ליתר שווה למחצית היתר, ולכן ${m('AB = 2·'+k+' = '+(2*k))}.`};
+}});
+// 30 degrees
+GEN.push({cat:'right',make(){
+  const h=2*rint(3,12);
+  const fig=svg(L([60,40],[340,215])+L([340,215],[60,215])+L([60,215],[60,40])+`<polyline points="60,197 78,197 78,215" class="ln"/>`+
+    T(48,35,'A')+T(48,235,'C')+T(352,235,'B')+T(288,205,'30°','val')+T(215,115,'AB = '+h,'val')+T(40,132,'x','unk'));
+  return {kind:'mc',q:GV([m('∠C = 90°'),m('∠B = 30°'),`היתר ${m('AB = '+h)}`],`מצאי את ${m('AC')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(h/2,[h,2*h,h/3,h-2]),exp:`${m('AC')} הוא הניצב שמול זווית ה-30°, ולכן הוא מחצית היתר: ${m('AC = '+h+' : 2 = '+(h/2))}.`};
+}});
+// Pythagoras
+GEN.push({cat:'right',make(){
+  const [a,b,c]=pick([[3,4,5],[6,8,10],[5,12,13],[9,12,15],[8,15,17],[12,16,20]]);
+  const fig=svg(poly([[60,40],[340,215],[60,215]])+rmark([60,215],[60,40],[340,215])+T(40,132,a,'val')+T(200,238,b,'val')+T(215,112,'x','unk'));
+  return {kind:'mc',fig,q:GV([`ניצב אחד: ${m(a)}`,`ניצב שני: ${m(b)}`],'מה אורך היתר?','במשולש ישר זווית:'),
+    opts:numOpts(c,[a+b,c+1,c-1,b+1]),exp:`לפי משפט פיתגורס: ${m(a+'² + '+b+'² = '+(a*a)+' + '+(b*b)+' = '+(c*c))}, ולכן היתר הוא ${m('√'+(c*c)+' = '+c)}.`};
+}});
+// midsegment
+GEN.push({cat:'mid',make(){
+  const k=rint(3,15);const askDE=Math.random()<.5;
+  const A=[170,30],B=[50,225],C=[350,225],D=[110,127.5],E=[260,127.5];
+  const fig=svg(L(A,B)+L(B,C)+L(C,A)+L(D,E,'ln2')+dot(D)+dot(E)+tick(A,D)+tick(D,B)+tick(A,E,2)+tick(E,C,2)+
+    T(170,22,'A')+T(38,242,'B')+T(362,242,'C')+T(94,126,'D')+T(276,126,'E')+
+    (askDE?T(200,246,'BC = '+(2*k),'val')+T(185,118,'x','unk'):T(200,246,'BC = x','unk')+T(185,118,'DE = '+k,'val')),255);
+  if(askDE) return {kind:'mc',q:GV([`${m('D')} אמצע ${m('AB')}`,`${m('E')} אמצע ${m('AC')}`,m('BC = '+(2*k))],`מצאי את ${m('DE')}.`),fig,
+    opts:numOpts(k,[2*k,4*k,k+3,3*k]),exp:`${m('DE')} קטע אמצעים, ולכן הוא שווה למחצית הצלע השלישית: ${m('DE = '+(2*k)+' : 2 = '+k)}.`};
+  return {kind:'mc',q:GV([`${m('D')} אמצע ${m('AB')}`,`${m('E')} אמצע ${m('AC')}`,m('DE = '+k)],`מצאי את ${m('BC')}.`),fig,
+    opts:numOpts(2*k,[k,k/2,3*k,k+4]),exp:`קטע אמצעים שווה למחצית הצלע השלישית, ולכן ${m('BC = 2·'+k+' = '+(2*k))}.`};
+}});
+// midsegment perimeter
+GEN.push({cat:'mid',make(){
+  const p=2*rint(9,30);
+  return {kind:'mc',fig:F.midTri3(),q:GV([`היקף המשולש: ${m(p)}`,'מחברים את אמצעי שלוש הצלעות'],'מה היקף המשולש שנוצר?'),
+    opts:numOpts(p/2,[p,p/3,p/4,2*p]),exp:`כל קטע אמצעים שווה למחצית הצלע שמקבילה לו, ולכן ההיקף הוא חצי: ${m(p+' : 2 = '+(p/2))}.`};
+}});
+// medians theorem
+GEN.push({cat:'mid',make(){
+  const k=rint(2,9);
+  const A=[170,30],B=[40,225],C=[360,225],D=[200,225],E=[265,127.5],F=[105,127.5],G=[190,160];
+  const base=L(A,B)+L(B,C)+L(C,A)+L(A,D,'ln2')+L(B,E,'thin')+L(C,F,'thin')+dot(D)+dot(E)+dot(F)+dot(G)+tick(B,D)+tick(D,C)+
+    T(170,22,'A')+T(28,242,'B')+T(372,242,'C')+T(200,247,'D')+T(282,124,'E')+T(88,124,'F')+T(208,158,'G');
+  const v=pick(['AD','AG','GD']);
+  let q,ans,exp,lab;
+  if(v==='AD'){ q=[m('AD = '+(3*k)),`מצאי את ${m('AG')}.`]; ans=2*k; lab=T(158,100,'x','unk')+T(222,205,'',''); exp=`G מחלקת את התיכון ביחס 2:1: ${m('AD')} מתחלק ל-3 חלקים של ${k}, ו-${m('AG = 2·'+k+' = '+(2*k))}.`;
+    return {kind:'mc',q:GV([`${m('AD')}, ${m('BE')}, ${m('CF')} תיכונים`,`${m('G')} נקודת המפגש שלהם`,q[0]],q[1]),fig:svg(base+lab+T(330,60,'AD = '+(3*k),'val'),255),opts:numOpts(ans,[3*k/2,k,3*k,4*k]),exp}; }
+  if(v==='GD'){ q=[m('GD = '+k),`מצאי את ${m('AD')}.`]; ans=3*k; exp=`${m('AG = 2·GD = '+(2*k))}, ולכן ${m('AD = '+(2*k)+' + '+k+' = '+(3*k))}.`;
+    return {kind:'mc',q:GV([`${m('AD')}, ${m('BE')}, ${m('CF')} תיכונים`,`${m('G')} נקודת המפגש שלהם`,q[0]],q[1]),fig:svg(base+T(213,198,k,'val')+T(330,60,'AD = x','unk'),255),opts:numOpts(ans,[2*k,4*k,k*1.5,k+2]),exp}; }
+  q=[m('AG = '+(2*k)),`מצאי את ${m('GD')}.`]; ans=k; exp=`${m('AG : GD = 2 : 1')}, ולכן ${m('GD = '+(2*k)+' : 2 = '+k)}.`;
+  return {kind:'mc',q:GV([`${m('AD')}, ${m('BE')}, ${m('CF')} תיכונים`,`${m('G')} נקודת המפגש שלהם`,q[0]],q[1]),fig:svg(base+T(165,100,2*k,'val')+T(213,198,'x','unk'),255),opts:numOpts(ans,[2*k,4*k,3*k,k+2]),exp};
+}});
+
+// triangle type by angles
+GEN.push({cat:'tri',make(){
+  const t=pick(['acute','right','obtuse']);let A,B;
+  if(t==='right'){A=rint(25,65);B=90-A;} else if(t==='obtuse'){A=rint(15,40);B=rint(15,40);} else {do{A=rint(50,80);B=rint(50,80)}while(180-A-B>=90||180-A-B<=0);}
+  const C=180-A-B,name={acute:'חד זווית',right:'ישר זווית',obtuse:'קהה זווית'}[t];
+  const fig=svg(poly([[200,35],[60,215],[340,215]])+T(100,204,A+'°','val')+T(300,204,B+'°','val')+T(200,72,'?','unk'));
+  return {kind:'mc',fig,q:GV([`זווית אחת: ${m(A+'°')}`,`זווית שנייה: ${m(B+'°')}`],'איזה סוג משולש זה?','במשולש:'),
+    opts:['משולש '+name,...['חד זווית','ישר זווית','קהה זווית'].filter(x=>x!==name).map(x=>'משולש '+x),'משולש שווה צלעות'].slice(0,4),
+    exp:`הזווית השלישית: ${m('180° − '+A+'° − '+B+'° = '+C+'°')}. ${t==='acute'?'כל הזוויות חדות':t==='right'?'יש זווית של 90°':'יש זווית קהה (גדולה מ-90°)'}, ולכן זה משולש ${name}.`};
+}});
+// parallelogram angles
+GEN.push({cat:'quad',make(){
+  const a=rint(50,80);const ask=pick(['B','C']);
+  const A=[60,200],B=[280,200],C=[340,60],D=[120,60];
+  const fig=svg(L(A,B)+L(B,C)+L(C,D)+L(D,A)+T(46,220,'A')+T(290,222,'B')+T(352,56,'C')+T(110,52,'D')+
+    T(88,188,a+'°','val')+(ask==='B'?T(262,186,'x','unk'):T(318,82,'x','unk')));
+  const val=ask==='B'?180-a:a;
+  return {kind:'mc',q:GV([`${m('ABCD')} מקבילית`,m('∠A = '+a+'°')],`מצאי את ${m('∠'+ask)}.`),fig,
+    opts:numOpts(val,[ask==='B'?a:180-a,360-a,90-a,2*a],'°'),
+    exp:ask==='B'?`זוויות סמוכות במקבילית סכומן 180°: ${m('∠B = 180° − '+a+'° = '+val+'°')}.`:`במקבילית זוויות נגדיות שוות: ${m('∠C = ∠A = '+a+'°')}.`};
+}});
+// rectangle diagonals
+GEN.push({cat:'quad',make(){
+  const k=rint(3,14);const A=[60,205],B=[340,205],C=[340,55],D=[60,55],O=[200,130];
+  const fig=svg(L(A,B)+L(B,C)+L(C,D)+L(D,A)+L(A,C,'ln2')+L(B,D,'thin')+dot(O)+T(46,225,'A')+T(354,225,'B')+T(354,50,'C')+T(46,50,'D')+T(200,152,'O')+
+    T(120,150,'AC = '+(2*k),'val')+T(128,84,'x','unk'));
+  return {kind:'mc',q:GV([`${m('ABCD')} מלבן`,`${m('O')} נקודת מפגש האלכסונים`,m('AC = '+(2*k))],`מצאי את ${m('OD')}.`),fig,
+    opts:numOpts(k,[2*k,4*k,k+3,k/2]),exp:`במלבן האלכסונים שווים וחוצים זה את זה, ולכן ${m('BD = AC = '+(2*k))} ו-${m('OD = '+(2*k)+' : 2 = '+k)}.`};
+}});
+// trapezoid midsegment
+GEN.push({cat:'quad',make(){
+  let a,b;do{a=rint(4,14);b=rint(a+2,26)}while((a+b)%2);const mid=(a+b)/2;
+  const A=[40,210],B=[360,210],C=[280,60],D=[120,60],E=[80,135],F=[320,135];
+  const fig=svg(L(A,B)+L(B,C)+L(C,D)+L(D,A)+L(E,F,'ln2')+dot(E)+dot(F)+tick(A,E)+tick(E,D)+tick(B,F,2)+tick(F,C,2)+
+    T(28,228,'A')+T(372,228,'B')+T(290,54,'C')+T(110,54,'D')+T(64,134,'E')+T(336,134,'F')+
+    T(200,48,'DC = '+a,'val')+T(200,232,'AB = '+b,'val')+T(200,126,'x','unk'),245);
+  return {kind:'mc',q:GV([`${m('ABCD')} טרפז, ${m('AB ∥ DC')}`,`${m('EF')} קטע אמצעים`,m('DC = '+a),m('AB = '+b)],`מצאי את ${m('EF')}.`),fig,
+    opts:numOpts(mid,[a+b,b-a,(b-a)/2,b/2]),exp:`קטע אמצעים בטרפז שווה למחצית סכום הבסיסים: ${m('EF = ('+a+' + '+b+') : 2 = '+mid)}.`};
+}});
+// quad angle sum
+GEN.push({cat:'quad',make(){
+  let a,b,c,d;do{a=rint(60,130);b=rint(60,130);c=rint(60,130);d=360-a-b-c}while(d<40||d>160);
+  const fig=svg(poly([[60,200],[330,215],[300,60],[110,40]])+T(88,190,a+'°','val')+T(300,198,b+'°','val')+T(282,82,c+'°','val')+T(128,68,'x','unk'));
+  return {kind:'mc',fig,q:GV([m(a+'°'),m(b+'°'),m(c+'°')],'מה הזווית הרביעית?','שלוש זוויות במרובע:'),
+    opts:numOpts(d,[180-(a+b+c)%180,d+20,d-20,360-a-b,(a+b+c)-180],'°'),exp:`סכום הזוויות במרובע 360°: ${m('360° − '+a+'° − '+b+'° − '+c+'° = '+d+'°')}.`};
+}});
+// rhombus diagonal bisects angle
+GEN.push({cat:'quad',make(){
+  const t=rint(20,40),A2=2*t;
+  const Ar=[60,130],Br=[200,215],Cr=[340,130],Dr=[200,45];const fig=svg(poly([Ar,Br,Cr,Dr])+tick(Ar,Br)+tick(Br,Cr)+tick(Cr,Dr)+tick(Dr,Ar)+L(Ar,Cr,'ln2')+arc(Ar,Br,Dr,24,'arc','')+T(122,96,A2+'°','val')+T(122,160,'x','unk')+labs({A:[44,136],B:[200,237],C:[356,136],D:[200,36]}));
+  return {kind:'mc',fig,q:GV([`${m('ABCD')} מעוין`,m('∠DAB = '+A2+'°')],`מצאי את הזווית ${m('∠CAB')} (בין האלכסון ${m('AC')} לצלע ${m('AB')}).`),
+    opts:numOpts(t,[A2,90-t,180-A2,t+10],'°'),exp:`במעוין האלכסון חוצה את הזווית: ${m('∠CAB = '+A2+'° : 2 = '+t+'°')}.`};
+}});
+
+// converse midsegment in triangle
+GEN.push({cat:'mid',make(){
+  const k=rint(3,14);const A=[170,30],B=[50,225],C=[350,225],D=[110,127.5],E=[260,127.5];
+  const fig=svg(poly([A,B,C])+L(D,E,'ln2')+dot(D)+dot(E)+tick(A,D)+tick(D,B)+chev(D,E)+chev(B,C)+labs({A:[170,22],B:[38,242],C:[362,242],D:[94,126],E:[276,126]})+T(290,70,'AC = '+(2*k),'val')+T(228,80,'x','unk'),255);
+  return {kind:'mc',q:GV([`${m('D')} אמצע ${m('AB')}`,m('DE ∥ BC'),m('AC = '+(2*k))],`מצאי את ${m('AE')}.`,`ב-${m('△ABC')}:`),fig,
+    opts:numOpts(k,[2*k,k/2,3*k,k+2]),exp:`ישר שיוצא מאמצע צלע ומקביל לצלע שנייה חוצה את הצלע השלישית, ולכן ${m('E')} אמצע ${m('AC')}: ${m('AE = '+(2*k)+' : 2 = '+k)}.`};
+}});
+// trapezoid: find a base
+GEN.push({cat:'mid',make(){
+  let a,b;do{a=rint(4,14);b=rint(a+2,26)}while((a+b)%2);const mm=(a+b)/2;
+  const A=[40,210],B=[360,210],C=[280,60],D=[120,60],E=[80,135],Fp=[320,135];
+  const fig=svg(poly([A,B,C,D])+L(E,Fp,'ln2')+dot(E)+dot(Fp)+tick(A,E)+tick(E,D)+tick(B,Fp,2)+tick(Fp,C,2)+chev(A,B)+chev(D,C)+labs({A:[28,228],B:[372,228],C:[290,54],D:[110,54],E:[64,134],F:[336,134]})+
+    T(200,48,'DC = '+a,'val')+T(200,126,'EF = '+mm,'val')+T(200,232,'AB = x','unk'),245);
+  return {kind:'mc',q:GV([`${m('ABCD')} טרפז, ${m('AB ∥ DC')}`,`${m('EF')} קטע אמצעים`,m('DC = '+a),m('EF = '+mm)],`מצאי את ${m('AB')}.`),fig,
+    opts:numOpts(b,[mm-a,mm+a,2*mm,mm]),exp:`${m('EF = (DC + AB) : 2')}, ולכן ${m('DC + AB = 2·'+mm+' = '+(2*mm))} ו-${m('AB = '+(2*mm)+' − '+a+' = '+b)}.`};
+}});
+// trapezoid converse
+GEN.push({cat:'mid',make(){
+  const k=rint(3,12);const A=[40,210],B=[360,210],C=[280,60],D=[120,60],E=[80,135],Fp=[320,135];
+  const fig=svg(poly([A,B,C,D])+L(E,Fp,'ln2')+dot(E)+dot(Fp)+tick(A,E)+tick(E,D)+chev(A,B)+chev(D,C)+chev(E,Fp)+labs({A:[28,228],B:[372,228],C:[290,54],D:[110,54],E:[64,134],F:[336,134]})+
+    T(352,98,'BC = '+(2*k),'val')+T(355,178,'x','unk'),245);
+  return {kind:'mc',q:GV([`${m('ABCD')} טרפז, ${m('AB ∥ DC')}`,`${m('E')} אמצע ${m('AD')}`,m('EF ∥ AB'),m('BC = '+(2*k))],`מצאי את ${m('BF')}.`),fig,
+    opts:numOpts(k,[2*k,k/2,4*k,k+3]),exp:`ישר שיוצא מאמצע שוק ומקביל לבסיסים חוצה את השוק השנייה, ולכן ${m('BF = '+(2*k)+' : 2 = '+k)}.`};
+}});
+
+BANK.forEach(b=>{if(b.figSpec){b.fig=F.cong(b.figSpec);return;}if(b.fig)return;const f=FIGMAP.find(([k])=>b.q.includes(k));if(f)b.fig=f[1]();});
+/* ---------------- game ---------------- */
+const settings={teams:1};
+document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');settings[g.dataset.group]=Number(b.dataset.val);}));
+$('cats').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;b.classList.toggle('sel');if(!$('cats').querySelector('.sel'))b.classList.add('sel');});
+
+let audio=null;
+function beep(good){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[300,220]).forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.setValueAtTime(.0001,audio.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.18,audio.currentTime+i*.12+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.12+.18);o.connect(g).connect(audio.destination);o.start(audio.currentTime+i*.12);o.stop(audio.currentTime+i*.12+.2);});}catch(e){}}
+
+function buildRound(total,cats){
+  const st=shuffle(BANK.filter(b=>cats.includes(b.cat)).slice());
+  const gens=GEN.filter(g=>cats.includes(g.cat));
+  const out=[];const nGen=Math.round(total*0.4);
+  for(let i=0;i<nGen&&gens.length;i++){const g=gens[i%gens.length===0?Math.floor(Math.random()*gens.length):Math.floor(Math.random()*gens.length)];const q=g.make();q.cat=g.cat;out.push(q);}
+  while(out.length<total&&st.length) out.push(st.pop());
+  while(out.length<total&&gens.length){const g=pick(gens);const q=g.make();q.cat=g.cat;out.push(q);}
+  return shuffle(out).map(q=>{const correct=q.opts[0];return {...q,correct,shown:q.kind==='tf'?['נכון','לא נכון']:shuffle(q.opts.slice())};});
+}
+
+let S;const PRAISE=['מעולה!','כל הכבוד!','יפה מאוד!','בדיוק!','אלופה!','מושלם!','וואו! 🎯'];
+const team=()=>settings.teams===2?S.i%2:0;
+function start(){
+  const cats=[...$('cats').querySelectorAll('.sel')].map(b=>b.dataset.cat);
+  const total=settings.teams===2?14:12;
+  S={total,i:0,qs:buildRound(total,cats),scores:[0,0],streak:[0,0],first:[0,0],tries:0,hint:false,done:false};
+  $('start').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');show();
+}
+$('goBtn').addEventListener('click',()=>{beep(true);start();});
+function hud(){
+  $('qCount').textContent=`שאלה ${S.i+1} מתוך ${S.total}`;$('prog').style.width=(S.i/S.total*100)+'%';
+  $('scoreArea').innerHTML=settings.teams===2
+    ?`<div class="pill team tA ${team()===0?'on':''}">קבוצה א׳: ${S.scores[0]}</div><div class="pill team tB ${team()===1?'on':''}">קבוצה ב׳: ${S.scores[1]}</div>`
+    :`<div class="pill">⭐ ${S.scores[0]}</div>${S.streak[0]>=2?`<div class="pill">🔥 ${S.streak[0]}</div>`:''}`;
+}
+function show(){
+  if(S.i>=S.total) return finish();
+  const q=S.qs[S.i];S.tries=0;S.hint=false;S.done=false;hud();
+  const tu=$('turn');if(settings.teams===2){tu.classList.remove('hidden');tu.textContent=team()===0?'🟢 תור קבוצה א׳':'🟠 תור קבוצה ב׳';tu.style.color=team()===0?'var(--teal)':'var(--teamB)';}else tu.classList.add('hidden');
+  $('qtag').textContent=CAT_NAME[q.cat]+(q.kind==='tf'?' · נכון או לא נכון?':'');
+  $('qText').innerHTML=q.q;$('fig').innerHTML=q.fig||'';$('figNote').classList.toggle('hidden',!q.fig);
+  const an=$('answers');an.className='answers'+(q.kind==='tf'?' tf':'');
+  an.style.gridTemplateColumns=(q.kind==='mc'&&q.shown.some(o=>String(o).length>14))?'1fr':'1fr 1fr';
+  an.innerHTML=q.shown.map((o,i)=>`<button class="ans" data-i="${i}" style="${String(o).length>14?'font-size:17px;padding:12px 10px;text-align:right':''}">${o}</button>`).join('');
+  ['hint','feedback','nextBtn'].forEach(id=>$(id).classList.add('hidden'));$('hintBtn').disabled=false;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('answers').addEventListener('click',e=>{const b=e.target.closest('.ans');if(!b||b.disabled||S.done)return;check(b);});
+$('hintBtn').addEventListener('click',()=>{if(S.done)return;S.hint=true;const q=S.qs[S.i];$('hint').innerHTML=`<h3>💡 רמז – משפטים שכדאי לחשוב עליהם</h3>${CAT_HINT[q.cat]}`;$('hint').classList.remove('hidden');$('hintBtn').disabled=true;});
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950);}
+function check(btn){
+  const q=S.qs[S.i],t=team(),fb=$('feedback'),v=q.shown[+btn.dataset.i];S.tries++;
+  const reveal=()=>{document.querySelectorAll('.ans').forEach(x=>{x.disabled=true;if(q.shown[+x.dataset.i]===q.correct)x.classList.add('good');});};
+  if(v===q.correct){
+    S.done=true;beep(true);const pts=(S.tries===1&&!S.hint)?10:5;let bonus=0;
+    if(S.tries===1){S.streak[t]++;S.first[t]++;if(S.streak[t]>=3)bonus=5;}else S.streak[t]=0;
+    S.scores[t]+=pts+bonus;btn.classList.add('good');reveal();pop('+'+(pts+bonus));
+    fb.className='feedback good';fb.innerHTML=`<h3>✅ ${pick(PRAISE)} ${bonus?'🔥 בונוס רצף +5':''}</h3><div class="theorem">${q.exp}</div>`;fb.classList.remove('hidden');next();
+  }else{
+    beep(false);btn.classList.add('bad');btn.disabled=true;S.streak[t]=0;
+    $('qCard').classList.add('shake');setTimeout(()=>$('qCard').classList.remove('shake'),400);
+    if(S.tries===1&&q.kind==='mc'){fb.className='feedback retry';fb.innerHTML='<h3>🤏 לא בדיוק – נסי שוב</h3><div>אפשר להיעזר ברמז 💡</div>';fb.classList.remove('hidden');}
+    else{S.done=true;reveal();fb.className='feedback bad';fb.innerHTML=`<h3>הפעם לא הצליח – הנה ההסבר:</h3><div>התשובה הנכונה: <b>${q.correct}</b></div><div class="theorem">${q.exp}</div>`;fb.classList.remove('hidden');next();}
+  }
+  hud();
+}
+function next(){$('hintBtn').disabled=true;const nb=$('nextBtn');nb.textContent=S.i+1>=S.total?'לתוצאות 🏁':'לשאלה הבאה ←';nb.classList.remove('hidden');setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'nearest'}),150);}
+$('nextBtn').addEventListener('click',()=>{S.i++;show();});
+function finish(){
+  $('prog').style.width='100%';$('game').classList.add('hidden');$('end').classList.remove('hidden');const ec=$('endCard');
+  const btns=`<button class="big-btn" id="again">משחק נוסף 🔁</button><button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+  if(settings.teams===2){const[a,b]=S.scores,half=S.total/2;
+    ec.innerHTML=`<h2 class="center" style="font-size:26px">${a===b?'תיקו! שתי הקבוצות אלופות 🤝':a>b?'קבוצה א׳ ניצחה! 🏆':'קבוצה ב׳ ניצחה! 🏆'}</h2>
+    <div class="teams-end"><div class="tbox ${a>=b?'win':''}">קבוצה א׳<b>${a}</b><small>${S.first[0]} מתוך ${half} בניסיון ראשון</small></div>
+    <div class="tbox ${b>=a?'win':''}">קבוצה ב׳<b>${b}</b><small>${S.first[1]} מתוך ${half} בניסיון ראשון</small></div></div>${btns}`;
+  }else{const sc=S.scores[0],r=sc/(S.total*10),st=r>=.85?3:r>=.6?2:r>=.3?1:0;
+    ec.innerHTML=`<div class="stars">${[0,1,2].map(k=>`<span class="${k<st?'':'off'}">⭐</span>`).join('')}</div><div class="score-big">${sc} נקודות</div>
+    <h2 class="center">${st===3?'אלופת המשפטים! 🏆':st===2?'עבודה מצוינת! 💪':st===1?'יפה! עוד סיבוב ותשתפרי 🌱':'כדאי לחזור על המשפטים ולנסות שוב 💡'}</h2>
+    <div class="center muted">ענית נכון בניסיון ראשון על ${S.first[0]} מתוך ${S.total} שאלות</div>${btns}`;}
+  $('again').addEventListener('click',start);$('menu').addEventListener('click',()=>{$('end').classList.add('hidden');$('start').classList.remove('hidden');window.scrollTo({top:0});});
+}
+window.__TEST__={BANK,GEN,buildRound};
+})();
+</script>
+</body>
+</html>

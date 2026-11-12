@@ -4424,5 +4424,49 @@
     "title": "אנימציה: דיאגרמת פיזור, מקדם המתאם וקו הרגרסיה",
     "type": "video",
     "file": "materials/11/animations/linear-regression.html"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מספרים מכוונים",
+    "title": "משחק – מרוץ המכוונים: חיבור וחיסור מספרים מכוונים (3 רמות)",
+    "type": "game",
+    "file": "materials/7/7-directed-numbers-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "משחק – מרוץ האחוזים: תמורת האחוז ומציאת האחוז",
+    "type": "game",
+    "file": "materials/8/8-percent-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "דף עבודה – תמורת האחוז ומציאת האחוז (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/8/8-percent-worksheet.pdf"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "אחוזים",
+    "title": "דומינו ומשחק זיכרון באחוזים – להדפסה (כולל פתרונות)",
+    "type": "game",
+    "file": "materials/8/8-percent-domino-memory.pdf"
+  },
+  {
+    "grade": "10",
+    "level": "5",
+    "topic": "גאומטריה: משפטים עד משפט התיכונים",
+    "title": "משחק – מרוץ המשפטים: משולשים, מרובעים, קטע אמצעים ומשפט התיכונים",
+    "type": "game",
+    "file": "materials/10/10-geometry-theorems-game.html"
   }
 ]

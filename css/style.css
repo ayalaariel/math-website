@@ -141,6 +141,7 @@ a { color: var(--primary); }
 .tag-quiz { background: #fff4e5; color: #b54708; }
 .tag-solution { background: #e7f6ee; color: #1f7a4d; }
 .tag-video { background: #f3e8ff; color: #7c3aed; }
+.tag-game { background: #e0f7f5; color: #0d7272; }
 
 .empty {
   padding: 32px;

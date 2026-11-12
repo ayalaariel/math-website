@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרוץ המכוונים – חיבור וחיסור מספרים מכוונים – איילה אריאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24345c; --ink-soft:#4a5a80; --teal:#14a3a3; --teal-soft:#d6f2f1;
+    --bg:#f4f7fb; --card:#ffffff; --line:#dfe5ef;
+    --good:#1f9d55; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3e3;
+    --gold:#f2b705; --teamB:#e0712c; --teamB-soft:#fde9dc;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Rubik",system-ui,sans-serif}
+  body{min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+  /* header / branding */
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .pi{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+      font-size:26px;font-weight:700;box-shadow:0 0 0 3px var(--teal-soft), 0 0 0 5px var(--teal)}
+  .brand-text b{display:block;font-size:17px;line-height:1.1}
+  .brand-text span{font-size:13px;color:var(--teal);font-weight:600}
+  .gtitle{font-weight:800;font-size:clamp(18px,4.5vw,26px);color:var(--ink)}
+  .gtitle em{font-style:normal;color:var(--teal)}
+
+  .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(36,52,92,.07);border:1px solid var(--line)}
+  .stack>*+*{margin-top:14px}
+  h2{margin:0 0 8px;font-size:19px}
+  .muted{color:var(--ink-soft)}
+
+  /* start screen */
+  .opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;text-align:right;font-size:15px;color:var(--ink)}
+  .opt b{display:block;font-size:16px;margin-bottom:2px}
+  .opt small{color:var(--ink-soft)}
+  .opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+  .big-btn{width:100%;border:0;border-radius:16px;padding:16px;font-size:20px;font-weight:700;background:var(--teal);color:#fff;
+           box-shadow:0 4px 0 #0e7d7d}
+  .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0e7d7d}
+  .ghost{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600}
+
+  .remind{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .rbox{background:var(--bg);border-radius:14px;padding:12px;border:1px dashed #c5cfe0}
+  .rbox h3{margin:0 0 6px;font-size:15px;color:var(--teal)}
+
+  /* fractions */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1.25}
+  .frac .num{padding:0 6px 2px;border-bottom:2px solid currentColor}
+  .frac .den{padding:2px 6px 0}
+  .formula{font-size:17px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .eq{font-size:20px;font-weight:600;display:inline-flex;align-items:center;gap:6px;unicode-bidi:isolate}
+
+  /* game */
+  .hud{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:15px}
+  .pill.team{border-width:2px}
+  .pill.team.on{box-shadow:0 0 0 3px var(--teal-soft)}
+  .pill.tA{border-color:var(--teal)} .pill.tB{border-color:var(--teamB)}
+  .pill.tB.on{box-shadow:0 0 0 3px var(--teamB-soft)}
+  .progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+  .qtag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+  .qtag.a{background:var(--teal-soft);color:#0d7272}
+  .qtag.b{background:#e7e9fb;color:#3f46a8}
+  .turn{font-weight:700;font-size:15px;margin-bottom:6px}
+  .question{font-size:clamp(20px,5vw,28px);font-weight:600;line-height:1.5;margin:4px 0 6px}
+  .question .n{color:var(--teal);font-weight:800}
+  .givens{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .given{background:var(--bg);border-radius:10px;padding:6px 10px;font-size:15px}
+  .given b{color:var(--ink)}
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .ans{border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px 8px;font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink);
+       box-shadow:0 3px 0 var(--line);transition:background .15s}
+  .ans:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .ans.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+  .ans.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);opacity:.75}
+  .ans:disabled{cursor:default}
+
+  .typebox{display:flex;gap:8px;margin-top:14px;align-items:stretch}
+  .typebox input{flex:1;min-width:0;font-size:28px;font-weight:700;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px;font-family:inherit;color:var(--ink)}
+  .typebox input:focus{outline:none;border-color:var(--teal)}
+  .typebox .suffix{display:grid;place-items:center;font-size:26px;font-weight:700;padding:0 4px}
+  .typebox button{border:0;border-radius:14px;background:var(--teal);color:#fff;font-size:18px;font-weight:700;padding:0 18px}
+
+  .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hint{margin-top:12px;background:#fff8e1;border:1px solid #f3dd8f;border-radius:14px;padding:12px}
+  .hint h3{margin:0 0 6px;font-size:15px;color:#9a7300}
+  .feedback{margin-top:12px;border-radius:14px;padding:12px}
+  .feedback.good{background:var(--good-soft);border:1px solid #9fd9b6}
+  .feedback.bad{background:var(--bad-soft);border:1px solid #f0b2b2}
+  .feedback.retry{background:#fff3e6;border:1px solid #f5c99a}
+  .feedback h3{margin:0 0 6px;font-size:18px}
+
+  .bar{position:relative;height:30px;background:#fff;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:10px 0 4px}
+  .bar i{position:absolute;inset-block:0;right:0;background:var(--teal);transition:width .6s}
+  .bar-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .next{margin-top:12px}
+
+  .pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:800;color:var(--good);pointer-events:none;
+       animation:pop .9s ease-out forwards;z-index:9;text-shadow:0 2px 0 #fff}
+  @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+
+  /* end */
+  .stars{font-size:46px;letter-spacing:6px;text-align:center;margin:6px 0}
+  .stars .off{filter:grayscale(1);opacity:.3}
+  .score-big{text-align:center;font-size:44px;font-weight:800;color:var(--teal)}
+  .center{text-align:center}
+  .teams-end{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tbox{border-radius:14px;padding:12px;text-align:center;border:2px solid var(--line)}
+  .tbox.win{border-color:var(--gold);background:#fff9e0}
+  .tbox b{display:block;font-size:34px}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:20px}
+</style>
+<style>
+  .expr{direction:ltr;unicode-bidi:isolate;display:inline-block;white-space:nowrap;font-size:clamp(22px,6.6vw,44px);font-weight:800;letter-spacing:1px;color:var(--ink);margin:6px 0}
+  .expr .pos{color:#0d7272}.expr .neg{color:#d64545}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-weight:600}
+  .steps{margin-top:6px;line-height:1.9}
+  .steps .ltr{font-size:19px;white-space:nowrap}
+  .nl{width:100%;max-width:520px;height:auto;display:block;margin:8px auto 0}
+  .nl text{font-family:Rubik,sans-serif;font-size:13px;fill:var(--ink-soft);text-anchor:middle}
+  .nl .big{font-size:15px;font-weight:700;fill:var(--ink)}
+  .center-q{text-align:center}
+  .rules li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="pi">π</div><div class="brand-text"><b>איילה אריאל</b><span>מתמטיקה</span></div></div>
+    <div class="gtitle">מרוץ <em>המכוונים</em> ±</div>
+  </header>
+
+  <section id="start" class="stack">
+    <div class="card">
+      <h2>תזכורת לפני שמתחילים</h2>
+      <ul class="rules" style="margin:0;padding-inline-start:20px">
+        <li><b>אותו סימן</b> – מחברים את המספרים בלי הסימנים ושומרים על הסימן: <span class="ltr">(−3) + (−4) = −7</span></li>
+        <li><b>סימנים שונים</b> – מחסרים את הקטן מהגדול (בלי סימנים), ולוקחים את הסימן של המספר ה"חזק" יותר: <span class="ltr">(+5) + (−3) = +2</span></li>
+        <li><b>חיסור</b> = חיבור של המספר הנגדי: <span class="ltr">(−2) − (−6) = (−2) + (+6) = +4</span></li>
+      </ul>
+    </div>
+    <div class="card stack">
+      <div>
+        <h2>באיזו רמה?</h2>
+        <div class="opts" data-group="level">
+          <button class="opt sel" data-val="1"><b>⭐ רמה 1</b><small>חיבור בלבד, מספרים עד 10</small></button>
+          <button class="opt" data-val="2"><b>⭐⭐ רמה 2</b><small>חיבור וחיסור, מספרים עד 15</small></button>
+          <button class="opt" data-val="3"><b>⭐⭐⭐ רמה 3</b><small>שלושה מספרים, עד 20</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>איך עונים?</h2>
+        <div class="opts" data-group="style">
+          <button class="opt sel" data-val="choice"><b>בחירה מתוך 4</b><small>לוחצים על התשובה</small></button>
+          <button class="opt" data-val="type"><b>מקלידים תשובה</b><small>אתגר! עם סימן + או −</small></button>
+        </div>
+      </div>
+      <div>
+        <h2>מי משחק?</h2>
+        <div class="opts" data-group="teams">
+          <button class="opt sel" data-val="1"><b>משחק יחיד</b><small>10 תרגילים</small></button>
+          <button class="opt" data-val="2"><b>שתי קבוצות</b><small>12 תרגילים, לסירוגין – לכיתה</small></button>
+        </div>
+      </div>
+      <button class="big-btn" id="goBtn">יאללה, מתחילים! 🚀</button>
+    </div>
+    <div class="card muted" style="font-size:14px">
+      <b>ניקוד:</b> תשובה נכונה בניסיון ראשון = 10 נקודות. עם רמז או בניסיון שני = 5 נקודות. 3 תשובות נכונות ברצף = בונוס 5 🔥.
+      אחרי כל תרגיל מופיעים שלבי הפתרון וציר מספרים.
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="hud"><div class="pill" id="qCount"></div><div id="scoreArea" style="display:flex;gap:6px"></div></div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="card" id="qCard">
+      <div class="turn hidden" id="turn"></div>
+      <span class="qtag a" id="qtag"></span>
+      <div class="center-q"><div class="expr" id="expr"></div></div>
+      <div class="answers" id="answers"></div>
+      <div class="typebox hidden" id="typebox" style="direction:ltr">
+        <button class="ghost" id="signBtn" style="font-size:24px;padding:0 16px" title="החלפת סימן">±</button>
+        <input id="typeIn" inputmode="numeric" autocomplete="off" placeholder="?">
+        <button id="checkBtn">בדיקה</button>
+      </div>
+      <div class="tools"><button class="ghost" id="hintBtn">💡 רמז</button></div>
+      <div class="hint hidden" id="hint"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="big-btn next hidden" id="nextBtn">לתרגיל הבא ←</button>
+    </div>
+  </section>
+
+  <section id="end" class="hidden"><div class="card stack" id="endCard"></div></section>
+  <footer>נוצר על ידי איילה אריאל · מתמטיקה</footer>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const MINUS='−';
+const fmt=n=>n>0?'+'+n:n<0?MINUS+Math.abs(n):'0';
+const term=(n,col=true)=>`<span class="${col?(n>0?'pos':n<0?'neg':''):''}">(${fmt(n)})</span>`;
+const L=s=>`<span class="ltr">${s}</span>`;
+
+const settings={level:1,style:'choice',teams:1};
+document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const v=b.dataset.val;settings[g.dataset.group]=g.dataset.group==='style'?v:Number(v);}));
+
+let audio=null;
+function beep(good){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[300,220]).forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.setValueAtTime(.0001,audio.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.18,audio.currentTime+i*.12+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.12+.18);o.connect(g).connect(audio.destination);o.start(audio.currentTime+i*.12);o.stop(audio.currentTime+i*.12+.2);});}catch(e){}}
+
+/* ---------- questions ---------- */
+const nz=(m)=>{let x;do{x=rint(-m,m)}while(x===0);return x;};
+function makeQ(i,total){
+  const L1=settings.level;
+  let nums,ops;
+  if(L1===1){
+    // ramp: first few mixed signs guaranteed variety
+    const M=i<total/2?6:10; nums=[nz(M),nz(M)]; ops=['+'];
+  }else if(L1===2){
+    const M=i<total/2?10:15; nums=[nz(M),nz(M)]; ops=[pick(['+','−','−'])];
+  }else{
+    const M=i<total/2?12:20; nums=[nz(M),nz(M),nz(M)]; ops=[pick(['+','−']),pick(['+','−'])];
+  }
+  let ans=nums[0];ops.forEach((o,k)=>{ans=o==='+'?ans+nums[k+1]:ans-nums[k+1];});
+  return {nums,ops,ans,opts:makeOpts(nums,ops,ans)};
+}
+function makeOpts(nums,ops,ans){
+  const c=new Set([-ans]);
+  const a=nums[0],b=nums[1];
+  // typical mistakes
+  c.add(ops[0]==='+'?a-b:a+b);                 // wrong operation
+  c.add(Math.sign(ans||1)*(Math.abs(a)+Math.abs(b))); // added absolute values
+  c.add(-(Math.abs(a)+Math.abs(b)));
+  c.add(Math.abs(a)-Math.abs(b));
+  if(nums.length===3){let w=nums[0];ops.forEach((o,k)=>{w=o==='+'?w+nums[k+1]:w+nums[k+1];});c.add(w);c.add(-w);}
+  c.add(ans+2);c.add(ans-2);
+  c.delete(ans);
+  const pool=shuffle([...c]);
+  const o=[ans,...pool.slice(0,3)];for(const d of [1,-1,3,-3,4,-4,5])if(o.length<4&&!o.includes(ans+d))o.push(ans+d);
+  return shuffle(o);
+}
+
+/* ---------- explanations ---------- */
+function addRule(a,b){
+  const r=a+b;
+  if(a===0||b===0) return `מוסיפים 0 – המספר לא משתנה.`;
+  if(Math.sign(a)===Math.sign(b)) return `לשני המספרים אותו סימן (${a>0?'חיוביים':'שליליים'}): ${L(Math.abs(a)+' + '+Math.abs(b)+' = '+(Math.abs(a)+Math.abs(b)))}, ושומרים על הסימן ${a>0?'+':MINUS}.`;
+  const big=Math.abs(a)>=Math.abs(b)?a:b,small=big===a?b:a;
+  if(r===0) return `מספרים נגדיים – הסכום שלהם 0.`;
+  return `סימנים שונים: ${L(Math.abs(big)+' − '+Math.abs(small)+' = '+Math.abs(r))}. הסימן הוא של ${L(fmt(big))} (ה"חזק" יותר), ולכן ${L(fmt(r))}.`;
+}
+function solution(q){
+  let html='';
+  // step 1: turn subtraction into addition
+  const conv=q.nums.map((n,k)=>k===0?n:(q.ops[k-1]==='−'?-n:n));
+  if(q.ops.includes('−')){
+    html+=`<div>🔄 <b>חיסור = חיבור הנגדי:</b><br>${L(exprStr(q.nums,q.ops))}<br>${L('= '+conv.map(n=>`(${fmt(n)})`).join(' + '))}</div>`;
+  }
+  let acc=conv[0];
+  for(let k=1;k<conv.length;k++){
+    const r=acc+conv[k];
+    html+=`<div>➕ ${L(`(${fmt(acc)}) + (${fmt(conv[k])}) = ${fmt(r)}`)} – ${addRule(acc,conv[k])}</div>`;
+    acc=r;
+  }
+  html+=`<div style="margin-top:4px">✅ <b>התשובה:</b> ${L(fmt(q.ans))}</div>`;
+  html+=numberLine(conv);
+  return `<div class="steps">${html}</div>`;
+}
+function exprStr(nums,ops){return nums.map((n,k)=>(k?' '+ops[k-1]+' ':'')+`(${fmt(n)})`).join('');}
+function exprHTML(q){return q.nums.map((n,k)=>(k?` ${q.ops[k-1]} `:'')+term(n)).join('')+' = ?';}
+
+function numberLine(conv){
+  const pts=[0];let acc=0;conv.forEach(n=>{acc+=n;pts.push(acc);});
+  let lo=Math.min(...pts),hi=Math.max(...pts);lo=Math.min(lo,-2)-1;hi=Math.max(hi,2)+1;
+  const W=520,pad=24,sx=x=>pad+(x-lo)*(W-2*pad)/(hi-lo);
+  const step=(hi-lo)>30?5:(hi-lo)>16?2:1;
+  let s=`<line x1="${pad-10}" y1="70" x2="${W-pad+10}" y2="70" stroke="#24345c" stroke-width="2"/>`;
+  for(let x=Math.ceil(lo);x<=hi;x++){const X=sx(x);const lab=x%step===0||x===0;s+=`<line x1="${X}" y1="${lab?63:66}" x2="${X}" y2="${lab?77:74}" stroke="#24345c" stroke-width="${x===0?2.5:1.2}"/>`;if(lab)s+=`<text x="${X}" y="94" class="${x===0?'big':''}">${x<0?MINUS+(-x):x}</text>`;}
+  const cols=['#7d8aa8','#14a3a3','#e0712c','#5b5fc7'];
+  acc=0;
+  [0,...conv.map((_,i)=>i)].slice(1);
+  conv.forEach((n,k)=>{const from=acc,to=acc+n,y=52-k*16,c=cols[(k%3)+ (k===0?0:0)];const X1=sx(from),X2=sx(to),dir=to>from?1:-1;
+    const col=k===0?'#7d8aa8':(n>0?'#14a3a3':'#d64545');
+    s+=`<line x1="${X1}" y1="${y}" x2="${X2-dir*6}" y2="${y}" stroke="${col}" stroke-width="3.5" stroke-linecap="round"/>`+
+       `<polygon points="${X2},${y} ${X2-dir*9},${y-6} ${X2-dir*9},${y+6}" fill="${col}"/>`+
+       `<text x="${(X1+X2)/2}" y="${y-6}" style="fill:${col};font-weight:700">${fmt(n)}</text>`;
+    acc=to;});
+  s+=`<circle cx="${sx(acc)}" cy="70" r="6" fill="#f2b705" stroke="#24345c" stroke-width="1.5"/>`;
+  const h=52-(conv.length-1)*16-24;
+  return `<svg class="nl" viewBox="0 ${h} ${W} ${104-h}" direction="ltr">${s}</svg><div class="muted" style="font-size:13px;text-align:center">מתחילים ב-0, זזים ימינה במספר חיובי ושמאלה במספר שלילי. הנקודה הצהובה היא התשובה.</div>`;
+}
+function hintHTML(q){
+  let h='<h3>💡 רמז</h3>';
+  if(q.ops.includes('−')) h+=`<div>יש חיסור? הופכים אותו לחיבור של המספר הנגדי. למשל: ${L('(+4) − (−3) = (+4) + (+3)')}</div>`;
+  h+=`<div>אותו סימן → מחברים ושומרים על הסימן. סימנים שונים → מחסרים, והסימן של ה"חזק" יותר.</div>`;
+  return h;
+}
+
+/* ---------- game ---------- */
+let S;const PRAISE=['מעולה!','כל הכבוד!','יפה מאוד!','בדיוק!','מושלם!','וואו! 🎯','אלופים! 🏆'];
+const team=()=>settings.teams===2?S.i%2:0;
+function start(){const total=settings.teams===2?12:10;S={total,i:0,scores:[0,0],streak:[0,0],first:[0,0]};$('start').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');show();}
+$('goBtn').addEventListener('click',()=>{beep(true);start();});
+function hud(){$('qCount').textContent=`תרגיל ${S.i+1} מתוך ${S.total}`;$('prog').style.width=(S.i/S.total*100)+'%';
+  $('scoreArea').innerHTML=settings.teams===2?`<div class="pill team tA ${team()===0?'on':''}">קבוצה א׳: ${S.scores[0]}</div><div class="pill team tB ${team()===1?'on':''}">קבוצה ב׳: ${S.scores[1]}</div>`
+  :`<div class="pill">⭐ ${S.scores[0]}</div>${S.streak[0]>=2?`<div class="pill">🔥 ${S.streak[0]}</div>`:''}`;}
+function show(){
+  if(S.i>=S.total)return finish();
+  const q=S.q=makeQ(S.i,S.total);S.tries=0;S.hint=false;S.done=false;hud();
+  const tu=$('turn');if(settings.teams===2){tu.classList.remove('hidden');tu.textContent=team()===0?'🟢 תור קבוצה א׳':'🟠 תור קבוצה ב׳';tu.style.color=team()===0?'var(--teal)':'var(--teamB)';}else tu.classList.add('hidden');
+  $('qtag').textContent=q.ops.includes('−')?(q.ops.includes('+')?'חיבור וחיסור':'חיסור מספרים מכוונים'):'חיבור מספרים מכוונים';
+  $('expr').innerHTML=exprHTML(q);
+  ['hint','feedback','nextBtn'].forEach(id=>$(id).classList.add('hidden'));$('hintBtn').disabled=false;
+  if(settings.style==='choice'){$('typebox').classList.add('hidden');$('answers').classList.remove('hidden');
+    $('answers').innerHTML=q.opts.map(o=>`<button class="ans" data-v="${o}"><span class="ltr" style="font-weight:800">${fmt(o)}</span></button>`).join('');}
+  else{$('answers').classList.add('hidden');$('typebox').classList.remove('hidden');$('typeIn').value='';$('typeIn').disabled=false;$('checkBtn').disabled=false;$('signBtn').disabled=false;setTimeout(()=>{try{$('typeIn').focus()}catch(e){}},50);}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('answers').addEventListener('click',e=>{const b=e.target.closest('.ans');if(!b||b.disabled||S.done)return;check(Number(b.dataset.v),b);});
+$('signBtn').addEventListener('click',()=>{const v=$('typeIn').value.trim();if(v.startsWith('-')||v.startsWith(MINUS))$('typeIn').value=v.slice(1);else $('typeIn').value='-'+v.replace(/^\+/,'');$('typeIn').focus();});
+$('checkBtn').addEventListener('click',submitTyped);$('typeIn').addEventListener('keydown',e=>{if(e.key==='Enter')submitTyped();});
+function submitTyped(){if(S.done)return;const raw=$('typeIn').value.replace(MINUS,'-').replace(/\s/g,'');if(!/^[+-]?\d+$/.test(raw)){$('typeIn').classList.add('shake');setTimeout(()=>$('typeIn').classList.remove('shake'),400);return;}check(parseInt(raw,10),null);}
+$('hintBtn').addEventListener('click',()=>{if(S.done)return;S.hint=true;$('hint').innerHTML=hintHTML(S.q);$('hint').classList.remove('hidden');$('hintBtn').disabled=true;});
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950);}
+function lock(){document.querySelectorAll('.ans').forEach(x=>{x.disabled=true;if(Number(x.dataset.v)===S.q.ans)x.classList.add('good');});$('typeIn').disabled=true;$('checkBtn').disabled=true;$('signBtn').disabled=true;}
+function check(v,btn){
+  const q=S.q,t=team(),fb=$('feedback');S.tries++;
+  if(v===q.ans){S.done=true;beep(true);const pts=(S.tries===1&&!S.hint)?10:5;let bonus=0;
+    if(S.tries===1){S.streak[t]++;S.first[t]++;if(S.streak[t]>=3)bonus=5;}else S.streak[t]=0;
+    S.scores[t]+=pts+bonus;if(btn)btn.classList.add('good');lock();pop('+'+(pts+bonus));
+    fb.className='feedback good';fb.innerHTML=`<h3>✅ ${pick(PRAISE)} ${bonus?'🔥 בונוס רצף +5':''}</h3>${solution(q)}`;fb.classList.remove('hidden');next();}
+  else{beep(false);if(btn){btn.classList.add('bad');btn.disabled=true;}S.streak[t]=0;$('qCard').classList.add('shake');setTimeout(()=>$('qCard').classList.remove('shake'),400);
+    if(S.tries===1){fb.className='feedback retry';fb.innerHTML='<h3>🤏 כמעט! נסו שוב</h3><div>שימו לב לסימנים. אפשר להיעזר ברמז 💡</div>';fb.classList.remove('hidden');}
+    else{S.done=true;lock();fb.className='feedback bad';fb.innerHTML=`<h3>הפעם לא הצליח – בואו נראה איך פותרים:</h3>${solution(q)}`;fb.classList.remove('hidden');next();}}
+  hud();
+}
+function next(){$('hintBtn').disabled=true;const nb=$('nextBtn');nb.textContent=S.i+1>=S.total?'לתוצאות 🏁':'לתרגיל הבא ←';nb.classList.remove('hidden');setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'nearest'}),150);}
+$('nextBtn').addEventListener('click',()=>{S.i++;show();});
+function finish(){
+  $('prog').style.width='100%';$('game').classList.add('hidden');$('end').classList.remove('hidden');const ec=$('endCard');
+  const btns=`<button class="big-btn" id="again">משחק נוסף 🔁</button><button class="ghost" id="menu" style="width:100%">חזרה להגדרות</button>`;
+  if(settings.teams===2){const[a,b]=S.scores,half=S.total/2;
+    ec.innerHTML=`<h2 class="center" style="font-size:26px">${a===b?'תיקו! שתי הקבוצות אלופות 🤝':a>b?'קבוצה א׳ ניצחה! 🏆':'קבוצה ב׳ ניצחה! 🏆'}</h2><div class="teams-end"><div class="tbox ${a>=b?'win':''}">קבוצה א׳<b>${a}</b><small>${S.first[0]} מתוך ${half} בניסיון ראשון</small></div><div class="tbox ${b>=a?'win':''}">קבוצה ב׳<b>${b}</b><small>${S.first[1]} מתוך ${half} בניסיון ראשון</small></div></div>${btns}`;}
+  else{const sc=S.scores[0],r=sc/(S.total*10),st=r>=.85?3:r>=.6?2:r>=.3?1:0;
+    ec.innerHTML=`<div class="stars">${[0,1,2].map(k=>`<span class="${k<st?'':'off'}">⭐</span>`).join('')}</div><div class="score-big">${sc} נקודות</div><h2 class="center">${st===3?'אלופי המכוונים! 🏆':st===2?'עבודה מצוינת! 💪':st===1?'יפה! עוד סיבוב ותשתפרו 🌱':'נסו שוב עם רמזים 💡'}</h2><div class="center muted">תשובה נכונה בניסיון ראשון: ${S.first[0]} מתוך ${S.total}</div>${st===3&&settings.level<3?'<div class="center" style="font-weight:600">מוכנים לרמה הבאה? ⬆️</div>':''}${btns}`;}
+  $('again').addEventListener('click',start);$('menu').addEventListener('click',()=>{$('end').classList.add('hidden');$('start').classList.remove('hidden');window.scrollTo({top:0});});
+}
+window.__T__={makeQ,settings,solution};
+})();
+</script>
+</body>
+</html>
