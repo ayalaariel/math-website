@@ -1,4 +1,4 @@
-// ניתוב לפי כתובת: #/  ,  #/s/10  ,  #/s/10/4  ,  #/search/<מילים>
+// ניתוב לפי כתובת: #/  ,  #/s/10  ,  #/s/10/4  ,  #/s/10/4/games  ,  #/search/<מילים>
 
 const app = document.getElementById("app");
 const searchInput = document.getElementById("search-input");
@@ -363,45 +363,71 @@ function assessmentRubrics(all) {
   }));
 }
 
-function renderLevel(section, level) {
-  const key = `${section.id}/${level.id}`;
-  const all = MATERIALS.filter(m => m.grade === section.id && m.level === level.id);
-  // בחנים, מבחנים ועבודות קיץ מוצגים ברובריקות משלהם, שאר החומרים לפי תחום ונושא
-  const items = all.filter(m => !ASSESSMENT_TYPES.some(a => a.type === m.type));
-  const content = [];
+// לשוניות בדף של כל כיתה/רמה: חומרי לימוד, מצגות, משחקים, מבחנים ובחנים
+const LEVEL_TABS = [
+  { id: "", title: "חומרי לימוד", icon: "📚", test: m => !["presentation", "game", "quiz", "exam", "summer"].includes(m.type) },
+  { id: "presentations", title: "מצגות", icon: "🖥️", test: m => m.type === "presentation" },
+  { id: "games", title: "משחקים", icon: "🎲", test: m => m.type === "game" },
+  { id: "tests", title: "מבחנים ובחנים", icon: "📝", test: m => ["quiz", "exam", "summer"].includes(m.type) },
+];
 
-  if (level.domains) {
+function groupedContent(level, items, emptyText) {
+  const content = [];
+  if (items.length === 0) {
+    content.push(el("p", { class: "empty" }, emptyText));
+  } else if (level.domains) {
     // חלוקה לפי תחום (אלגברה / גיאומטריה), ובכל תחום לפי נושא
     const groups = level.domains.map(id => DOMAINS.find(d => d.id === id));
     const other = items.filter(m => !level.domains.includes(m.domain));
     if (other.length) groups.push({ id: null, name: "נוספים" });
     for (const domain of groups) {
       const list = domain.id ? items.filter(m => m.domain === domain.id) : other;
+      if (!list.length) continue;
       content.push(el("div", { class: "domain" },
         el("h2", { class: "domain-title" }, domain.name),
-        ...(list.length ? topicSections(list, "h3") : [el("p", { class: "empty" }, "עדיין אין חומרים. בקרוב!")])
+        ...topicSections(list, "h3")
       ));
     }
-  } else if (items.length === 0) {
-    content.push(el("h2", { class: "materials-title" }, "חומרים"));
-    content.push(el("p", { class: "empty" }, "עדיין אין חומרים לרמה הזו. בקרוב!"));
   } else {
-    content.push(el("h2", { class: "materials-title" }, "חומרים"));
     content.push(...topicSections(items, "h2"));
   }
+  return content;
+}
+
+function renderLevel(section, level, tabId = "") {
+  const key = `${section.id}/${level.id}`;
+  const all = MATERIALS.filter(m => m.grade === section.id && m.level === level.id);
+  const tab = LEVEL_TABS.find(t => t.id === tabId) || LEVEL_TABS[0];
+  const base = `#/s/${section.id}/${level.id}`;
+
+  const tabs = el("nav", { class: "level-tabs" }, ...LEVEL_TABS.map(t => {
+    const n = new Set(all.filter(t.test).map(m => m.file)).size;
+    return el("a", { href: t.id ? `${base}/${t.id}` : base, class: t === tab ? "active" : "" },
+      `${t.icon} ${t.title}`, el("span", { class: "count" }, String(n)));
+  }));
+
+  const list = all.filter(tab.test);
+  let content;
+  if (tab.id === "tests") content = [assessmentRubrics(all)];
+  else if (tab.id === "presentations") content = groupedContent(level, list, "עדיין אין מצגות. בקרוב!");
+  else if (tab.id === "games") content = groupedContent(level, list, "עדיין אין משחקים. בקרוב!");
+  else content = groupedContent(level, list, "עדיין אין חומרים לרמה הזו. בקרוב!");
 
   app.replaceChildren(
     breadcrumbs(
       { label: "ראשי", href: "#/" },
       { label: section.name, href: `#/s/${section.id}` },
-      { label: level.name }
+      tab.id ? { label: level.name, href: base } : { label: level.name },
+      ...(tab.id ? [{ label: tab.title }] : [])
     ),
     el("h1", {}, `${section.name} · ${level.name}`),
-    nextTwoWeeks(key, false) || hsMonthBlock(section, level) || "",
-    currentMaterialsBlock(key, all) || "",
-    pacingTable(key) || "",
-    curriculumBlock(key) || "",
-    assessmentRubrics(all),
+    ...(tab.id ? [] : [
+      nextTwoWeeks(key, false) || hsMonthBlock(section, level) || "",
+      currentMaterialsBlock(key, all) || "",
+      pacingTable(key) || "",
+      curriculumBlock(key) || "",
+    ]),
+    tabs,
     ...content
   );
 }
@@ -459,7 +485,7 @@ function route() {
     const section = parts[0] === "s" ? findSection(parts[1]) : null;
     const level = findLevel(section, parts[2]);
     renderNav(section ? section.id : null);
-    if (section && level) renderLevel(section, level);
+    if (section && level) renderLevel(section, level, parts[3] || "");
     else if (section) renderSection(section);
     else renderHome();
   }

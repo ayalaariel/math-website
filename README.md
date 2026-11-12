@@ -29,4 +29,6 @@ https://ayalaariel.github.io/math-website/
 
 ערכים אפשריים ל-`grade`: 7–12. ל-`level`: `general`/`amat` (ז׳), `a`/`b`/`amat` (ח׳–ט׳), `3`/`4`/`5` (י׳–י״ב).
 `domain` (רק בחומרי הכיתה בז׳ ובהקבצות בח׳–ט׳): `algebra` או `geometry`.
-סוגים: summary, worksheet, quiz (בוחן), exam (מבחן), solution, presentation, video, link.
+סוגים: summary, worksheet, quiz (בוחן), exam (מבחן), solution, presentation, video, link, game (משחק).
+
+בדף של כל כיתה/רמה יש לשוניות: חומרי לימוד, מצגות (`presentation`), משחקים (`game`), ומבחנים ובחנים (`quiz`, `exam`, `summer`). כל חומר נכנס ללשונית לפי ה-`type` שלו, ובתוכה מסודר לפי תחום ונושא.

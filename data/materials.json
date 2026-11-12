@@ -499,7 +499,7 @@
     "domain": "geometry",
     "topic": "משפט פיתגורס",
     "title": "משחק משפט פיתגורס",
-    "type": "worksheet",
+    "type": "game",
     "file": "materials/8/8-1234.pdf"
   },
   {
@@ -508,7 +508,7 @@
     "domain": "geometry",
     "topic": "משפט פיתגורס",
     "title": "משחק משפט פיתגורס",
-    "type": "worksheet",
+    "type": "game",
     "file": "materials/8/8-1234.pdf"
   },
   {
@@ -607,7 +607,7 @@
     "domain": "algebra",
     "topic": "דמיון משולשים",
     "title": "משחק לפתיחת שנה כיתה ח חנמ",
-    "type": "worksheet",
+    "type": "game",
     "file": "materials/8/8-471.pdf"
   },
   {
@@ -616,7 +616,7 @@
     "domain": "algebra",
     "topic": "דמיון משולשים",
     "title": "משחק לפתיחת שנה כיתה ח חנמ",
-    "type": "worksheet",
+    "type": "game",
     "file": "materials/8/8-471.pdf"
   },
   {
@@ -1662,7 +1662,7 @@
     "domain": "geometry",
     "topic": "שטחים והיקפים",
     "title": "משחק הנקודות נפח ושטח פנים,סדר פעולות חשבון,חוקיות,שטחים והיקפים, וביטויים אלגבריים",
-    "type": "worksheet",
+    "type": "game",
     "file": "materials/7/7-223.pdf"
   },
   {
@@ -1731,7 +1731,7 @@
     "domain": "algebra",
     "topic": "חזרות ומבחנים",
     "title": "משחק הנקודות לקראת מבחן 5 כיתה ז",
-    "type": "exam",
+    "type": "game",
     "file": "materials/7/7-168.pdf"
   },
   {
