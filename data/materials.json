@@ -3856,6 +3856,24 @@
     "file": "materials/9/9-631.pdf"
   },
   {
+    "grade": "9",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משולש שווה שוקיים ודלתון במערכת צירים",
+    "title": "מצגת – משולש שווה שוקיים ודלתון במערכת צירים: תכונות, תרגילים ודוגמאות על דף משבצות (PDF)",
+    "type": "presentation",
+    "file": "materials/9/9-isosceles-kite-coordinates-presentation.pdf"
+  },
+  {
+    "grade": "9",
+    "level": "a",
+    "domain": "geometry",
+    "topic": "משולש שווה שוקיים ודלתון במערכת צירים",
+    "title": "דף עבודה – משולש שווה שוקיים ודלתון במערכת צירים (15 שאלות, כולל תשובות)",
+    "type": "worksheet",
+    "file": "materials/9/9-isosceles-kite-coordinates-worksheet.pdf"
+  },
+  {
     "grade": "10",
     "level": "5",
     "topic": "חזרות ומבחנים",
