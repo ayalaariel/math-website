@@ -4470,6 +4470,14 @@
     "file": "materials/10/10-geometry-theorems-game.html"
   },
   {
+    "grade": "10",
+    "level": "5",
+    "topic": "גאומטריה: משפט תאלס",
+    "title": "מצגת – משפט תאלס: ניסוח והוכחה בעזרת שטחים, סעיף אחר סעיף, ושני תרגילים עם פתרון מלא (PDF)",
+    "type": "presentation",
+    "file": "materials/10/10-thales-presentation.pdf"
+  },
+  {
     "grade": "8",
     "level": "b",
     "domain": "geometry",
