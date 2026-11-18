@@ -3874,6 +3874,24 @@
     "file": "materials/9/9-isosceles-kite-coordinates-worksheet.pdf"
   },
   {
+    "grade": "9",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה ריבועית",
+    "title": "דף עבודה – הפרבולה y = ax²: חקירה, טבלה ושרטוט, השפעת המספר a",
+    "type": "worksheet",
+    "file": "materials/9/9-parabola-y-ax2-worksheet.pdf"
+  },
+  {
+    "grade": "9",
+    "level": "a",
+    "domain": "algebra",
+    "topic": "פונקציה ריבועית",
+    "title": "דף עבודה – הזזה ימינה ושמאלה y = (x − a)²: חקירה, טבלה ושרטוט, מציאת הקודקוד",
+    "type": "worksheet",
+    "file": "materials/9/9-parabola-horizontal-shift-worksheet.pdf"
+  },
+  {
     "grade": "10",
     "level": "5",
     "topic": "חזרות ומבחנים",
