@@ -4573,5 +4573,14 @@
     "title": "משחק – מרוץ הפונקציות: עולה או יורדת, והצבה בטבלה (מוצאים y לפי x והפוך)",
     "type": "game",
     "file": "materials/8/8-functions-game.html"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מספרים מכוונים",
+    "title": "משחק – מרוץ הסימנים: חילוק מספרים מכוונים (3 שלבים, עד 4 קבוצות)",
+    "type": "game",
+    "file": "materials/7/7-signed-division-game.html"
   }
 ]
