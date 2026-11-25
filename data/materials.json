@@ -4600,5 +4600,14 @@
     "title": "משחק – מרוץ הסימנים: כפל מספרים מכוונים (3 שלבים, עד 4 קבוצות)",
     "type": "game",
     "file": "materials/7/7-signed-multiplication-game.html"
+  },
+  {
+    "grade": "8",
+    "level": "b",
+    "domain": "algebra",
+    "topic": "סטטיסטיקה: שכיחות, מדדי מרכז",
+    "title": "דף עבודה: שכיחות יחסית וממוצע – שיבוץ בטבלה, חקירת טבלה וחישובי ממוצע (עם פתרונות)",
+    "type": "worksheet",
+    "file": "materials/8/8-relative-frequency-mean-b.pdf"
   }
 ]
