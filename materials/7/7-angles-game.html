@@ -92,6 +92,7 @@ h1 span{color:var(--coral)}
 .ty{background:#F4F6F9;border-radius:16px;padding:8px;text-align:center}
 .ty b{display:block;font-size:22px;color:var(--navy)}.ty small{font-size:16px;color:#5a6676}
 .ty svg{width:100%;height:70px}
+.namebox{display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap}.nametxt{font-size:21px;line-height:1.6}.nametxt .big{font-size:52px;font-weight:800;color:var(--coral);margin:0}
 @media (max-width:640px){.types{grid-template-columns:repeat(2,1fr)}.ans.w{font-size:24px}}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:5}
 @media (max-width:640px){h1{font-size:32px}.q{font-size:44px}.ans{font-size:30px}.rules,.stages{grid-template-columns:1fr}.rule{font-size:22px}}
@@ -120,15 +121,15 @@ h1 span{color:var(--coral)}
     <p class="sub">משחק סיכום לכיתה ז · שלושה שלבים</p>
 
     <div class="card">
-      <div class="center" style="font-size:22px;font-weight:700;color:var(--navy);margin-bottom:12px">סוגי זוויות</div>
-      <div class="types"><div class="ty"><svg viewBox="0 0 120 70"><g transform="translate(0,-2)"><line x1="60" y1="60" x2="108" y2="60" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="60" x2="89.6" y2="24.8" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><path d="M78,60 A18,18 0 0,0 71.6,46.2" fill="none" stroke="#FF6B5B" stroke-width="3"/><circle cx="60" cy="60" r="3.5" fill="#2F3E55"/></g></svg><b>חדה</b><small>קטנה מ־<span class="expr">90°</span></small></div><div class="ty"><svg viewBox="0 0 120 70"><g transform="translate(0,-2)"><line x1="60" y1="60" x2="108" y2="60" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="60" x2="60.0" y2="14.0" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><path d="M74,60 L74,46 L60,46" fill="none" stroke="#FF6B5B" stroke-width="3"/><circle cx="60" cy="60" r="3.5" fill="#2F3E55"/></g></svg><b>ישרה</b><small>בדיוק <span class="expr">90°</span></small></div><div class="ty"><svg viewBox="0 0 120 70"><g transform="translate(0,-2)"><line x1="60" y1="60" x2="108" y2="60" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="60" x2="30.4" y2="24.8" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><path d="M78,60 A18,18 0 0,0 48.4,46.2" fill="none" stroke="#FF6B5B" stroke-width="3"/><circle cx="60" cy="60" r="3.5" fill="#2F3E55"/></g></svg><b>קהה</b><small>בין <span class="expr">90°</span> ל־<span class="expr">180°</span></small></div><div class="ty"><svg viewBox="0 0 120 70"><g transform="translate(0,-2)"><line x1="60" y1="60" x2="108" y2="60" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="60" x2="14.0" y2="60.0" stroke="#2F3E55" stroke-width="4" stroke-linecap="round"/><path d="M78,60 A18,18 0 0,0 42.0,60.0" fill="none" stroke="#FF6B5B" stroke-width="3"/><circle cx="60" cy="60" r="3.5" fill="#2F3E55"/></g></svg><b>שטוחה</b><small>בדיוק <span class="expr">180°</span></small></div></div>
+      <div class="center" style="font-size:22px;font-weight:700;color:var(--navy);margin-bottom:12px">איך קוראים לזווית?</div>
+      <div class="namebox"><svg viewBox="0 0 260 170" width="260" height="170"><line x1="60" y1="130" x2="230" y2="130" stroke="#2F3E55" stroke-width="6" stroke-linecap="round"/><line x1="60" y1="130" x2="160" y2="30" stroke="#2F3E55" stroke-width="6" stroke-linecap="round"/><path d="M105,130 A45,45 0 0,0 91.8,98.2" fill="#FF6B5B" fill-opacity=".18" stroke="#FF6B5B" stroke-width="4"/><circle cx="60" cy="130" r="7" fill="#2F3E55"/><circle cx="160" cy="30" r="6" fill="#2F3E55"/><circle cx="230" cy="130" r="6" fill="#2F3E55"/><g font-family="Arial" font-weight="700" font-size="30" fill="#2F3E55"><text x="38" y="150">B</text><text x="128" y="36">A</text><text x="222" y="162">C</text></g></svg><div class="nametxt"><div class="big"><span class="expr">∠ABC</span></div><div>שלוש אותיות גדולות באנגלית.<br>הקודקוד <b>B</b> תמיד <b>באמצע</b>.<br>אפשר גם <span class="expr">∠CBA</span>, אבל לא <span class="expr">∠BAC</span>.</div></div></div>
       <div class="tip">סכום הזוויות <b>במשולש: <span class="expr">180°</span></b> &nbsp;·&nbsp; סכום הזוויות <b>במרובע: <span class="expr">360°</span></b></div>
     </div>
 
     <div class="card">
       <div class="stages">
-        <div class="stg"><div class="n">שלב 1</div><div class="t">זווית לבד</div><div class="e">חדה? ישרה? קהה? שטוחה?</div></div>
-        <div class="stg"><div class="n">שלב 2</div><div class="t">זווית בתוך צורה</div><div class="e">במשולש ובמרובע</div></div>
+        <div class="stg"><div class="n">שלב 1</div><div class="t">שם של זווית</div><div class="e">זווית לבד</div></div>
+        <div class="stg"><div class="n">שלב 2</div><div class="t">שם של זווית בצורה</div><div class="e">במשולש ובמרובע</div></div>
         <div class="stg"><div class="n">שלב 3</div><div class="t">חישוב זוויות</div><div class="e">סכום הזוויות</div></div>
       </div>
     </div>
@@ -218,9 +219,9 @@ const pick = a => a[rnd(0, a.length - 1)];
 const DEG = "°";
 
 const STAGES = [
-  { name: "זווית לבד", ex: () => drawAngle(55, 15, { mark: true }), text: "מסתכלים על הזווית ומחליטים: חדה, ישרה, קהה או שטוחה?", n: 10 },
-  { name: "זווית בתוך צורה", ex: () => drawPoly(triPts(70, 45), [{ i: 2, hl: true }]), text: "בכל צורה מסומנת זווית אחת בכתום. מה סוג הזווית? ומה סוג המשולש לפי הזוויות שלו?", n: 10 },
-  { name: "חישוב זוויות", ex: () => drawPoly(triPts(60, 50), [{ i: 0, t: "60°" }, { i: 1, t: "50°" }, { i: 2, t: "?", hl: true }]), text: "מחשבים את הזווית החסרה. במשולש הסכום 180°, במרובע 360°, ושתי זוויות צמודות על ישר: 180°.", n: 10 },
+  { name: "זווית לבד", ex: () => drawAngle(55, 15, { L: ["A", "B", "C"] }), text: "קוראים לזווית בשלוש אותיות, והקודקוד תמיד באמצע: ∠ABC או ∠CBA.", n: 10 },
+  { name: "זווית בתוך צורה", ex: () => drawPoly(triPts(70, 45), [{ i: 2, hl: true }], null, ["A", "B", "C"]), text: "בכל משולש או מרובע מסומנת זווית אחת בכתום. מה השם שלה? הקודקוד באמצע, ומשני הצדדים האותיות של השכנים שלו.", n: 10 },
+  { name: "חישוב זוויות", ex: () => drawPoly(triPts(60, 50), [{ i: 0, t: "60°" }, { i: 1, t: "50°" }, { i: 2, t: "?", hl: true }], null, ["A", "B", "C"]), text: "מחשבים את הזווית החסרה. במשולש הסכום 180°, במרובע 360°, ושתי זוויות צמודות על ישר: 180°.", n: 10 },
 ];
 
 const dg = t => t.replace(/(\d+)°/g, '<span class="expr">$1°</span>');
@@ -236,6 +237,11 @@ document.querySelectorAll('input[name=mode]').forEach(r => r.addEventListener('c
 function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('on')); $(id).classList.add('on'); window.scrollTo(0, 0); }
 
 const R = Math.PI / 180;
+const LET = "ABCDEFGHKLMNPRST".split("");
+const letters = k => shuffle(LET.slice()).slice(0, k);
+const ANG = "∠";
+const nm = (a, v, b) => ANG + a + v + b;
+function letterAt(p, dx, dy, ch) { return `<text x="${(p[0] + dx).toFixed(1)}" y="${(p[1] + dy + 11).toFixed(1)}" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="32" fill="${NAV}">${ch}</text>`; }
 const NAV = "#2F3E55", COR = "#FF6B5B", TEAL = "#1BA39C";
 const TYPES = ["חדה", "ישרה", "קהה", "שטוחה"];
 const typeOf = d => d < 90 ? "חדה" : d === 90 ? "ישרה" : d < 180 ? "קהה" : "שטוחה";
@@ -281,9 +287,15 @@ function svgWrap(inner, W = 520, H = 280) {
 function drawAngle(deg, rot, o = {}) {
   const L = 1;
   const pts = [[0, 0], [L * Math.cos(rot * R), L * Math.sin(rot * R)], [L * Math.cos((rot + deg) * R), L * Math.sin((rot + deg) * R)]];
-  const [P, A, B] = fit(pts, 520, 280, 46);
+  const [P, A, B] = fit(pts, 520, 280, 60);
   const line = (a, b) => `<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${NAV}" stroke-width="6" stroke-linecap="round"/>`;
-  return svgWrap(mark(P, A, B, deg, o.label || "", COR, 46) + line(P, A) + line(P, B) + `<circle cx="${P[0].toFixed(1)}" cy="${P[1].toFixed(1)}" r="7" fill="${NAV}"/>`);
+  let lt = "";
+  if (o.L) {
+    const u = unit(P, A), v = unit(P, B); let bx = u[0] + v[0], by = u[1] + v[1], bl = Math.hypot(bx, by); if (bl < 1e-6) { bx = 0; by = -1; bl = 1; }
+    lt = letterAt(A, u[0] * 26, u[1] * 26, o.L[0]) + letterAt(B, v[0] * 26, v[1] * 26, o.L[2]) + letterAt(P, -bx / bl * 30, -by / bl * 30, o.L[1]);
+    lt += `<circle cx="${A[0].toFixed(1)}" cy="${A[1].toFixed(1)}" r="6" fill="${NAV}"/><circle cx="${B[0].toFixed(1)}" cy="${B[1].toFixed(1)}" r="6" fill="${NAV}"/>`;
+  }
+  return svgWrap(mark(P, A, B, deg, o.label || "", COR, 46) + line(P, A) + line(P, B) + `<circle cx="${P[0].toFixed(1)}" cy="${P[1].toFixed(1)}" r="7" fill="${NAV}"/>` + lt);
 }
 // polygon with angle marks: marks = [{i, t, hl}]
 function angleAt(pts, i) {
@@ -291,14 +303,16 @@ function angleAt(pts, i) {
   const u = [A[0] - P[0], A[1] - P[1]], v = [B[0] - P[0], B[1] - P[1]];
   return Math.acos((u[0] * v[0] + u[1] * v[1]) / Math.hypot(...u) / Math.hypot(...v)) / R;
 }
-function drawPoly(pts, marks, degs) {
-  const S = fit(pts, 520, 280, 50), n = S.length;
+function drawPoly(pts, marks, degs, L) {
+  const S = fit(pts, 520, 280, 56), n = S.length;
   let o = `<polygon points="${S.map(p => p.map(z => z.toFixed(1)).join(",")).join(" ")}" fill="#E8F6F4" stroke="${NAV}" stroke-width="5" stroke-linejoin="round"/>`;
   for (const m of marks) {
     const d = degs ? degs[m.i] : Math.round(angleAt(pts, m.i));
     const col = m.hl ? COR : TEAL;
     o += mark(S[m.i], S[(m.i + n - 1) % n], S[(m.i + 1) % n], d === 90 || m.right ? 90 : d, m.t || "", col, 30);
   }
+  if (L) { const cx = S.reduce((a, p) => a + p[0], 0) / n, cy = S.reduce((a, p) => a + p[1], 0) / n;
+    S.forEach((p, i) => { const u = unit([cx, cy], p); o += letterAt(p, u[0] * 28, u[1] * 28, L[i]); }); }
   return svgWrap(o);
 }
 // triangle with angles A at p0, B at p1 (math coords)
@@ -314,14 +328,22 @@ function numOpts(v, extra) {
   return shuffle(out).map(x => x + DEG);
 }
 
+function nameOpts(a, v, b, others) {
+  const right = pick([nm(a, v, b), nm(b, v, a)]);
+  const set = new Set([nm(a, v, b), nm(b, v, a)]), out = [right];
+  for (const c of shuffle(others.concat([nm(v, a, b), nm(a, b, v), nm(v, b, a), nm(b, a, v)]))) { if (out.length >= 4) break; if (!set.has(c)) { set.add(c); out.push(c); } }
+  return { opts: shuffle(out), v: right };
+}
+const nameWhy = (a, v, b) => `הקודקוד <b>${v}</b> כתוב באמצע: <span class="expr">${nm(a, v, b)}</span> או <span class="expr">${nm(b, v, a)}</span>`;
 function stage1() {
   const list = [];
-  const ms = shuffle([rnd(5, 15) * 5, rnd(4, 16) * 5, rnd(5, 14) * 5, 90, 90, rnd(21, 33) * 5, rnd(22, 32) * 5, rnd(21, 33) * 5, 180, 180]);
-  ms.forEach((d, k) => {
-    const v = typeOf(d);
-    if (k < 7) list.push({ label: "איזו זווית זו?", svg: drawAngle(d, rnd(0, 35) * 10, {}), opts: TYPES, v, why: typeWhy[v] });
-    else list.push({ label: "בחרו את סוג הזווית", text: `זווית של <span class="expr">${d}°</span> היא זווית…`, opts: TYPES, v, why: typeWhy[v] });
-  });
+  for (let k = 0; k < 10; k++) {
+    const [a, v, b] = letters(3), d = pick([rnd(5, 16) * 5, 90, rnd(20, 34) * 5]);
+    const svg = drawAngle(d, rnd(0, 35) * 10, { L: [a, v, b] });
+    if (k < 7) { const o = nameOpts(a, v, b, []); list.push({ label: "מה השם של הזווית?", svg, opts: o.opts, v: o.v, why: nameWhy(a, v, b) }); }
+    else { const rest = shuffle(LET.filter(x => ![a, v, b].includes(x))).slice(0, 1);
+      list.push({ label: "איזו אות היא הקודקוד של הזווית?", svg, opts: shuffle([a, v, b, rest[0]]), v, why: `הקודקוד הוא הנקודה שממנה יוצאות שתי הקרניים: <b>${v}</b>. בשם הזווית הוא באמצע: <span class="expr">${nm(a, v, b)}</span>` }); }
+  }
   return list;
 }
 
@@ -333,46 +355,34 @@ function quadShape() {
 }
 function stage2() {
   const list = [];
-  const want = shuffle(["חדה", "חדה", "ישרה", "קהה", "קהה", "ישרה"]);
-  want.forEach((t, k) => {
-    for (let tries = 0; tries < 200; tries++) {
-      let pts, degs;
-      if (k % 2 === 0) { // triangle
-        let A, B;
-        if (t === "ישרה") { A = 90; B = rnd(6, 12) * 5; } else if (t === "קהה") { A = rnd(21, 26) * 5; B = rnd(5, 8) * 5; } else { A = rnd(9, 15) * 5; B = rnd(9, 14) * 5; if (180 - A - B >= 90) continue; }
-        pts = triPts(A, B); degs = [A, B, 180 - A - B];
-      } else { const q = quadShape(); pts = q.pts; degs = q.degs; }
-      const idx = degs.map((d, i) => i).filter(i => typeOf(degs[i]) === t && (t === "ישרה" || Math.abs(degs[i] - 90) >= 12));
-      if (!idx.length) continue;
-      const i = pick(idx);
-      list.push({ label: "מה סוג הזווית המסומנת בכתום?", svg: drawPoly(pts, [{ i, hl: true }], degs), opts: TYPES.slice(0, 3), v: t, why: typeWhy[t] + ` (כאן: ${degs[i]}°)` });
-      break;
-    }
-  });
-  const tt = shuffle(["חד־זווית", "ישר־זווית", "קהה־זווית", pick(["חד־זווית", "קהה־זווית", "ישר־זווית"])]);
-  tt.forEach(t => {
-    let A, B;
-    if (t === "ישר־זווית") { A = rnd(6, 12) * 5; B = 90 - A; } else if (t === "קהה־זווית") { A = rnd(4, 9) * 5; B = rnd(20, 25) * 5; if (A + B > 165) A = 180 - B - rnd(4, 6) * 5; } else { do { A = rnd(9, 16) * 5; B = rnd(9, 16) * 5; } while (180 - A - B >= 90 || 180 - A - B < 30); }
-    const C = 180 - A - B, degs = [A, B, C];
-    const why = t === "ישר־זווית" ? "יש במשולש זווית <b>ישרה</b> ← משולש <b>ישר־זווית</b>" : t === "קהה־זווית" ? `יש במשולש זווית <b>קהה</b> (${Math.max(A, B, C)}°) ← משולש <b>קהה־זווית</b>` : "כל שלוש הזוויות <b>חדות</b> ← משולש <b>חד־זווית</b>";
-    list.push({ label: "איזה משולש זה לפי הזוויות שלו?", svg: drawPoly(triPts(A, B), [0, 1, 2].map(i => ({ i, t: degs[i] + "°" })), degs), opts: ["חד־זווית", "ישר־זווית", "קהה־זווית"], v: t, why });
-  });
-  return shuffle(list).slice(0, 10);
+  for (let k = 0; k < 10; k++) {
+    let pts, degs, n;
+    if (k % 2 === 0) { let A, B; do { A = rnd(7, 20) * 5; B = rnd(7, 20) * 5; } while (180 - A - B < 30); pts = triPts(A, B); degs = [A, B, 180 - A - B]; n = 3; }
+    else { const q = quadShape(); pts = q.pts; degs = q.degs; n = 4; }
+    const L = letters(n), i = rnd(0, n - 1), a = L[(i + n - 1) % n], v = L[i], b = L[(i + 1) % n];
+    const others = [];
+    for (let j = 0; j < n; j++) if (j !== i) others.push(nm(L[(j + n - 1) % n], L[j], L[(j + 1) % n]));
+    if (n === 4) { const opp = L[(i + 2) % 4]; others.push(nm(a, v, opp), nm(opp, v, b)); }
+    const o = nameOpts(a, v, b, others);
+    list.push({ label: n === 3 ? "מה השם של הזווית המסומנת במשולש?" : "מה השם של הזווית המסומנת במרובע?", svg: drawPoly(pts, [{ i, hl: true }], degs, L), opts: o.opts, v: o.v,
+      why: nameWhy(a, v, b) + (n === 4 ? `<br>הצלעות של הזווית הן <span class="expr">${v}${a}</span> ו־<span class="expr">${v}${b}</span>` : "") });
+  }
+  return list;
 }
 
 function stage3() {
   const list = [];
   for (let k = 0; k < 3; k++) { // triangle
     let A, B, C; do { A = rnd(5, 22) * 5; B = rnd(5, 22) * 5; C = 180 - A - B; } while (C < 25);
-    const miss = rnd(0, 2), degs = [A, B, C], given = [0, 1, 2].filter(i => i !== miss);
-    list.push({ label: "מצאו את הזווית החסרה במשולש", svg: drawPoly(triPts(A, B), [0, 1, 2].map(i => ({ i, t: i === miss ? "?" : degs[i] + "°", hl: i === miss })), degs),
+    const miss = rnd(0, 2), degs = [A, B, C], given = [0, 1, 2].filter(i => i !== miss), L = letters(3);
+    list.push({ label: `במשולש ${L.join("")}: כמה מעלות ${triName(L, miss)}?`, svg: drawPoly(triPts(A, B), [0, 1, 2].map(i => ({ i, t: i === miss ? "?" : degs[i] + "°", hl: i === miss })), degs, L),
       opts: numOpts(degs[miss], [360 - degs[given[0]] - degs[given[1]], degs[given[0]] + degs[given[1]]]), v: degs[miss] + DEG, num: true,
       why: `סכום הזוויות במשולש 180°: <span class="expr">180 − ${degs[given[0]]} − ${degs[given[1]]} = ${degs[miss]}</span>` });
   }
   for (let k = 0; k < 2; k++) { // right triangle
     const A = rnd(5, 13) * 5, B = 90 - A, degs = [90, A, B];
-    const pts = triPts(90, A);
-    list.push({ label: "מצאו את הזווית החסרה במשולש ישר־הזווית", svg: drawPoly(pts, [{ i: 0 }, { i: 1, t: A + "°" }, { i: 2, t: "?", hl: true }], [90, A, B]),
+    const pts = triPts(90, A), L = letters(3);
+    list.push({ label: `במשולש ישר־הזווית ${L.join("")}: כמה מעלות ${triName(L, 2)}?`, svg: drawPoly(pts, [{ i: 0 }, { i: 1, t: A + "°" }, { i: 2, t: "?", hl: true }], [90, A, B], L),
       opts: numOpts(B, [180 - A, 90 + A]), v: B + DEG, num: true, why: `<span class="expr">180 − 90 − ${A} = ${B}</span>` });
   }
   for (let k = 0; k < 2; k++) { // quadrilateral
@@ -384,8 +394,8 @@ function stage3() {
       if (degs.every(d => d > 45 && d < 150)) break;
     }
     const miss = rnd(0, 3); degs[miss] = 360 - degs.reduce((s, d, i) => s + (i === miss ? 0 : d), 0);
-    const g = degs.filter((_, i) => i !== miss);
-    list.push({ label: "מצאו את הזווית החסרה במרובע", svg: drawPoly(pts, [0, 1, 2, 3].map(i => ({ i, t: i === miss ? "?" : degs[i] + "°", hl: i === miss })), degs),
+    const g = degs.filter((_, i) => i !== miss), L = letters(4);
+    list.push({ label: `במרובע ${L.join("")}: כמה מעלות ${quadName(L, miss)}?`, svg: drawPoly(pts, [0, 1, 2, 3].map(i => ({ i, t: i === miss ? "?" : degs[i] + "°", hl: i === miss })), degs, L),
       opts: numOpts(degs[miss], [180 - g[0] - g[1] > 0 ? 540 - g[0] - g[1] - g[2] : degs[miss] + 30]), v: degs[miss] + DEG, num: true,
       why: `סכום הזוויות במרובע 360°: <span class="expr">360 − ${g[0]} − ${g[1]} − ${g[2]} = ${degs[miss]}</span>` });
   }
@@ -394,8 +404,10 @@ function stage3() {
     const pts = fit([[-1, 0], [1, 0], [0, 0], [0.9 * Math.cos(a * R), 0.9 * Math.sin(a * R)]], 520, 280, 46);
     const [L, Rr, P, T] = pts;
     const line = (p, q, w = 6) => `<line x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${q[0].toFixed(1)}" y2="${q[1].toFixed(1)}" stroke="${NAV}" stroke-width="${w}" stroke-linecap="round"/>`;
-    const svg = svgWrap(mark(P, Rr, T, a === 90 ? 90 : a, a + "°", TEAL, 40) + mark(P, T, L, b === 90 ? 90 : b, "?", COR, 52) + line(L, Rr) + line(P, T) + `<circle cx="${P[0].toFixed(1)}" cy="${P[1].toFixed(1)}" r="7" fill="${NAV}"/>`);
-    list.push({ label: "שתי זוויות צמודות על ישר. מצאו את הזווית החסרה", svg, opts: numOpts(b, [360 - a, 90 - a > 0 ? 90 - a : b + 15]), v: b + DEG, num: true,
+    const [l1, l2, l3, l4] = letters(4), tu = unit(P, T);
+    const svg = svgWrap(mark(P, Rr, T, a === 90 ? 90 : a, a + "°", TEAL, 40) + mark(P, T, L, b === 90 ? 90 : b, "?", COR, 52) + line(L, Rr) + line(P, T) + `<circle cx="${P[0].toFixed(1)}" cy="${P[1].toFixed(1)}" r="7" fill="${NAV}"/>`
+      + letterAt(L, -24, 0, l1) + letterAt(Rr, 24, 0, l2) + letterAt(P, 0, 30, l3) + letterAt(T, tu[0] * 26, tu[1] * 26, l4));
+    list.push({ label: `נתון: <span class="expr">${nm(l2, l3, l4)} = ${a}°</span>. כמה מעלות <span class="expr">${nm(l4, l3, l1)}</span>?`, html: true, svg, opts: numOpts(b, [360 - a, 90 - a > 0 ? 90 - a : b + 15]), v: b + DEG, num: true,
       why: `זוויות צמודות משלימות ל־180°: <span class="expr">180 − ${a} = ${b}</span>` });
   }
   const tri = Math.random() < .5;
@@ -403,6 +415,8 @@ function stage3() {
     why: tri ? "במשולש: <b>180°</b>" : "במרובע: <b>360°</b> (אפשר לחלק אותו לשני משולשים: 180 + 180)" });
   return shuffle(list);
 }
+function triName(L, i) { return `<span class="expr">${nm(L[(i + 2) % 3], L[i], L[(i + 1) % 3])}</span>`; }
+function quadName(L, i) { return `<span class="expr">${nm(L[(i + 3) % 4], L[i], L[(i + 1) % 4])}</span>`; }
 function makeStage(s) { return [stage1, stage2, stage3][s]().slice(0, STAGES[s].n); }
 
 function startStage() {
@@ -421,7 +435,7 @@ function renderQ() {
   $('stagePill').textContent = "שלב " + (stage + 1) + " · " + S.name;
   $('qNum').textContent = "שאלה " + (qi + 1) + " מתוך " + qs.length;
   $('progBar').style.width = (qi / qs.length * 100) + "%";
-  $('qLabel').textContent = q.label;
+  $('qLabel').innerHTML = dg(q.label);
   $('qText').innerHTML = dg(q.text || "");
   $('qSvg').innerHTML = q.svg || "";
   $('fb').innerHTML = ""; $('fb').className = "fb"; $('nextBtn').style.display = "none";
@@ -430,7 +444,7 @@ function renderQ() {
   if (mode === "teams") {
     $('teamScores').style.display = "flex"; $('soloScore').style.display = "none";
     drawScores();
-    $('qLabel').textContent = "תור " + names[team] + " · " + $('qLabel').textContent;
+    $('qLabel').innerHTML = "תור " + names[team] + " · " + $('qLabel').innerHTML;
   } else { $('teamScores').style.display = "none"; $('soloScore').style.display = ""; }
 }
 

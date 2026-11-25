@@ -4588,8 +4588,17 @@
     "level": "general",
     "domain": "geometry",
     "topic": "זוויות",
-    "title": "משחק – מרוץ הזוויות: סוגי זוויות, זוויות במשולש ובמרובע וחישוב זוויות (3 שלבים, עד 4 קבוצות)",
+    "title": "משחק – מרוץ הזוויות: שמות של זוויות (∠ABC), זוויות במשולש ובמרובע וחישוב זוויות (3 שלבים, עד 4 קבוצות)",
     "type": "game",
     "file": "materials/7/7-angles-game.html"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "algebra",
+    "topic": "מספרים מכוונים",
+    "title": "משחק – מרוץ הסימנים: כפל מספרים מכוונים (3 שלבים, עד 4 קבוצות)",
+    "type": "game",
+    "file": "materials/7/7-signed-multiplication-game.html"
   }
 ]
