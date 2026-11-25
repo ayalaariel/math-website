@@ -4582,5 +4582,14 @@
     "title": "משחק – מרוץ הסימנים: חילוק מספרים מכוונים (3 שלבים, עד 4 קבוצות)",
     "type": "game",
     "file": "materials/7/7-signed-division-game.html"
+  },
+  {
+    "grade": "7",
+    "level": "general",
+    "domain": "geometry",
+    "topic": "זוויות",
+    "title": "משחק – מרוץ הזוויות: סוגי זוויות, זוויות במשולש ובמרובע וחישוב זוויות (3 שלבים, עד 4 קבוצות)",
+    "type": "game",
+    "file": "materials/7/7-angles-game.html"
   }
 ]
