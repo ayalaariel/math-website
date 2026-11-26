@@ -4394,6 +4394,14 @@
     "file": "materials/10/10-odd-even-functions-worksheet.pdf"
   },
   {
+    "grade": "10",
+    "level": "5",
+    "topic": "פונקציית חזקה",
+    "title": "דף עבודה – הזזות של פונקציות: הזזה אנכית ואופקית, שיקוף, זוגיות וערך מוחלט (כולל פתרונות)",
+    "type": "worksheet",
+    "file": "materials/10/10-function-shifts-worksheet.pdf"
+  },
+  {
     "grade": "7",
     "level": "general",
     "domain": "algebra",
